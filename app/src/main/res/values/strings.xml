@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Coljuegos SIVO</string>
+
+    <!-- LOGIN -->
+    <string name="login_title">Coljuegos</string>
+    <string name="login_subtitle">Tu app para consultar, reportar y estar informado</string>
+    <string name="login_username">Nombre de usuario</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_show_password">Mostrar contraseña</string>
+    <string name="login_bottom">INICIAR SESIÓN</string>
 </resources>

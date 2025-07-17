@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9FAFB">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text="@string/login_title"
+            android:textAlignment="center"
+            android:textColor="#0D3A68"
+            android:textSize="56sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/subtitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Subtítulo -->
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/login_subtitle"
+            android:textAlignment="center"
+            android:textColor="#5a6b82"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutIncomeUsername"
+            style="@style/Widget.MyApp.TextInputLayout.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:hint="@string/login_username"
+            android:textColorHint="#5a6b82"
+            app:boxBackgroundColor="#FFFFFF"
+            app:boxStrokeColor="@color/text_input_stroke_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/subtitle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/incomeUsername"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:drawableStart="@drawable/ic_person"
+                android:drawablePadding="12dp"
+                android:inputType="text"
+                android:padding="15dp"
+                android:textColor="#5a6b82"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutIncomePassword"
+            style="@style/Widget.MyApp.TextInputLayout.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_password"
+            android:textColorHint="#5a6b82"
+            app:boxBackgroundColor="#FFFFFF"
+            app:boxStrokeColor="@color/text_input_stroke_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutIncomeUsername">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/incomePassword"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:drawableStart="@drawable/ic_lock"
+                android:drawablePadding="12dp"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:textColor="#5a6b82"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Mostrar contraseña -->
+        <CheckBox
+            android:id="@+id/show_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/login_show_password"
+            android:textColor="#4B5563"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutIncomePassword" />
+
+        <!-- Botón Iniciar Sesión -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginButton"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/gradient_login_button"
+            android:drawableEnd="@drawable/ic_chevron_right"
+            android:text="@string/login_bottom"
+            android:textAllCaps="true"
+            android:padding="16dp"
+            android:drawablePadding="8dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            app:cornerRadius="24dp"
+            app:iconTint="@android:color/white"
+            app:strokeWidth="0dp"
+            app:backgroundTint="@null"
+            android:layout_width="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/show_password" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
