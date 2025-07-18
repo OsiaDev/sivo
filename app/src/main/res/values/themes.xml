@@ -14,20 +14,79 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Widget.MyApp.TextInputLayout.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+    <style name="Widget.Coljuegos.TextInputLayout.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
         <item name="android:textColorHint">@color/input_text_hint</item>
-        <item name="boxBackgroundColor">@color/white</item>
-        <item name="boxStrokeColor">#D1D5DB</item>
+        <item name="boxBackgroundColor">@color/input_background</item>
+        <item name="boxStrokeColor">@color/text_input_stroke_color</item>
         <item name="boxBackgroundMode">outline</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/input_border</item>
         <item name="boxCornerRadiusBottomStart">@dimen/input_border</item>
         <item name="boxCornerRadiusTopEnd">@dimen/input_border</item>
         <item name="boxCornerRadiusTopStart">@dimen/input_border</item>
         <item name="boxStrokeWidth">1dp</item>
-        <item name="android:bottomLeftRadius">16dp</item>
-        <item name="android:topLeftRadius">16dp</item>
+    </style>
+
+    <!-- Títulos principales -->
+    <style name="TextAppearance.Coljuegos.Title" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textSize">56sp</item>
+        <item name="android:textColor">@color/title_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <!-- Subtítulos -->
+    <style name="TextAppearance.Coljuegos.Subtitle" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/subtitle_color</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <!-- Texto de inputs -->
+    <style name="TextAppearance.Coljuegos.InputText" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/input_text_color</item>
+    </style>
+
+    <style name="LoginScreen.Title" parent="TextAppearance.Coljuegos.Title">
+        <item name="android:layout_marginTop">64dp</item>
+    </style>
+
+    <style name="LoginScreen.Subtitle" parent="TextAppearance.Coljuegos.Subtitle">
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="LoginScreen.InputLayout" parent="Widget.Coljuegos.TextInputLayout.Outlined">
+        <item name="android:layout_marginTop">38dp</item>
+    </style>
+
+    <!-- Estilo base para botones de la app -->
+    <style name="Widget.Coljuegos.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:padding">10dp</item>
+        <item name="backgroundTint">@color/main</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="iconTint">@android:color/white</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <style name="Widget.Coljuegos.Button.Gradient" parent="Widget.Coljuegos.Button">
+        <item name="android:background">@drawable/gradient_login_button</item>
+        <item name="backgroundTint">@null</item>
+    </style>
+
+    <style name="LoginScreen.Button" parent="Widget.Coljuegos.Button.Gradient">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:drawableEnd">@drawable/ic_chevron_right</item>
+        <item name="android:drawablePadding">8dp</item>
+    </style>
+
+    <style name="Widget.Coljuegos.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="boxStrokeWidth">10dp</item>
     </style>
 
 </resources>
