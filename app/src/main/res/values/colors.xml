@@ -16,4 +16,5 @@
     <color name="input_background">#FFFFFFFF</color>
     <color name="input_text_color">#FF000000</color>
     <color name="input_show_pass_color">#4B5563</color>
+    <color name="login_icon_color">#0D3A68</color>
 </resources>

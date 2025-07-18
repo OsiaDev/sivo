@@ -8,4 +8,8 @@
     <string name="login_password">Contraseña</string>
     <string name="login_show_password">Mostrar contraseña</string>
     <string name="login_bottom">INICIAR SESIÓN</string>
+
+    <!-- LOGIN MENU -->
+    <string name="menu_newsletter">Boletín</string>
+    <string name="menu_contact">Contacto</string>
 </resources>

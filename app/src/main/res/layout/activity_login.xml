@@ -6,102 +6,130 @@
     android:layout_height="match_parent"
     android:background="@color/app_background">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mainLayout"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="24dp">
+        android:fillViewport="true"
+        android:layout_marginBottom="95dp" >
 
-        <!-- Título -->
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            style="@style/LoginScreen.Title"
-            android:text="@string/login_title"
-            app:layout_constraintBottom_toTopOf="@id/subtitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Subtítulo -->
-        <TextView
-            android:id="@+id/subtitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            style="@style/LoginScreen.Subtitle"
-            android:text="@string/login_subtitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutIncomeUsername"
-            style="@style/LoginScreen.InputLayout"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/login_username"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/subtitle">
+            android:padding="24dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/incomeUsername"
+            <!-- Título -->
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/LoginScreen.Title"
+                android:text="@string/login_title"
+                app:layout_constraintBottom_toTopOf="@id/subtitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Subtítulo -->
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/LoginScreen.Subtitle"
+                android:text="@string/login_subtitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutIncomeUsername"
+                style="@style/LoginScreen.InputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:drawableStart="@drawable/ic_person"
-                android:drawablePadding="12dp"
-                android:inputType="text"
-                android:padding="15dp"
-                android:textColor="@color/input_text_color"
-                android:textSize="16sp" />
+                android:layout_height="wrap_content"
+                android:hint="@string/login_username"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/subtitle">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/incomeUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:drawableStart="@drawable/ic_person"
+                    android:drawablePadding="12dp"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/input_text_color"
+                    android:textSize="16sp" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutIncomePassword"
-            style="@style/Widget.Coljuegos.TextInputLayout.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login_password"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutIncomeUsername">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/incomePassword"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutIncomePassword"
+                style="@style/Widget.Coljuegos.TextInputLayout.Outlined"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:drawableStart="@drawable/ic_lock"
-                android:drawablePadding="12dp"
-                android:inputType="textPassword"
-                android:padding="15dp"
-                android:textColor="@color/input_text_color"
-                android:textSize="16sp" />
+                android:layout_height="wrap_content"
+                android:hint="@string/login_password"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutIncomeUsername">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/incomePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="12dp"
+                    android:inputType="textPassword"
+                    android:padding="15dp"
+                    android:textColor="@color/input_text_color"
+                    android:textSize="16sp" />
 
-        <!-- Mostrar contraseña -->
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/show_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_show_password"
-            style="@style/Widget.Coljuegos.CheckBox"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutIncomePassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Botón Iniciar Sesión -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/loginButton"
-            style="@style/LoginScreen.Button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/login_bottom"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/show_password" />
+            <!-- Mostrar contraseña -->
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/show_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_show_password"
+                style="@style/Widget.Coljuegos.CheckBox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutIncomePassword" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Botón Iniciar Sesión -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/loginButton"
+                style="@style/LoginScreen.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/login_bottom"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/show_password" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <!-- Bottom Navigation -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:elevation="8dp"
+        app:itemIconTint="@color/login_icon_color"
+        app:itemTextColor="@color/login_icon_color"
+        app:labelVisibilityMode="labeled"
+        app:itemPaddingTop="25dp"
+        app:itemPaddingBottom="25dp"
+        app:itemIconSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_navigation_login" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
