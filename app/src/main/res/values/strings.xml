@@ -11,5 +11,7 @@
 
     <!-- LOGIN MENU -->
     <string name="menu_newsletter">Boletín</string>
+    <string name="menu_info">Información</string>
+    <string name="menu_report">Denuncie</string>
     <string name="menu_contact">Contacto</string>
 </resources>
