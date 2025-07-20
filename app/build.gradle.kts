@@ -48,6 +48,8 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.work)
     implementation(libs.work.runtime.ktx)
+    implementation(libs.retrofit)
+    implementation(libs.androidx.navigation.fragment.ktx)
     ksp(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

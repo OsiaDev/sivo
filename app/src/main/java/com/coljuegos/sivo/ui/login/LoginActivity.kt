@@ -3,14 +3,22 @@ package com.coljuegos.sivo.ui.login
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
+
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.coljuegos.sivo.databinding.ActivityLoginBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +27,34 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         this.setupListeners()
+        observeViewModel()
+    }
+
+    private fun observeViewModel() {
+        lifecycleScope.launch {
+            viewModel.loginState.collect { state ->
+                when (state) {
+                    is LoginState.Idle -> {
+                        hideLoadingOverlay()
+                    }
+
+                    is LoginState.Loading -> {
+                        showLoadingOverlay()
+                    }
+
+                    is LoginState.Success -> {
+                        hideLoadingOverlay()
+                        showSuccessMessage("Bienvenido ${state.loginResponse.user.nameUser}")
+                        //navigateToMain()
+                    }
+
+                    is LoginState.Error -> {
+                        hideLoadingOverlay()
+                        showErrorMessage(state.message)
+                    }
+                }
+            }
+        }
     }
 
     private fun setupListeners() {
@@ -81,7 +117,8 @@ class LoginActivity : AppCompatActivity() {
         binding.layoutIncomePassword.error = null
 
         this.showLoadingOverlay()
-
+        // Realizar login
+        viewModel.login(username, password)
     }
 
     private fun showLoadingOverlay() {
@@ -89,6 +126,27 @@ class LoginActivity : AppCompatActivity() {
         // Disable interaction with main content
         binding.mainLayout.isEnabled = false
         binding.bottomNavigation.isEnabled = false
+    }
+
+    private fun hideLoadingOverlay() {
+        binding.loadingOverlay.root.visibility = View.GONE
+        // Enable interaction with main content
+        binding.mainLayout.isEnabled = true
+        binding.bottomNavigation.isEnabled = true
+        binding.loginButton.isEnabled = true
+    }
+
+    private fun showSuccessMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showErrorMessage(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.resetLoginState()
     }
 
 }
