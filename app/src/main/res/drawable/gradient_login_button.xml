@@ -4,8 +4,8 @@
 
     <gradient
         android:angle="0"
-        android:startColor="#2664C9"
-        android:endColor="#1E4D95"
+        android:startColor="@color/login_button_color_init"
+        android:endColor="@color/login_button_color_final"
         android:type="linear" />
 
     <corners android:radius="12dp" />
