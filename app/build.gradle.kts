@@ -50,6 +50,8 @@ dependencies {
     implementation(libs.work.runtime.ktx)
     implementation(libs.retrofit)
     implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.gson)
+    implementation(libs.retrofit.converter.gson)
     ksp(libs.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

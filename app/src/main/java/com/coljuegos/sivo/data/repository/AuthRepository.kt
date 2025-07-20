@@ -21,13 +21,21 @@ class AuthRepository @Inject constructor(
         try {
             emit(NetworkResult.Loading())
 
-            val loginRequest = LoginRequestDTO(username, password)
+            // Encriptar la contraseña antes de enviarla
+            val encryptedPassword = encryptionManager.encrypt(password)
+            val loginRequest = LoginRequestDTO(username, encryptedPassword)
+
             val response = apiService.login(loginRequest)
 
             emit(handleLoginResponse(response))
 
-        } catch (e: Exception) {
-            emit(NetworkResult.Error("Error de conexión: ${e.message}"))
+        } catch (encryptionException: Exception) {
+            // Manejar específicamente errores de encriptación
+            if (encryptionException.message?.contains("encriptar") == true) {
+                emit(NetworkResult.Error("Error al procesar la contraseña"))
+            } else {
+                emit(NetworkResult.Error("Error de conexión: ${encryptionException.message}"))
+            }
         }
     }
 

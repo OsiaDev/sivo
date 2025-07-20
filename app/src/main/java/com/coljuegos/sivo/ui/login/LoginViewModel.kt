@@ -17,9 +17,11 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Idle)
+
     val loginState: StateFlow<LoginState> = _loginState.asStateFlow()
 
     private val _isLoading = MutableStateFlow(false)
+
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
     fun login(username: String, password: String) {

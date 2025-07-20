@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.coljuegos.sivo.R
 import com.coljuegos.sivo.databinding.ActivityLoginBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
                     is LoginState.Success -> {
                         hideLoadingOverlay()
-                        showSuccessMessage("Bienvenido ${state.loginResponse.user.nameUser}")
+                        showSuccessMessage(getString(R.string.login_success, state.loginResponse.user.nameUser))
                         //navigateToMain()
                     }
 
@@ -103,7 +104,7 @@ class LoginActivity : AppCompatActivity() {
             binding.incomePassword.requestFocus()
             isValid = false
         } else {
-            binding.layoutIncomeUsername.error = null
+            binding.layoutIncomePassword.error = null
         }
         return isValid
     }
@@ -123,9 +124,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showLoadingOverlay() {
         binding.loadingOverlay.root.visibility = View.VISIBLE
-        // Disable interaction with main content
         binding.mainLayout.isEnabled = false
-        binding.bottomNavigation.isEnabled = false
+        binding.loginButton.isEnabled = false
     }
 
     private fun hideLoadingOverlay() {
@@ -141,8 +141,19 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showErrorMessage(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+        val messageToShow = if (message.contains(getString(R.string.login_error_connection_compare), ignoreCase = true)) {
+            getString(R.string.login_error_connection)
+        } else {
+            message
+        }
+
+        binding.root.post {
+            Snackbar.make(binding.mainLayout, messageToShow, Snackbar.LENGTH_LONG)
+                .setAnchorView(binding.bottomNavigation)
+                .show()
+        }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
