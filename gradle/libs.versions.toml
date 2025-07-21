@@ -8,12 +8,15 @@ espressoCore = "3.6.1"
 appcompat = "1.7.1"
 material = "1.12.0"
 ksp = "2.0.21-1.0.27"
-hilt = "2.56.2"
+hilt = "2.57"
 hiltWork = "1.2.0"
 workRuntime = "2.10.2"
 retrofit = "3.0.0"
 navigationFragmentKtx = "2.9.2"
 gson = "2.13.1"
+room = "2.7.2"
+constraintlayout = "2.2.1"
+navigationUiKtx = "2.9.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,6 +33,10 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

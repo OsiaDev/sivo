@@ -1,5 +1,6 @@
 package com.coljuegos.sivo.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.coljuegos.sivo.R
 import com.coljuegos.sivo.databinding.ActivityLoginBinding
+import com.coljuegos.sivo.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -46,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
                     is LoginState.Success -> {
                         hideLoadingOverlay()
                         showSuccessMessage(getString(R.string.login_success, state.loginResponse.user.nameUser))
-                        //navigateToMain()
+                        navigateToMain()
                     }
 
                     is LoginState.Error -> {
@@ -61,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
     private fun setupListeners() {
         // Listener para el checkbox de mostrar contraseña
         binding.showPassword.setOnCheckedChangeListener { _, isChecked ->
-            togglePasswordVisibility(isChecked)
+            this.togglePasswordVisibility(isChecked)
         }
 
         // Listener para el botón de login
@@ -120,6 +122,12 @@ class LoginActivity : AppCompatActivity() {
         this.showLoadingOverlay()
         // Realizar login
         viewModel.login(username, password)
+    }
+
+    private fun navigateToMain() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun showLoadingOverlay() {

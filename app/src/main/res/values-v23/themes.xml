@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.ColjuegosSIVO" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Color de la barra de estado -->
+        <item name="android:statusBarColor">@color/app_background</item>
+        <!-- Iconos oscuros en barra de estado para fondo claro -->
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/main</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>

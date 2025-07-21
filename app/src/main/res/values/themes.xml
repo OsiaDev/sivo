@@ -90,5 +90,10 @@
         <item name="android:layout_marginTop">16dp</item>
         <item name="buttonTint">@color/checkbox_tint</item>
     </style>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ColjuegosSIVO" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
 
 </resources>
