@@ -1,5 +1,6 @@
 package com.coljuegos.sivo.di
 
+import com.coljuegos.sivo.data.remote.api.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +13,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val BASE_URL = "https://http://10.117.100.153:8080/sivo/"
+    private const val BASE_URL = "http://192.168.0.8:8080/sivo/"
 
     @Provides
     @Singleton
@@ -25,8 +26,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): com.coljuegos.sivo.data.remote.api.ApiService {
-        return retrofit.create(com.coljuegos.sivo.data.remote.api.ApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
     }
 
 }

@@ -30,7 +30,7 @@ class EncryptionManager @Inject constructor() {
             cipher.init(Cipher.ENCRYPT_MODE, keySpec)
 
             val encrypted = cipher.doFinal(plainText.toByteArray())
-            return Base64.encodeToString(encrypted, Base64.DEFAULT)
+            return Base64.encodeToString(encrypted, Base64.NO_WRAP)
 
         } catch (e: Exception) {
             throw Exception("Error al encriptar la contraseña: ${e.message}", e)

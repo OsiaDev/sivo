@@ -2,15 +2,21 @@
   <dictionary name="project">
     <words>
       <w>acceso</w>
+      <w>acta</w>
+      <w>actas</w>
       <w>agregando</w>
+      <w>apuesta</w>
       <w>asegura</w>
       <w>boletín</w>
       <w>caracteres</w>
+      <w>codigo</w>
       <w>coljuegos</w>
       <w>conexión</w>
       <w>consultar</w>
       <w>contraseña</w>
+      <w>contrato</w>
       <w>corta</w>
+      <w>corte</w>
       <w>credenciales</w>
       <w>denuncie</w>
       <w>departamento</w>
@@ -18,22 +24,32 @@
       <w>desencriptar</w>
       <w>deshabilitado</w>
       <w>desmarcado</w>
+      <w>direccion</w>
       <w>documento</w>
       <w>encriptación</w>
       <w>encriptar</w>
       <w>enfocado</w>
       <w>enviarla</w>
       <w>específicamente</w>
+      <w>establecimiento</w>
+      <w>funcionario</w>
+      <w>funcionarios</w>
       <w>horizontales</w>
+      <w>identificacion</w>
       <w>implementarías</w>
       <w>incorrectas</w>
       <w>informado</w>
       <w>interno</w>
+      <w>inventario</w>
+      <w>inventarios</w>
+      <w>latitud</w>
+      <w>longitud</w>
       <w>lugares</w>
       <w>líneas</w>
       <w>lógica</w>
       <w>mantener</w>
       <w>marcado</w>
+      <w>operador</w>
       <w>organizado</w>
       <w>presionar</w>
       <w>previos</w>
@@ -46,6 +62,7 @@
       <w>seleccionado</w>
       <w>servidor</w>
       <w>sesión</w>
+      <w>sillas</w>
       <w>sivo</w>
       <w>subtítulos</w>
       <w>tener</w>
@@ -54,6 +71,7 @@
       <w>títulos</w>
       <w>vacía</w>
       <w>validaciones</w>
+      <w>visita</w>
     </words>
   </dictionary>
 </component>
