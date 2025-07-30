@@ -1,4 +1,4 @@
-package com.osiadeveloper.loan.util
+package com.coljuegos.sivo.utils
 
 import androidx.room.TypeConverter
 import java.math.BigDecimal

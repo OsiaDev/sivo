@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coljuegos.sivo.data.repository.AuthRepository
 import com.coljuegos.sivo.utils.NetworkResult
+import com.coljuegos.sivo.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val sessionManager: SessionManager
 ) : ViewModel() {
 
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Idle)
@@ -23,6 +25,17 @@ class LoginViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
 
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+
+    /**
+     * Verifica si el usuario ya tiene una sesión activa
+     */
+    suspend fun isAlreadyLoggedIn(): Boolean {
+        return try {
+            this.sessionManager.isLoggedIn()
+        } catch (e: Exception) {
+            false
+        }
+    }
 
     fun login(username: String, password: String) {
         viewModelScope.launch {
@@ -36,9 +49,13 @@ class LoginViewModel @Inject constructor(
                     is NetworkResult.Success -> {
                         _isLoading.value = false
                         result.data?.let { loginResponse ->
-                            // Guardar datos de sesión
-                            //sharedPreferencesManager.saveLoginResponse(loginResponse)
-                            _loginState.value = LoginState.Success(loginResponse)
+                            try {
+                                // Guardar datos de sesión (esto desactiva automáticamente las sesiones anteriores)
+                                sessionManager.saveUserSession(loginResponse)
+                                _loginState.value = LoginState.Success(loginResponse)
+                            } catch (e: Exception) {
+                                _loginState.value = LoginState.Error("Error al guardar la sesión: ${e.message}")
+                            }
                         }
                     }
 
@@ -51,8 +68,27 @@ class LoginViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Resetea el estado del login
+     */
     fun resetLoginState() {
         _loginState.value = LoginState.Idle
+        _isLoading.value = false
     }
+
+    /**
+     * Cierra la sesión actual
+     */
+    fun logout() {
+        viewModelScope.launch {
+            try {
+                sessionManager.logout()
+                _loginState.value = LoginState.Idle
+            } catch (e: Exception) {
+                _loginState.value = LoginState.Error("Error al cerrar sesión: ${e.message}")
+            }
+        }
+    }
+
 
 }

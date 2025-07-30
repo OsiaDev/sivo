@@ -10,7 +10,13 @@ data class UserInfoDTO(
     @SerializedName("nameUser")
     val nameUser: String,
 
+    @SerializedName("fullNameUser")
+    val fullNameUser: String,
+
     @SerializedName("emailUser")
-    val emailUser: String
+    val emailUser: String,
+
+    @SerializedName("perCodigo")
+    val perCodigoUser: Long
 
 )

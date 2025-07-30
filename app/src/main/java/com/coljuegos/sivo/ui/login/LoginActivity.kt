@@ -29,8 +29,20 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Verificar si ya hay una sesión activa al iniciar
+        this.checkExistingSession()
+
         this.setupListeners()
-        observeViewModel()
+        this.observeViewModel()
+    }
+
+    private fun checkExistingSession() {
+        lifecycleScope.launch {
+            if (viewModel.isAlreadyLoggedIn()) {
+                // Si ya está logueado, ir directamente a MainActivity
+                navigateToMain()
+            }
+        }
     }
 
     private fun observeViewModel() {

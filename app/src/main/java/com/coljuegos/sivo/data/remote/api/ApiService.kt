@@ -14,7 +14,7 @@ interface ApiService {
     @POST("auth/login")
     suspend fun login(@Body loginRequest: LoginRequestDTO): Response<LoginResponseDTO>
 
-    @GET("actas/user")
+    @GET("acta/obtenerActas")
     suspend fun getActasByUserId(
         @Header("Authorization") authorization: String
     ): Response<ActaResponseDTO>

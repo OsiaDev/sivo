@@ -2,8 +2,12 @@ package com.coljuegos.sivo.di
 
 import android.content.Context
 import androidx.room.Room
+import com.coljuegos.sivo.data.dao.ActaDao
 import com.coljuegos.sivo.data.dao.DepartamentoDao
+import com.coljuegos.sivo.data.dao.FuncionarioDao
+import com.coljuegos.sivo.data.dao.InventarioDao
 import com.coljuegos.sivo.data.dao.MunicipioDao
+import com.coljuegos.sivo.data.dao.SessionDao
 import com.coljuegos.sivo.data.database.SivoDatabase
 import dagger.Module
 import dagger.Provides
@@ -30,5 +34,17 @@ object DatabaseModule {
 
     @Provides
     fun provideMunicipioDao(database: SivoDatabase): MunicipioDao = database.municipioDao()
+
+    @Provides
+    fun provideSessionDao(database: SivoDatabase): SessionDao = database.sessionDao()
+
+    @Provides
+    fun provideActaDao(database: SivoDatabase): ActaDao = database.actaDao()
+
+    @Provides
+    fun provideFuncionarioDao(database: SivoDatabase): FuncionarioDao = database.funcionarioDao()
+
+    @Provides
+    fun provideInventarioDao(database: SivoDatabase): InventarioDao = database.inventarioDao()
 
 }
