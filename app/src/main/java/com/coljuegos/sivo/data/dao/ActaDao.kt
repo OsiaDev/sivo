@@ -46,4 +46,7 @@ interface ActaDao {
     @Query("DELETE FROM actas WHERE stateActa = 'INACTIVE' AND lastUpdatedActa < :cutoffDate")
     suspend fun deleteOldInactiveActas(cutoffDate: LocalDateTime)
 
+    @Query("SELECT * FROM actas WHERE uuidActa = :actaUuid LIMIT 1")
+    suspend fun getActaByUuid(actaUuid: UUID): ActaEntity?
+
 }

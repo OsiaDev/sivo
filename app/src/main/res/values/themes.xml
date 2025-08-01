@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ColjuegosSIVO" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Color de la barra de estado -->
+    <style name="Theme.ColjuegosSIVO" parent="Theme.Material3.DayNight.NoActionBar">
+    <!-- Color de la barra de estado -->
         <item name="android:statusBarColor">@color/app_background</item>
         <!-- Iconos oscuros en barra de estado para fondo claro -->
         <item name="android:windowLightStatusBar">true</item>
@@ -16,6 +16,18 @@
     <style name="Widget.Coljuegos.TextInputLayout.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
+        <item name="android:textColorHint">@color/input_text_hint</item>
+        <item name="boxBackgroundColor">@color/input_background</item>
+        <item name="boxStrokeColor">@color/text_input_stroke_color</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/input_border</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/input_border</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/input_border</item>
+        <item name="boxCornerRadiusTopStart">@dimen/input_border</item>
+        <item name="boxStrokeWidth">1dp</item>
+    </style>
+
+    <style name="Input.Coljuegos.TextInputLayout.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:textColorHint">@color/input_text_hint</item>
         <item name="boxBackgroundColor">@color/input_background</item>
         <item name="boxStrokeColor">@color/text_input_stroke_color</item>
@@ -58,6 +70,10 @@
 
     <style name="LoginScreen.InputLayout" parent="Widget.Coljuegos.TextInputLayout.Outlined">
         <item name="android:layout_marginTop">48dp</item>
+    </style>
+
+    <style name="Form.InputLayout" parent="Widget.Coljuegos.TextInputLayout.Outlined">
+        <item name="android:layout_marginTop">0dp</item>
     </style>
 
     <!-- Estilo base para botones de la app -->
@@ -114,6 +130,27 @@
     <style name="ActaTextStyle">
         <item name="android:fontFamily">sans-serif</item>
         <item name="fontFamily">@font/work_sans_regular</item>
+    </style>
+
+    <!-- Extended FloatingActionButton Style -->
+    <style name="Widget.ColjuegosSIVO.ExtendedFloatingActionButton" parent="Widget.Material3.ExtendedFloatingActionButton.Primary">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:backgroundTint">@color/fragment_button_back_color</item>
+        <item name="backgroundTint">@color/fragment_button_back_color</item>
+        <item name="android:color">@color/fragment_button_back_color</item>
+        <item name="color">@color/fragment_button_back_color</item>
+        <item name="android:elevation">8dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:textColor">@color/fragment_button_back_color</item>
+        <item name="cornerRadius">28dp</item>
+        <item name="iconPadding">12dp</item>
+        <item name="iconTint">@color/login_icon_color</item>
+        <item name="pressedTranslationZ">12dp</item>
+        <item name="rippleColor">@color/login_icon_color</item>
     </style>
 
 </resources>

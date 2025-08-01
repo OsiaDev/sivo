@@ -43,8 +43,9 @@ class ActaAdapter(
 
         fun bind(acta: ActaEntity) {
             with(binding) {
+                val context = binding.root.context
                 // Número de acta
-                tvNumeroActa.text = "Acta Nº ${acta.numActa}"
+                tvNumeroActa.text = context.getString(R.string.acta_numero, acta.numActa.toString())
 
                 val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 

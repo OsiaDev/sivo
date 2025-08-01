@@ -2,7 +2,6 @@ package com.coljuegos.sivo.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.coljuegos.sivo.data.entity.ActaEntity
 import com.coljuegos.sivo.data.repository.ActasRepository
 import com.coljuegos.sivo.utils.NetworkResult
 import com.coljuegos.sivo.utils.SessionManager
@@ -80,11 +79,6 @@ class HomeViewModel @Inject constructor(
     fun refreshActas() {
         _uiState.value = _uiState.value.copy(isRefreshing = true)
         loadActas()
-    }
-
-    fun onActaClick(acta: ActaEntity) {
-        // TODO: Navegar al detalle del acta
-        // Aquí podrías implementar la navegación al fragmento de detalle
     }
 
     fun clearError() {

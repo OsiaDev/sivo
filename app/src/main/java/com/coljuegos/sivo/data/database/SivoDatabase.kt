@@ -29,7 +29,7 @@ import com.coljuegos.sivo.utils.LocalDateTimeConverter
         ActaEntity::class,
         FuncionarioEntity::class,
         InventarioEntity::class
-    ], version = 4, exportSchema = false
+    ], version = 6, exportSchema = false
 )
 @TypeConverters(
     BigDecimalConverter::class,

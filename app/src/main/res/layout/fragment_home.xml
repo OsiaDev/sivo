@@ -20,7 +20,7 @@
             android:textStyle="bold"
             android:textColor="@color/acta_text_title"
             android:paddingTop="18dp"
-            android:paddingBottom="6dp"
+            android:paddingBottom="0dp"
             style="@style/ActaTextStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvFullName"
             tools:listitem="@layout/item_acta" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

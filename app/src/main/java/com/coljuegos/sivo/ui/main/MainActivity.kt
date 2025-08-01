@@ -2,6 +2,8 @@ package com.coljuegos.sivo.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -9,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.coljuegos.sivo.R
 import com.coljuegos.sivo.databinding.ActivityMainBinding
 import com.coljuegos.sivo.ui.login.LoginActivity
@@ -24,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
+    private var currentMenu: Menu? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,21 +41,48 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun observeViewModel() {
-        lifecycleScope.launch {
-            viewModel.sessionState.collect { isValid ->
-                if (!isValid) {
-                    navigateToLogin()
-                }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_toolbar, menu)
+        currentMenu = menu
+        // Inicialmente ocultar la cámara
+        menu?.findItem(R.id.action_camera)?.isVisible = false
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_camera -> {
+                showCameraOptions()
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showCameraOptions() {
+        // Broadcast para que el Fragment actual lo escuche
+        val intent = Intent("com.coljuegos.sivo.CAMERA_ACTION")
+        sendBroadcast(intent)
+    }
+
+    fun setCameraButtonVisible(visible: Boolean) {
+        currentMenu?.findItem(R.id.action_camera)?.isVisible = visible
     }
 
     private fun setupNavigation() {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
         val navController = navHostFragment.navController
+        // Configurar AppBarConfiguration con todos los destinos de nivel superior
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.homeFragment
+                // Agrega aquí otros fragments que consideres de nivel superior
+            )
+        )
 
+        // Configurar ActionBar con NavController
+        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {

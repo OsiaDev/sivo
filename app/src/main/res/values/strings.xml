@@ -18,7 +18,58 @@
     <string name="login_error_connection_compare">Error de conexión</string>
     <string name="login_error_connection">Error de conexión con el servidor</string>
 
+    <!-- HOME FRAGMENT -->
+    <string name="home_title">Home</string>
     <string name="acta_ver_detalle">Ver detalle</string>
-    <string name="acta_asignacion_title">Actas asignadas a:</string>
+    <string name="acta_asignacion_title">Actas asignadas a</string>
+    <string name="acta_numero">Acta Nº %1$s</string>
+
+    <!-- ACTA VISITA FRAGMENT -->
+    <string name="acta_visita_title">Acta</string>
+    <string name="acta_visita_subtitle">Acta de visita</string>
+    <string name="acta_visita_establecimiento">Establecimiento</string>
+    <string name="acta_visita_nombre_establecimiento">Nombre</string>
+    <string name="acta_visita_nombre_departamento">Departamento</string>
+    <string name="acta_visita_direccion">Dirección</string>
+    <string name="acta_visita_nombre_municipio">Municipio</string>
+    <string name="acta_visita_codigo_establecimiento">Código de establecimiento</string>
+    <string name="acta_visita_fecha_inventario">Fecha corte inventario</string>
+    <string name="acta_visita_operador">Operador</string>
+    <string name="acta_visita_nombre_operador">Nombre</string>
+    <string name="acta_visita_email_operador">Email</string>
+    <string name="acta_visita_nit_operador">Nit</string>
+    <string name="acta_visita_contrato">Contrato</string>
+    <string name="acta_visita_acta">Acta N°</string>
+    <string name="acta_visita_auto">Auto N°</string>
+    <string name="acta_visita_numero_contrato">N° Contrato</string>
+    <string name="acta_visita_fecha_fin">Fecha fin contrato</string>
+    <string name="acta_visita_ah">AH%1$s</string>
+    <string name="acta_visita_ac">AC%1$s</string>
+    <string name="acta_visita_visita">Visita</string>
+    <string name="acta_visita_fecha_visita">Siendo la fecha</string>
+    <string name="acta_visita_texto_legal_1">Los suscritos funcionales de la Vicepresidencia de operaciones de COLJUEGOS, en uso de las facultades que le conceden los artículos 43 de la Ley 643 de 2001 y los numerales 10 y 11 del artículo 5, numerales 5 y 8 del artículo 17 del Decreto 4142 de 2011, y debidamente comisionados mediante Auto Comisorio número</string>
+    <string name="acta_visita_fecha_auto">Con fecha</string>
+    <string name="acta_visita_texto_legal_2">Se hicieron presentes en el establecimiento donde fuimos atendidos por el señor(a) (*)</string>
+    <string name="acta_visita_texto_legal_3">Mayor de edad, identificado(a) con la cédula de ciudadanía (*)</string>
+    <string name="acta_visita_texto_legal_4">Quien una vez informado sobre los motivos de la diligencia autorizó el ingreso al lugar con la función de ejecutar el control al cumplimiento de las condiciones contractuales\n\nAntes de iniciar la diligencia de control se le comunicó personalemente el contenido del Auto Comisorio.</string>
+    <string name="acta_visita_texto_legal_5">Mayor de edad, identificado(a) con la cédula de ciudadanía (*)</string>
+    <string name="acta_visita_nombre">Nombre</string>
+    <string name="acta_visita_cedula">Identificación</string>
+    <string name="acta_visita_de">De</string>
+    <string name="acta_visita_municipio_cedula">Municipio de expedición</string>
+    <string name="acta_visita_buscar_municipio">Buscar municipio</string>
+    <string name="acta_visita_no_municipios">No se encontraron municipios</string>
+    <string name="acta_visita_calidad">En su calidad de</string>
+    <string name="acta_visita_cargo">Cargo</string>
+    <string name="acta_visita_email_representante_title">E-Mail de la persona que atiende</string>
+    <string name="acta_visita_email_representante">E-Mail</string>
+
+
+    <string name="camera_permission_required">Se requiere permiso de cámara</string>
+    <string name="storage_permission_required">Se requiere permiso de almacenamiento</string>
+    <string name="choose_photo_source">Seleccionar origen de foto</string>
+    <string name="camera">Cámara</string>
+    <string name="gallery">Galería</string>
+    <string name="cancel">Cancelar</string>
 
 </resources>

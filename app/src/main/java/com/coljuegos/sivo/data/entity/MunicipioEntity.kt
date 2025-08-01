@@ -14,7 +14,8 @@ import java.util.UUID
     indices = [
         Index(value = ["uuidMunicipio"]),
         Index(value = ["uuidDepartamento"]),
-        Index(value = ["nombreMunicipio"])
+        Index(value = ["nombreMunicipio"]),
+        Index(value = ["uuidDepartamento", "nombreMunicipio"], unique = true)
     ]
 )
 data class MunicipioEntity(

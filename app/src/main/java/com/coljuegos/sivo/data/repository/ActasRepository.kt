@@ -233,4 +233,29 @@ class ActasRepository @Inject constructor(
         )
     }
 
+    suspend fun getActaByUuid(actaUuid: UUID): ActaEntity? {
+        return try {
+            actaDao.getActaByUuid(actaUuid)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    suspend fun getFuncionariosByActa(actaUuid: UUID): List<FuncionarioEntity> {
+        return try {
+            funcionarioDao.getFuncionariosByActa(actaUuid)
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun getInventariosByActa(actaUuid: UUID): List<InventarioEntity> {
+        return try {
+            inventarioDao.getInventariosByActa(actaUuid)
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+
 }

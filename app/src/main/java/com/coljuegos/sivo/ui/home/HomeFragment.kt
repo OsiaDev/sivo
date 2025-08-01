@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.coljuegos.sivo.databinding.FragmentHomeBinding
 import com.google.android.material.snackbar.Snackbar
@@ -43,7 +44,8 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         actaAdapter = ActaAdapter { acta ->
-            viewModel.onActaClick(acta)
+            val action = HomeFragmentDirections.actionHomeFragmentToActaVisitaFragment(acta.uuidActa)
+            findNavController().navigate(action)
         }
 
         binding.recyclerViewLoans.apply {
