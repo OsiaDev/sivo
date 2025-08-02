@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -33,11 +35,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     buildFeatures {
         viewBinding = true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_11)
     }
 }
 
@@ -52,6 +57,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.gson)
+    implementation(libs.glide)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.constraintlayout)

@@ -63,6 +63,7 @@
     <string name="acta_visita_cargo">Cargo</string>
     <string name="acta_visita_email_representante_title">E-Mail de la persona que atiende</string>
     <string name="acta_visita_email_representante">E-Mail</string>
+    <string name="acta_visita_siguiente">Siguiente</string>
 
 
     <string name="camera_permission_required">Se requiere permiso de cámara</string>

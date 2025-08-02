@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.coljuegos.sivo.data.dao.ActaDao
 import com.coljuegos.sivo.data.dao.DepartamentoDao
 import com.coljuegos.sivo.data.dao.FuncionarioDao
+import com.coljuegos.sivo.data.dao.ImagenDao
 import com.coljuegos.sivo.data.dao.InventarioDao
 import com.coljuegos.sivo.data.dao.MunicipioDao
 import com.coljuegos.sivo.data.dao.SessionDao
@@ -46,5 +47,8 @@ object DatabaseModule {
 
     @Provides
     fun provideInventarioDao(database: SivoDatabase): InventarioDao = database.inventarioDao()
+
+    @Provides
+    fun provideImagenDao(database: SivoDatabase): ImagenDao = database.imagenDao()
 
 }

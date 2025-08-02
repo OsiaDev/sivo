@@ -26,9 +26,27 @@
         android:name="com.coljuegos.sivo.ui.establecimiento.acta.ActaVisitaFragment"
         android:label="@string/acta_visita_title"
         tools:layout="@layout/fragment_acta_visita" >
+
         <argument
             android:name="actaUuid"
             app:argType="java.util.UUID" />
+
+        <action
+            android:id="@+id/action_actaVisitaFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="com.coljuegos.sivo.ui.galeria.GaleriaFragment"
+        android:label="@string/acta_visita_title"
+        tools:layout="@layout/fragment_acta_visita" >
+
     </fragment>
 
 </navigation>

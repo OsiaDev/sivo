@@ -1,18 +1,18 @@
 package com.coljuegos.sivo.ui.establecimiento.acta
 
-import android.net.Uri
 import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.coljuegos.sivo.R
 import com.coljuegos.sivo.data.entity.ActaEntity
 import com.coljuegos.sivo.databinding.FragmentActaVisitaBinding
-import com.coljuegos.sivo.ui.base.BaseCameraFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 @AndroidEntryPoint
-class ActaVisitaFragment : BaseCameraFragment() {
+class ActaVisitaFragment : Fragment() {
 
     private var _binding: FragmentActaVisitaBinding? = null
 
@@ -30,6 +30,17 @@ class ActaVisitaFragment : BaseCameraFragment() {
     private val viewModel: ActaVisitaViewModel by viewModels()
 
     private lateinit var municipioAdapter: MunicipioAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        Log.d("ActaVisitaFragment", "Registrando listener")
+
+        parentFragmentManager.setFragmentResultListener("camera_action", this) { _, _ ->
+            Log.d("ActaVisitaFragment", "Recibido evento de cámara")
+            navigateToGallery()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,8 +63,9 @@ class ActaVisitaFragment : BaseCameraFragment() {
         observeViewModel()
     }
 
-    override fun handleCapturedImage(imageUri: Uri) {
-        TODO("Not yet implemented")
+    private fun navigateToGallery() {
+        val action = ActaVisitaFragmentDirections.actionActaVisitaFragmentToGalleryFragment()
+        findNavController().navigate(action)
     }
 
     private fun setupMunicipioSelector() {

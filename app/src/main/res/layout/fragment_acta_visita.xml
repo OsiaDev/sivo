@@ -933,6 +933,22 @@
 
         </LinearLayout>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_enviar_material"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/acta_visita_siguiente"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:paddingVertical="16dp"
+            app:backgroundTint="@color/login_button_color_init"
+            app:cornerRadius="8dp"
+            app:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal4Title"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

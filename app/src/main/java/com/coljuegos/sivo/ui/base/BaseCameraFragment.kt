@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.coljuegos.sivo.ui.main.MainActivity
 import com.coljuegos.sivo.utils.CameraHelper
 
 abstract class BaseCameraFragment : Fragment() {
@@ -21,7 +20,6 @@ abstract class BaseCameraFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupCameraHelper()
         registerCameraReceiver()
-        showCameraButton()
     }
 
     private fun setupCameraHelper() {
@@ -47,15 +45,6 @@ abstract class BaseCameraFragment : Fragment() {
         )
     }
 
-    private fun showCameraButton() {
-        (activity as? MainActivity)?.setCameraButtonVisible(true)
-    }
-
-    private fun hideCameraButton() {
-        (activity as? MainActivity)?.setCameraButtonVisible(false)
-    }
-
-    // Método abstracto que cada Fragment debe implementar
     abstract fun handleCapturedImage(imageUri: Uri)
 
     override fun onDestroyView() {
@@ -65,7 +54,6 @@ abstract class BaseCameraFragment : Fragment() {
         } catch (e: Exception) {
             // Receiver ya fue desregistrado
         }
-        hideCameraButton()
     }
 
 }
