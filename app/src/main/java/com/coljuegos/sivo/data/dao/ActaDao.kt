@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.coljuegos.sivo.data.entity.ActaEntity
 import com.coljuegos.sivo.data.entity.ActaStateEnum
+import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -24,6 +25,9 @@ interface ActaDao {
 
     @Query("SELECT * FROM actas WHERE uuidSession = :sessionId AND stateActa = 'ACTIVE' ORDER BY fechaVisitaAucActa DESC")
     suspend fun getActiveActasBySession(sessionId: UUID): List<ActaEntity>
+
+    @Query("SELECT * FROM actas WHERE uuidSession = :sessionId AND stateActa = 'ACTIVE' ORDER BY fechaVisitaAucActa DESC")
+    fun getActiveActasBySessionFlow(sessionId: UUID): Flow<List<ActaEntity>>
 
     @Query("SELECT * FROM actas WHERE uuidSession = :sessionId ORDER BY fechaVisitaAucActa DESC")
     suspend fun getActasBySession(sessionId: UUID): List<ActaEntity>

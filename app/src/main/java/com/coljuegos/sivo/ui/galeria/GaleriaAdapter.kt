@@ -37,7 +37,7 @@ class GaleriaAdapter(
 
         fun bind(imagen: ImagenEntity) {
             with(binding) {
-                // Cargar imagen con Glide
+                // Cargar imagen con Glide optimizada para miniaturas
                 val file = File(imagen.rutaImagen)
                 if (file.exists()) {
                     Glide.with(itemView.context)
@@ -45,6 +45,9 @@ class GaleriaAdapter(
                         .centerCrop()
                         .placeholder(R.drawable.ic_camara)
                         .error(R.drawable.ic_camara)
+                        .override(200, 200) // Tamaño optimizado para miniaturas
+                        .thumbnail(0.25f) // Carga una versión reducida primero
+                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
                         .into(imageViewFoto)
                 } else {
                     imageViewFoto.setImageResource(R.drawable.ic_camara)
@@ -70,6 +73,7 @@ class GaleriaAdapter(
                 }
             }
         }
+
     }
 
     private class ImagenDiffCallback : DiffUtil.ItemCallback<ImagenEntity>() {

@@ -40,8 +40,11 @@ class MunicipioAdapter(
                 val filtered = if (query.isEmpty()) {
                     allMunicipios
                 } else {
-                    allMunicipios.filter {
-                        it.displayName.lowercase().contains(query)
+                    allMunicipios.filter { municipio ->
+                        val searchText = "${municipio.municipioNombre} ${municipio.departamentoNombre}".lowercase()
+                        searchText.contains(query) ||
+                                municipio.municipioNombre.lowercase().startsWith(query) ||
+                                municipio.departamentoNombre.lowercase().startsWith(query)
                     }
                 }
 

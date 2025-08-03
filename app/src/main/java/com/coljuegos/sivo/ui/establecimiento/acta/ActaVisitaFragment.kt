@@ -13,9 +13,11 @@ import androidx.navigation.fragment.findNavController
 import com.coljuegos.sivo.R
 import com.coljuegos.sivo.data.entity.ActaEntity
 import com.coljuegos.sivo.databinding.FragmentActaVisitaBinding
+import com.coljuegos.sivo.di.Extenxion.orNA
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -53,19 +55,26 @@ class ActaVisitaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupMunicipioSelector()
+        setupInputBindings()
+        observeViewModel()
+        setupExpandableText()
+    }
+
+    private fun setupExpandableText() {
         var expanded = false
         binding.textoLegal1Title.setOnClickListener {
             expanded = !expanded
             binding.textoLegal1Title.maxLines = if (expanded) Int.MAX_VALUE else 2
         }
-        setupMunicipioSelector()
-        setupFormListeners()
-        observeViewModel()
     }
 
     private fun navigateToGallery() {
-        val action = ActaVisitaFragmentDirections.actionActaVisitaFragmentToGalleryFragment()
-        findNavController().navigate(action)
+        val currentState = viewModel.uiState.value
+        currentState.acta?.let { acta ->
+            val action = ActaVisitaFragmentDirections.actionActaVisitaFragmentToGalleryFragment(acta.uuidActa)
+            findNavController().navigate(action)
+        }
     }
 
     private fun setupMunicipioSelector() {
@@ -78,13 +87,21 @@ class ActaVisitaFragment : Fragment() {
         }
     }
 
-    private fun setupFormListeners() {
+    private fun setupInputBindings() {
         binding.nombrePresente.doOnTextChanged { text, _, _, _ ->
             viewModel.updateNombrePresente(text?.toString() ?: "")
         }
 
         binding.cedulaPresente.doOnTextChanged { text, _, _, _ ->
             viewModel.updateCedulaPresente(text?.toString() ?: "")
+        }
+
+        binding.calidad.doOnTextChanged { text, _, _, _ ->
+            viewModel.updateCargoPresente(text?.toString() ?: "")
+        }
+
+        binding.email.doOnTextChanged { text, _, _, _ ->
+            viewModel.updateEmailPresente(text?.toString() ?: "")
         }
     }
 
@@ -118,6 +135,9 @@ class ActaVisitaFragment : Fragment() {
         uiState.selectedMunicipio?.let { municipio ->
             binding.municipioExpedicion.setText(municipio.displayName, false)
         }
+
+        // Restaurar datos del formulario guardados
+        restoreFormData(uiState)
     }
 
     private fun populateActaData(actaEntity: ActaEntity) {
@@ -125,57 +145,41 @@ class ActaVisitaFragment : Fragment() {
             val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
             val datetimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
             // Información del establecimiento
-            nombreEst.text = actaEntity.establecimientoActa.takeIf { it.isNotEmpty() } ?: "N/A"
-            departamentoEst.text = actaEntity.departamentoActa.takeIf { it.isNotEmpty() } ?: "N/A"
-            municipioEst.text = actaEntity.ciudadActa.takeIf { it.isNotEmpty() } ?: "N/A"
-            codigoEst.text = actaEntity.estCodigoInternoActa.takeIf { it.isNotEmpty() } ?: "N/A"
-            direccionEst.text = actaEntity.direccionActa.takeIf { it.isNotEmpty() } ?: "N/A"
+            nombreEst.text = actaEntity.establecimientoActa.orNA()
+            departamentoEst.text = actaEntity.departamentoActa.orNA()
+            municipioEst.text = actaEntity.ciudadActa.orNA()
+            codigoEst.text = actaEntity.estCodigoInternoActa.orNA()
+            direccionEst.text = actaEntity.direccionActa.orNA()
 
-            // Fecha de inventario
-            try {
-                fechaEst.text = datetimeFormatter.format(actaEntity.fechaCorteInventarioActa)
-            } catch (_: Exception) {
-                fechaEst.text = "N/A"
-            }
+            fechaEst.text = safeFormatDate(actaEntity.fechaCorteInventarioActa, datetimeFormatter)
 
-            try {
-                fechaVisita.text = datetimeFormatter.format(LocalDateTime.now())
-            } catch (_: Exception) {
-                fechaVisita.text = "N/A"
-            }
+            fechaVisita.text = safeFormatDate(LocalDateTime.now(), datetimeFormatter)
 
             // Información del operador
-            nombreOpe.text = actaEntity.nombreOperadorActa.takeIf { it.isNotEmpty() } ?: "N/A"
-            nitOpe.text = actaEntity.nitActa.takeIf { it.isNotEmpty() } ?: "N/A"
-            emailOpe.text = actaEntity.emailActa.takeIf { it.isNotEmpty() } ?: "N/A"
+            nombreOpe.text = actaEntity.nombreOperadorActa.orNA()
+            nitOpe.text = actaEntity.nitActa.orNA()
+            emailOpe.text = actaEntity.emailActa.orNA()
 
             // Información del contrato
             acta.text = getString(R.string.acta_visita_ah, actaEntity.numActa.toString())
             auto.text = getString(R.string.acta_visita_ac, actaEntity.numActa.toString())
             autoComisorio.text = actaEntity.numActa.toString()
-            numContrato.text = actaEntity.numContratoActa.takeIf { it.isNotEmpty() } ?: "N/A"
+            numContrato.text = actaEntity.numContratoActa.orNA()
 
             // Fecha fin contrato
-            try {
-                fechaFin.text = dateFormatter.format(actaEntity.fechaFinContratoActa)
-            } catch (_: Exception) {
-                fechaFin.text = "N/A"
-            }
-            try {
-                fechaAutoComisorio.text = dateFormatter.format(actaEntity.fechaVisitaAucActa)
-            } catch (_: Exception) {
-                fechaAutoComisorio.text = "N/A"
-            }
+            fechaFin.text = safeFormatDate(actaEntity.fechaFinContratoActa, dateFormatter)
+            fechaAutoComisorio.text = safeFormatDate(actaEntity.fechaVisitaAucActa, dateFormatter)
         }
     }
 
     private fun showLoading() {
-        // Si tienes un loading indicator, mostrarlo aquí
-        binding.constraintLayout.alpha = 0.5f
+        binding.constraintLayout.alpha = 0.3f
+        binding.constraintLayout.isEnabled = false
     }
 
     private fun hideLoading() {
         binding.constraintLayout.alpha = 1.0f
+        binding.constraintLayout.isEnabled = true
     }
 
     private fun showError(message: String) {
@@ -185,6 +189,29 @@ class ActaVisitaFragment : Fragment() {
             }
             .show()
     }
+
+    private fun restoreFormData(uiState: ActaVisitaUiState) {
+        // Evitar loops infinitos verificando si el texto es diferente
+        if (binding.nombrePresente.text.toString() != uiState.nombrePresente) {
+            binding.nombrePresente.setText(uiState.nombrePresente)
+        }
+        if (binding.cedulaPresente.text.toString() != uiState.cedulaPresente) {
+            binding.cedulaPresente.setText(uiState.cedulaPresente)
+        }
+        if (binding.calidad.text.toString() != uiState.cargoPresente) {
+            binding.calidad.setText(uiState.cargoPresente)
+        }
+        if (binding.email.text.toString() != uiState.emailPresente) {
+            binding.email.setText(uiState.emailPresente)
+        }
+    }
+
+    private fun safeFormatDate(date: LocalDateTime?, formatter: DateTimeFormatter): String =
+        runCatching { formatter.format(date) }.getOrElse { "N/A" }
+
+    private fun safeFormatDate(date: LocalDate?, formatter: DateTimeFormatter): String =
+        runCatching { formatter.format(date) }.getOrElse { "N/A" }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/acta_visita_texto_legal_4"
+            android:text="@string/galeria_titulo"
             android:textColor="@color/text_detail"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -33,7 +33,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/acta_visita_email_representante"
+            android:text="@string/galeria_subtitulo"
             android:textColor="@color/text_detail"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +81,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/acta_visita_email_representante"
+                android:text="@string/galeria_no_imagenes"
                 android:textColor="@color/text_detail"
                 android:textSize="16sp" />
 
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@string/acta_visita_email_representante"
+                android:text="@string/galeria_tomar_foto"
                 android:textColor="@color/text_detail"
                 android:textSize="14sp" />
 

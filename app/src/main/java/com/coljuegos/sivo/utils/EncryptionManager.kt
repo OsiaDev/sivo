@@ -23,6 +23,9 @@ class EncryptionManager @Inject constructor() {
     @Throws(Exception::class)
     fun encrypt(plainText: String, secretKey: String): String {
         try {
+            if (plainText.isBlank() || secretKey.isBlank()) {
+                throw IllegalArgumentException("El texto y la clave no pueden estar vacíos")
+            }
             val keyBytes = secretKey.toByteArray()
             val keySpec = SecretKeySpec(keyBytes, ALGORITHM)
 

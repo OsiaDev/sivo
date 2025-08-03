@@ -9,9 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import com.coljuegos.sivo.data.entity.ImagenEntity
 import com.coljuegos.sivo.databinding.FragmentGaleriaBinding
 import com.coljuegos.sivo.ui.base.BaseCameraFragment
 import com.coljuegos.sivo.ui.imagen.ImagenViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -19,13 +21,15 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import java.util.UUID
 
 @AndroidEntryPoint
 class GaleriaFragment : BaseCameraFragment() {
 
     private var _binding: FragmentGaleriaBinding? = null
+
     private val binding get() = _binding!!
+
+    private val args: GaleriaFragmentArgs by navArgs()
 
     private val imagenViewModel: ImagenViewModel by viewModels()
 
@@ -51,10 +55,10 @@ class GaleriaFragment : BaseCameraFragment() {
     private fun setupRecyclerView() {
         galeriaAdapter = GaleriaAdapter(
             onImageClick = { imagen ->
-                // TODO: Abrir imagen en pantalla completa
+                showImageFullScreen(imagen)
             },
             onDeleteClick = { imagen ->
-                imagenViewModel.deleteImagen(imagen)
+                showDeleteConfirmationDialog(imagen)
             }
         )
 
@@ -83,7 +87,11 @@ class GaleriaFragment : BaseCameraFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             imagenViewModel.errorMessage.collect { error ->
                 error?.let {
-                    Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
+                    Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG)
+                        .setAction("Reintentar") {
+                            loadImagenes()
+                        }
+                        .show()
                     imagenViewModel.clearErrorMessage()
                 }
             }
@@ -97,8 +105,22 @@ class GaleriaFragment : BaseCameraFragment() {
     }
 
     private fun loadImagenes() {
-        //val uuidActa = UUID.fromString(args.uuidActa)
-        //imagenViewModel.loadImagenesByActa(uuidActa)
+        imagenViewModel.loadImagenesByActa(args.actaUuid)
+    }
+
+    private fun showImageFullScreen(imagen: ImagenEntity) {
+        // TODO: Implementar vista de imagen completa (opcional)
+    }
+
+    private fun showDeleteConfirmationDialog(imagen: ImagenEntity) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Eliminar imagen")
+            .setMessage("¿Estás seguro de que deseas eliminar esta imagen?")
+            .setPositiveButton("Eliminar") { _, _ ->
+                imagenViewModel.deleteImagen(imagen)
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 
     override fun handleCapturedImage(imageUri: Uri) {
@@ -116,8 +138,7 @@ class GaleriaFragment : BaseCameraFragment() {
             }
 
             // Guardar referencia en base de datos
-            //val uuidActa = UUID.fromString(args.uuidActa)
-            //imagenViewModel.saveImagen(uuidActa, internalFile.absolutePath, fileName)
+            imagenViewModel.saveImagen(args.actaUuid, internalFile.absolutePath, fileName)
 
         } catch (e: Exception) {
             Snackbar.make(binding.root, "Error al guardar imagen: ${e.message}", Snackbar.LENGTH_LONG).show()

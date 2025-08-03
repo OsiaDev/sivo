@@ -3,7 +3,9 @@ package com.coljuegos.sivo.ui.establecimiento.acta
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.coljuegos.sivo.data.dao.ActaVisitaDao
 import com.coljuegos.sivo.data.dao.MunicipioDao
+import com.coljuegos.sivo.data.entity.ActaVisitaEntity
 import com.coljuegos.sivo.data.entity.MunicipioDisplayItem
 import com.coljuegos.sivo.data.repository.ActasRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +20,7 @@ import javax.inject.Inject
 class ActaVisitaViewModel @Inject constructor(
     private val actasRepository: ActasRepository,
     private val municipioDao: MunicipioDao,
+    private val actaVisitaDao: ActaVisitaDao,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -30,6 +33,7 @@ class ActaVisitaViewModel @Inject constructor(
     init {
         loadActaDetails()
         loadMunicipios()
+        loadActaVisita()
     }
 
     private fun loadActaDetails() {
@@ -77,16 +81,86 @@ class ActaVisitaViewModel @Inject constructor(
         }
     }
 
+    private fun loadActaVisita() {
+        viewModelScope.launch {
+            try {
+                val existingActaVisita = actaVisitaDao.getActaVisitaByActaId(actaUuid)
+                if (existingActaVisita != null) {
+                    val selectedMunicipio = if (existingActaVisita.uuidMunicipio != null) {
+                        municipioDao.getAllMunicipiosWithDepartamento()
+                            .find { it.municipioId == existingActaVisita.uuidMunicipio.toString() }
+                    } else null
+
+                    _uiState.value = _uiState.value.copy(
+                        nombrePresente = existingActaVisita.nombrePresente ?: "",
+                        cedulaPresente = existingActaVisita.identificacionPresente ?: "",
+                        cargoPresente = existingActaVisita.cargoPresente ?: "",
+                        emailPresente = existingActaVisita.emailPresente ?: "",
+                        selectedMunicipio = selectedMunicipio
+                    )
+                }
+            } catch (_: Exception) {
+                // Error silencioso, continúa con valores por defecto
+            }
+        }
+    }
+
+    private fun saveActaVisita() {
+        viewModelScope.launch {
+            try {
+                val currentState = _uiState.value
+
+                // Buscar si ya existe un registro
+                val existingActaVisita = actaVisitaDao.getActaVisitaByActaId(actaUuid)
+
+                val actaVisitaToSave = existingActaVisita?.// Actualizar el existente
+                copy(
+                    nombrePresente = currentState.nombrePresente.takeIf { it.isNotBlank() },
+                    identificacionPresente = currentState.cedulaPresente.takeIf { it.isNotBlank() },
+                    uuidMunicipio = currentState.selectedMunicipio?.let { UUID.fromString(it.municipioId) },
+                    cargoPresente = currentState.cargoPresente.takeIf { it.isNotBlank() },
+                    emailPresente = currentState.emailPresente.takeIf { it.isNotBlank() }
+                )
+                    ?: // Crear nuevo
+                    ActaVisitaEntity(
+                        uuidActa = actaUuid,
+                        nombrePresente = currentState.nombrePresente.takeIf { it.isNotBlank() },
+                        identificacionPresente = currentState.cedulaPresente.takeIf { it.isNotBlank() },
+                        uuidMunicipio = currentState.selectedMunicipio?.let { UUID.fromString(it.municipioId) },
+                        cargoPresente = currentState.cargoPresente.takeIf { it.isNotBlank() },
+                        emailPresente = currentState.emailPresente.takeIf { it.isNotBlank() }
+                    )
+
+                actaVisitaDao.insert(actaVisitaToSave)
+            } catch (_: Exception) {
+                // Error silencioso para no interrumpir la experiencia del usuario
+            }
+        }
+    }
+
     fun selectMunicipio(municipio: MunicipioDisplayItem) {
         _uiState.value = _uiState.value.copy(selectedMunicipio = municipio)
+        saveActaVisita()
     }
 
     fun updateNombrePresente(nombre: String) {
         _uiState.value = _uiState.value.copy(nombrePresente = nombre)
+        saveActaVisita()
     }
 
     fun updateCedulaPresente(cedula: String) {
         _uiState.value = _uiState.value.copy(cedulaPresente = cedula)
+        saveActaVisita()
+    }
+
+    fun updateCargoPresente(cargo: String) {
+        _uiState.value = _uiState.value.copy(cargoPresente = cargo)
+        saveActaVisita()
+    }
+
+    fun updateEmailPresente(email: String) {
+        _uiState.value = _uiState.value.copy(emailPresente = email)
+        saveActaVisita()
     }
 
     fun retry() {

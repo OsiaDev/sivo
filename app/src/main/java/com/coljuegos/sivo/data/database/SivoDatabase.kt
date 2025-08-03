@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.coljuegos.sivo.data.dao.ActaDao
+import com.coljuegos.sivo.data.dao.ActaVisitaDao
 import com.coljuegos.sivo.data.dao.DepartamentoDao
 import com.coljuegos.sivo.data.dao.FuncionarioDao
 import com.coljuegos.sivo.data.dao.ImagenDao
@@ -11,6 +12,7 @@ import com.coljuegos.sivo.data.dao.InventarioDao
 import com.coljuegos.sivo.data.dao.MunicipioDao
 import com.coljuegos.sivo.data.dao.SessionDao
 import com.coljuegos.sivo.data.entity.ActaEntity
+import com.coljuegos.sivo.data.entity.ActaVisitaEntity
 import com.coljuegos.sivo.data.entity.DepartamentoEntity
 import com.coljuegos.sivo.data.entity.FuncionarioEntity
 import com.coljuegos.sivo.data.entity.ImagenEntity
@@ -31,8 +33,9 @@ import com.coljuegos.sivo.utils.LocalDateTimeConverter
         ActaEntity::class,
         FuncionarioEntity::class,
         InventarioEntity::class,
-        ImagenEntity::class
-    ], version = 6, exportSchema = false
+        ImagenEntity::class,
+        ActaVisitaEntity::class
+    ], version = 1, exportSchema = false
 )
 @TypeConverters(
     BigDecimalConverter::class,
@@ -56,5 +59,7 @@ abstract class SivoDatabase : RoomDatabase() {
     abstract fun inventarioDao(): InventarioDao
 
     abstract fun imagenDao(): ImagenDao
+
+    abstract fun actaVisitaDao(): ActaVisitaDao
 
 }

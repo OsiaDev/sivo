@@ -15,4 +15,6 @@ data class ActaVisitaUiState(
     val selectedMunicipio: MunicipioDisplayItem? = null,
     val nombrePresente: String = "",
     val cedulaPresente: String = "",
+    val cargoPresente: String = "",
+    val emailPresente: String = ""
 )

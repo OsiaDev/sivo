@@ -44,8 +44,12 @@
     <fragment
         android:id="@+id/galleryFragment"
         android:name="com.coljuegos.sivo.ui.galeria.GaleriaFragment"
-        android:label="@string/acta_visita_title"
+        android:label="@string/gallery_title"
         tools:layout="@layout/fragment_acta_visita" >
+
+        <argument
+            android:name="actaUuid"
+            app:argType="java.util.UUID" />
 
     </fragment>
 

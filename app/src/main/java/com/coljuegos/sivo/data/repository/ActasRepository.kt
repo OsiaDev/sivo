@@ -41,8 +41,12 @@ class ActasRepository @Inject constructor(
 
             // Primero obtener datos locales activos
             val localActas = actaDao.getActiveActasBySession(currentSession.uuidSession)
-            if (localActas.isNotEmpty()) {
+            val shouldFetchFromServer = localActas.isEmpty() ||
+                    localActas.any { it.lastUpdatedActa.isBefore(LocalDateTime.now().minusMinutes(5)) }
+
+            if (localActas.isNotEmpty() && !shouldFetchFromServer) {
                 emit(NetworkResult.Success(localActas))
+                return@flow
             }
 
             // Obtener datos del servidor
@@ -236,7 +240,7 @@ class ActasRepository @Inject constructor(
     suspend fun getActaByUuid(actaUuid: UUID): ActaEntity? {
         return try {
             actaDao.getActaByUuid(actaUuid)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             null
         }
     }
@@ -244,7 +248,7 @@ class ActasRepository @Inject constructor(
     suspend fun getFuncionariosByActa(actaUuid: UUID): List<FuncionarioEntity> {
         return try {
             funcionarioDao.getFuncionariosByActa(actaUuid)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             emptyList()
         }
     }
@@ -252,7 +256,7 @@ class ActasRepository @Inject constructor(
     suspend fun getInventariosByActa(actaUuid: UUID): List<InventarioEntity> {
         return try {
             inventarioDao.getInventariosByActa(actaUuid)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             emptyList()
         }
     }

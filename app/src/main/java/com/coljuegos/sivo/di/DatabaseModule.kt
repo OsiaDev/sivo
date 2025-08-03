@@ -3,6 +3,7 @@ package com.coljuegos.sivo.di
 import android.content.Context
 import androidx.room.Room
 import com.coljuegos.sivo.data.dao.ActaDao
+import com.coljuegos.sivo.data.dao.ActaVisitaDao
 import com.coljuegos.sivo.data.dao.DepartamentoDao
 import com.coljuegos.sivo.data.dao.FuncionarioDao
 import com.coljuegos.sivo.data.dao.ImagenDao
@@ -50,5 +51,8 @@ object DatabaseModule {
 
     @Provides
     fun provideImagenDao(database: SivoDatabase): ImagenDao = database.imagenDao()
+
+    @Provides
+    fun provideActaVisitaDao(database: SivoDatabase): ActaVisitaDao = database.actaVisitaDao()
 
 }

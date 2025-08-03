@@ -17,7 +17,9 @@ import java.util.UUID
         Index(value = ["uuidSession"]),
         Index(value = ["fechaVisitaAucActa"]),
         Index(value = ["tipoVisitaActa"]),
-        Index(value = ["numActa"], unique = true)
+        Index(value = ["numActa"], unique = true),
+        Index(value = ["uuidSession", "stateActa"]),
+        Index(value = ["stateActa", "lastUpdatedActa"])
     ]
 )
 data class ActaEntity(
