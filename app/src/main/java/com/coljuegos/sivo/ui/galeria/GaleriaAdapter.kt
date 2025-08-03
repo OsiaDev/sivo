@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.coljuegos.sivo.R
 import com.coljuegos.sivo.data.entity.ImagenEntity
 import com.coljuegos.sivo.databinding.ItemImagenBinding
+import com.coljuegos.sivo.di.Extenxion.toReadableFileSize
 import java.io.File
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -40,13 +41,19 @@ class GaleriaAdapter(
                 // Cargar imagen con Glide optimizada para miniaturas
                 val file = File(imagen.rutaImagen)
                 if (file.exists()) {
+                    val thumbnailRequest = Glide.with(itemView.context)
+                        .load(file)
+                        .centerCrop()
+                        .override(50, 50) // Miniatura muy pequeña para carga rápida
+                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+
                     Glide.with(itemView.context)
                         .load(file)
                         .centerCrop()
                         .placeholder(R.drawable.ic_camara)
                         .error(R.drawable.ic_camara)
                         .override(200, 200) // Tamaño optimizado para miniaturas
-                        .thumbnail(0.25f) // Carga una versión reducida primero
+                        .thumbnail(thumbnailRequest) // Usar el RequestBuilder en lugar del float
                         .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
                         .into(imageViewFoto)
                 } else {
@@ -60,8 +67,7 @@ class GaleriaAdapter(
                 textViewFecha.text = formatter.format(imagen.fechaCaptura)
 
                 // Mostrar tamaño del archivo
-                val tamanoEnKB = imagen.tamanoBytesImagen / 1024
-                textViewTamano.text = "${tamanoEnKB} KB"
+                textViewTamano.text = imagen.tamanoBytesImagen.toReadableFileSize()
 
                 // Click listeners
                 root.setOnClickListener {

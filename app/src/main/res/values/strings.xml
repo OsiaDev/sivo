@@ -65,7 +65,7 @@
     <string name="acta_visita_email_representante">E-Mail</string>
     <string name="acta_visita_siguiente">Siguiente</string>
 
-    <!-- ACTA VISITA FRAGMENT -->
+    <!-- GALERIA FRAGMENT -->
     <string name="gallery_title">Galería</string>
     <string name="camera_permission_required">Se requiere permiso de cámara</string>
     <string name="storage_permission_required">Se requiere permiso de almacenamiento</string>
@@ -73,6 +73,7 @@
     <string name="camera">Cámara</string>
     <string name="gallery">Galería</string>
     <string name="cancel">Cancelar</string>
+    <string name="loading">Cargando</string>
     <string name="galeria_titulo">Galería de imágenes</string>
     <string name="galeria_subtitulo">Captura y administra las imágenes del acta</string>
     <string name="galeria_no_imagenes">No hay imágenes capturadas</string>

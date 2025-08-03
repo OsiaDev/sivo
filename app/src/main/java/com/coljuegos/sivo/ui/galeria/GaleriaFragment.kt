@@ -13,6 +13,7 @@ import com.coljuegos.sivo.data.entity.ImagenEntity
 import com.coljuegos.sivo.databinding.FragmentGaleriaBinding
 import com.coljuegos.sivo.ui.base.BaseCameraFragment
 import com.coljuegos.sivo.ui.imagen.ImagenViewModel
+import com.coljuegos.sivo.utils.CameraHelper
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,6 +36,16 @@ class GaleriaFragment : BaseCameraFragment() {
 
     private lateinit var galeriaAdapter: GaleriaAdapter
 
+    private lateinit var cameraHelper: CameraHelper
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Inicializar CameraHelper en onCreate para registrar los ActivityResult correctamente
+        cameraHelper = CameraHelper(this) { imageUri ->
+            handleCapturedImage(imageUri)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -48,6 +59,7 @@ class GaleriaFragment : BaseCameraFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
+        setupFab()
         observeViewModel()
         loadImagenes()
     }
@@ -65,6 +77,13 @@ class GaleriaFragment : BaseCameraFragment() {
         binding.recyclerViewImagenes.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = galeriaAdapter
+        }
+    }
+
+    private fun setupFab() {
+        binding.fabCamera.setOnClickListener {
+            // Usar el CameraHelper ya inicializado en onCreate
+            cameraHelper.checkCameraPermissionAndOpen()
         }
     }
 
@@ -109,7 +128,7 @@ class GaleriaFragment : BaseCameraFragment() {
     }
 
     private fun showImageFullScreen(imagen: ImagenEntity) {
-        // TODO: Implementar vista de imagen completa (opcional)
+        Snackbar.make(binding.root, "Vista completa próximamente", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun showDeleteConfirmationDialog(imagen: ImagenEntity) {
@@ -126,9 +145,10 @@ class GaleriaFragment : BaseCameraFragment() {
     override fun handleCapturedImage(imageUri: Uri) {
         // Copiar imagen a directorio interno de la app
         val fileName = "IMG_${SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())}.jpg"
-        val internalFile = File(requireContext().filesDir, "images/$fileName").apply {
-            parentFile?.mkdirs()
+        val internalDir = File(requireContext().filesDir, "images").apply {
+            if (!exists()) mkdirs()
         }
+        val internalFile = File(internalDir, fileName)
 
         try {
             requireContext().contentResolver.openInputStream(imageUri)?.use { input ->
@@ -139,6 +159,8 @@ class GaleriaFragment : BaseCameraFragment() {
 
             // Guardar referencia en base de datos
             imagenViewModel.saveImagen(args.actaUuid, internalFile.absolutePath, fileName)
+
+            Snackbar.make(binding.root, "Imagen guardada exitosamente", Snackbar.LENGTH_SHORT).show()
 
         } catch (e: Exception) {
             Snackbar.make(binding.root, "Error al guardar imagen: ${e.message}", Snackbar.LENGTH_LONG).show()
