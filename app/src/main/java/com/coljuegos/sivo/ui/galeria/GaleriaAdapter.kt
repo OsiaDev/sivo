@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.coljuegos.sivo.R
 import com.coljuegos.sivo.data.entity.ImagenEntity
 import com.coljuegos.sivo.databinding.ItemImagenBinding
@@ -45,7 +46,7 @@ class GaleriaAdapter(
                         .load(file)
                         .centerCrop()
                         .override(50, 50) // Miniatura muy pequeña para carga rápida
-                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
 
                     Glide.with(itemView.context)
                         .load(file)
@@ -54,7 +55,7 @@ class GaleriaAdapter(
                         .error(R.drawable.ic_camara)
                         .override(200, 200) // Tamaño optimizado para miniaturas
                         .thumbnail(thumbnailRequest) // Usar el RequestBuilder en lugar del float
-                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                         .into(imageViewFoto)
                 } else {
                     imageViewFoto.setImageResource(R.drawable.ic_camara)
