@@ -59,6 +59,7 @@ class ActaVisitaFragment : Fragment() {
         setupInputBindings()
         observeViewModel()
         setupExpandableText()
+        navigateVerificacion()
     }
 
     private fun setupExpandableText() {
@@ -66,6 +67,16 @@ class ActaVisitaFragment : Fragment() {
         binding.textoLegal1Title.setOnClickListener {
             expanded = !expanded
             binding.textoLegal1Title.maxLines = if (expanded) Int.MAX_VALUE else 2
+        }
+    }
+
+    private fun navigateVerificacion() {
+        binding.btnEnviarMaterial.setOnClickListener {
+            val currentState = viewModel.uiState.value
+            currentState.acta?.let { acta ->
+                val action = ActaVisitaFragmentDirections.actionActaVisitaFragmentToVerificacionContractualFragment(acta.uuidActa)
+                findNavController().navigate(action)
+            }
         }
     }
 

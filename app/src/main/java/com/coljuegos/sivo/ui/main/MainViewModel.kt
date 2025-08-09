@@ -43,7 +43,7 @@ class MainViewModel @Inject constructor(
             try {
                 val userName = sessionManager.getUserName()
                 _userName.value = userName
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 _sessionState.value = false
             }
         }
@@ -55,7 +55,7 @@ class MainViewModel @Inject constructor(
     suspend fun isSessionValid(): Boolean {
         return try {
             sessionManager.isLoggedIn()
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             false
         }
     }
@@ -68,7 +68,7 @@ class MainViewModel @Inject constructor(
             sessionManager.logout()
             _sessionState.value = false
             _userName.value = null
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             // En caso de error, asumir que se debe cerrar sesión
             _sessionState.value = false
         }

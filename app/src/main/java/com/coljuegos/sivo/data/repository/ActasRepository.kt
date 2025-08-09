@@ -42,7 +42,7 @@ class ActasRepository @Inject constructor(
             // Primero obtener datos locales activos
             val localActas = actaDao.getActiveActasBySession(currentSession.uuidSession)
             val shouldFetchFromServer = localActas.isEmpty() ||
-                    localActas.any { it.lastUpdatedActa.isBefore(LocalDateTime.now().minusMinutes(5)) }
+                    localActas.any { it.lastUpdatedActa.isBefore(LocalDateTime.now().minusHours(24)) }
 
             if (localActas.isNotEmpty() && !shouldFetchFromServer) {
                 emit(NetworkResult.Success(localActas))

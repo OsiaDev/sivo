@@ -65,6 +65,21 @@
     <string name="acta_visita_email_representante">E-Mail</string>
     <string name="acta_visita_siguiente">Siguiente</string>
 
+    <!-- VERIFICACIÓN CONTRACTUAL FRAGMENT -->
+    <string name="verificacion_contractual_title">Verificación Contractual</string>
+    <string name="verificacion_contractual_subtitle">1. Verificación contractuales</string>
+    <string name="verificacion_contractual_pregunta1">1. El aviso de autorización para establecimientos de juegos localizados está de acuerdo a lo estipulado en la resolución 20171200022554 de 2017.</string>
+    <string name="verificacion_contractual_pregunta2">2. ¿La dirección corresponde a lo registrado por el operador en Coljuegos?</string>
+    <string name="verificacion_contractual_pregunta3">3. ¿El nombre del establecimiento corresponde al registro por el operador en Coljuegos?</string>
+    <string name="verificacion_contractual_pregunta4">4. ¿Desarrolla dentro del establecimiento actividades diferentes a las autorizadas?</string>
+    <string name="verificacion_contractual_pregunta5">5. ¿Cuenta con los registros de mantenimiento de los elementos de juego que garanticen el adecuado funcionamiento de los mismos?</string>
+    <string name="verificacion_contractual_seleccionar_opcion">Seleccionar opción</string>
+    <string name="verificacion_contractual_tipo_actividad">De ser afirmativa la pregunta anterior indique:</string>
+    <string name="verificacion_contractual_seleccionar_tipo">Seleccionar tipo de actividad</string>
+    <string name="verificacion_contractual_especificar_otros">Especificar cuál</string>
+    <string name="verificacion_contractual_anterior">Anterior</string>
+    <string name="verificacion_contractual_siguiente">Siguiente</string>
+
     <!-- GALERIA FRAGMENT -->
     <string name="gallery_title">Galería</string>
     <string name="camera_permission_required">Se requiere permiso de cámara</string>

@@ -39,6 +39,34 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_actaVisitaFragment_to_verificacionContractualFragment"
+            app:destination="@id/verificacionContractualFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/verificacionContractualFragment"
+        android:name="com.coljuegos.sivo.ui.establecimiento.verificacion.VerificacionContractualFragment"
+        android:label="@string/verificacion_contractual_title"
+        tools:layout="@layout/fragment_verificacion_contractual">
+
+        <argument
+            android:name="actaUuid"
+            app:argType="java.util.UUID" />
+
+        <action
+            android:id="@+id/action_verificacionContractualFragment_to_verificacionCumplimientoFragment"
+            app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
 
     <fragment

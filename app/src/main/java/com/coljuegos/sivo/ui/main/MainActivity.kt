@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity() {
         val currentDestination = navController.currentDestination
 
         val showCamera = when (currentDestination?.id) {
-            R.id.actaVisitaFragment -> true
-            else -> false
+            R.id.homeFragment -> false
+            else -> true
         }
 
         menu?.findItem(R.id.action_camera)?.isVisible = showCamera
