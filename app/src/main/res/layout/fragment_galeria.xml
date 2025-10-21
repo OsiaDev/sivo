@@ -40,6 +40,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textViewTitulo" />
 
+        <TextView
+            android:id="@+id/textViewFragmentOrigen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/galeria_fragment_acta_visita"
+            android:textColor="@color/subtitle_color"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewSubtitulo"/>
+
         <!-- RecyclerView para las imágenes -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewImagenes"
@@ -54,7 +69,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textViewSubtitulo"
+            app:layout_constraintTop_toBottomOf="@id/textViewFragmentOrigen"
             tools:listitem="@layout/item_imagen" />
 
         <!-- Mensaje cuando no hay imágenes -->
@@ -75,6 +90,7 @@
                 android:layout_height="64dp"
                 android:layout_marginBottom="16dp"
                 android:alpha="0.5"
+                android:contentDescription="@string/camera"
                 android:src="@drawable/ic_camara"
                 app:tint="@color/text_detail" />
 

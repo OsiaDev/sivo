@@ -91,11 +91,19 @@ class ActaVisitaViewModel @Inject constructor(
                             .find { it.municipioId == existingActaVisita.uuidMunicipio.toString() }
                     } else null
 
+                    // NUEVO: Convertir String -> Lista
+                    val correosList = existingActaVisita.correosContacto
+                        ?.split(";")
+                        ?.map { it.trim() }
+                        ?.filter { it.isNotBlank() }
+                        ?: emptyList()
+
                     _uiState.value = _uiState.value.copy(
                         nombrePresente = existingActaVisita.nombrePresente ?: "",
                         cedulaPresente = existingActaVisita.identificacionPresente ?: "",
                         cargoPresente = existingActaVisita.cargoPresente ?: "",
                         emailPresente = existingActaVisita.emailPresente ?: "",
+                        correosContacto = correosList,  // NUEVO
                         selectedMunicipio = selectedMunicipio
                     )
                 }
@@ -110,6 +118,12 @@ class ActaVisitaViewModel @Inject constructor(
             try {
                 val currentState = _uiState.value
 
+                // NUEVO: Convertir Lista -> String
+                val correosString = currentState.correosContacto
+                    .filter { it.isNotBlank() }
+                    .joinToString(";")
+                    .takeIf { it.isNotEmpty() }
+
                 // Buscar si ya existe un registro
                 val existingActaVisita = actaVisitaDao.getActaVisitaByActaId(actaUuid)
 
@@ -119,7 +133,8 @@ class ActaVisitaViewModel @Inject constructor(
                     identificacionPresente = currentState.cedulaPresente.takeIf { it.isNotBlank() },
                     uuidMunicipio = currentState.selectedMunicipio?.let { UUID.fromString(it.municipioId) },
                     cargoPresente = currentState.cargoPresente.takeIf { it.isNotBlank() },
-                    emailPresente = currentState.emailPresente.takeIf { it.isNotBlank() }
+                    emailPresente = currentState.emailPresente.takeIf { it.isNotBlank() },
+                    correosContacto = correosString  // NUEVO
                 )
                     ?: // Crear nuevo
                     ActaVisitaEntity(
@@ -128,7 +143,8 @@ class ActaVisitaViewModel @Inject constructor(
                         identificacionPresente = currentState.cedulaPresente.takeIf { it.isNotBlank() },
                         uuidMunicipio = currentState.selectedMunicipio?.let { UUID.fromString(it.municipioId) },
                         cargoPresente = currentState.cargoPresente.takeIf { it.isNotBlank() },
-                        emailPresente = currentState.emailPresente.takeIf { it.isNotBlank() }
+                        emailPresente = currentState.emailPresente.takeIf { it.isNotBlank() },
+                        correosContacto = correosString  // NUEVO
                     )
 
                 actaVisitaDao.insert(actaVisitaToSave)
@@ -160,6 +176,24 @@ class ActaVisitaViewModel @Inject constructor(
 
     fun updateEmailPresente(email: String) {
         _uiState.value = _uiState.value.copy(emailPresente = email)
+        saveActaVisita()
+    }
+
+    // NUEVOS MÉTODOS PARA MANEJAR CORREOS
+    fun addCorreoContacto(correo: String) {
+        val correoTrimmed = correo.trim()
+        if (correoTrimmed.isNotEmpty() && !_uiState.value.correosContacto.contains(correoTrimmed)) {
+            _uiState.value = _uiState.value.copy(
+                correosContacto = _uiState.value.correosContacto + correoTrimmed
+            )
+            saveActaVisita()
+        }
+    }
+
+    fun removeCorreoContacto(correo: String) {
+        _uiState.value = _uiState.value.copy(
+            correosContacto = _uiState.value.correosContacto - correo
+        )
         saveActaVisita()
     }
 

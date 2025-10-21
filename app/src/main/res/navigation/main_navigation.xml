@@ -60,7 +60,63 @@
             app:argType="java.util.UUID" />
 
         <action
-            android:id="@+id/action_verificacionContractualFragment_to_verificacionCumplimientoFragment"
+            android:id="@+id/action_verificacionContractualFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_verificacionContractualFragment_to_verificacionSiplaftFragment"
+            app:destination="@id/verificacionSiplaftFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/verificacionSiplaftFragment"
+        android:name="com.coljuegos.sivo.ui.establecimiento.siplaft.VerificacionSiplaftFragment"
+        android:label="@string/verificacion_siplaft_title"
+        tools:layout="@layout/fragment_verificacion_siplaft">
+
+        <argument
+            android:name="actaUuid"
+            app:argType="java.util.UUID" />
+
+        <action
+            android:id="@+id/action_verificacionSiplaftFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_verificacionSiplaftFragment_to_inventarioFragment"
+            app:destination="@id/inventarioFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/inventarioFragment"
+        android:name="com.coljuegos.sivo.ui.establecimiento.inventario.InventarioReportadoFragment"
+        android:label="@string/inventario_reportado_title"
+        tools:layout="@layout/fragment_inventario_reportado">
+
+        <argument
+            android:name="actaUuid"
+            app:argType="java.util.UUID" />
+
+        <action
+            android:id="@+id/action_inventarioFragment_to_galleryFragment"
             app:destination="@id/galleryFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -78,6 +134,11 @@
         <argument
             android:name="actaUuid"
             app:argType="java.util.UUID" />
+
+        <argument
+            android:name="fragmentOrigen"
+            app:argType="string"
+            android:defaultValue="general" />
 
     </fragment>
 

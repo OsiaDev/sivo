@@ -14,6 +14,7 @@ import com.coljuegos.sivo.R
 import com.coljuegos.sivo.data.entity.ActaEntity
 import com.coljuegos.sivo.databinding.FragmentActaVisitaBinding
 import com.coljuegos.sivo.di.Extenxion.orNA
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -38,10 +39,6 @@ class ActaVisitaFragment : Fragment() {
 
         Log.d("ActaVisitaFragment", "Registrando listener")
 
-        parentFragmentManager.setFragmentResultListener("camera_action", this) { _, _ ->
-            Log.d("ActaVisitaFragment", "Recibido evento de cámara")
-            navigateToGallery()
-        }
     }
 
     override fun onCreateView(
@@ -60,6 +57,21 @@ class ActaVisitaFragment : Fragment() {
         observeViewModel()
         setupExpandableText()
         navigateVerificacion()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Registrar listener cuando el fragment es visible
+        parentFragmentManager.setFragmentResultListener("camera_action", viewLifecycleOwner) { _, _ ->
+            Log.d("ActaVisitaFragment", "Recibido evento de cámara")
+            navigateToGallery()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Limpiar listener cuando el fragment no es visible
+        parentFragmentManager.clearFragmentResultListener("camera_action")
     }
 
     private fun setupExpandableText() {
@@ -83,7 +95,7 @@ class ActaVisitaFragment : Fragment() {
     private fun navigateToGallery() {
         val currentState = viewModel.uiState.value
         currentState.acta?.let { acta ->
-            val action = ActaVisitaFragmentDirections.actionActaVisitaFragmentToGalleryFragment(acta.uuidActa)
+            val action = ActaVisitaFragmentDirections.actionActaVisitaFragmentToGalleryFragment(acta.uuidActa, "acta_visita")
             findNavController().navigate(action)
         }
     }
@@ -113,6 +125,58 @@ class ActaVisitaFragment : Fragment() {
 
         binding.email.doOnTextChanged { text, _, _, _ ->
             viewModel.updateEmailPresente(text?.toString() ?: "")
+        }
+
+        // NUEVO: Listener para agregar correos
+        binding.btnAgregarCorreo.setOnClickListener {
+            agregarCorreo()
+        }
+
+        binding.nuevoCorreoInput.setOnEditorActionListener { _, _, _ ->
+            agregarCorreo()
+            true
+        }
+    }
+
+    private fun agregarCorreo() {
+        val correo = binding.nuevoCorreoInput.text.toString().trim()
+
+        // Limpiar error previo
+        binding.layoutNuevoCorreo.error = null
+
+        when {
+            correo.isEmpty() -> {
+                binding.layoutNuevoCorreo.error = getString(R.string.acta_visita_correo_vacio)
+            }
+            !android.util.Patterns.EMAIL_ADDRESS.matcher(correo).matches() -> {
+                binding.layoutNuevoCorreo.error = getString(R.string.acta_visita_correo_invalido)
+            }
+            viewModel.uiState.value.correosContacto.contains(correo) -> {
+                binding.layoutNuevoCorreo.error = getString(R.string.acta_visita_correo_duplicado)
+            }
+            else -> {
+                viewModel.addCorreoContacto(correo)
+                binding.nuevoCorreoInput.text?.clear()
+                // Ocultar el teclado
+                val imm = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+                imm.hideSoftInputFromWindow(binding.nuevoCorreoInput.windowToken, 0)
+            }
+        }
+    }
+
+    // NUEVO MÉTODO: Actualizar chips
+    private fun updateCorreosChips(correos: List<String>) {
+        binding.chipGroupCorreos.removeAllViews()
+
+        correos.forEach { correo ->
+            val chip = Chip(requireContext()).apply {
+                text = correo
+                isCloseIconVisible = true
+                setOnCloseIconClickListener {
+                    viewModel.removeCorreoContacto(correo)
+                }
+            }
+            binding.chipGroupCorreos.addView(chip)
         }
     }
 
@@ -146,6 +210,9 @@ class ActaVisitaFragment : Fragment() {
         uiState.selectedMunicipio?.let { municipio ->
             binding.municipioExpedicion.setText(municipio.displayName, false)
         }
+
+        // NUEVO: Actualizar chips de correos
+        updateCorreosChips(uiState.correosContacto)
 
         // Restaurar datos del formulario guardados
         restoreFormData(uiState)

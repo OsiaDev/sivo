@@ -10,11 +10,12 @@ data class ActaVisitaUiState(
     val acta: ActaEntity? = null,
     val funcionarios: List<FuncionarioEntity> = emptyList(),
     val inventarios: List<InventarioEntity> = emptyList(),
-    val errorMessage: String? = null,
-    val municipios: List<MunicipioDisplayItem> = emptyList(),
-    val selectedMunicipio: MunicipioDisplayItem? = null,
     val nombrePresente: String = "",
     val cedulaPresente: String = "",
     val cargoPresente: String = "",
-    val emailPresente: String = ""
+    val emailPresente: String = "",
+    val correosContacto: List<String> = emptyList(),  // NUEVO CAMPO - Lista en memoria
+    val selectedMunicipio: MunicipioDisplayItem? = null,
+    val municipios: List<MunicipioDisplayItem> = emptyList(),
+    val errorMessage: String? = null
 )

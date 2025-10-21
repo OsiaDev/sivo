@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import com.coljuegos.sivo.R
 import com.coljuegos.sivo.data.entity.ImagenEntity
 import com.coljuegos.sivo.databinding.FragmentGaleriaBinding
 import com.coljuegos.sivo.ui.base.BaseCameraFragment
@@ -78,6 +79,15 @@ class GaleriaFragment : BaseCameraFragment() {
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = galeriaAdapter
         }
+
+        // Actualizar título según fragment origen
+        binding.textViewFragmentOrigen.text = when(args.fragmentOrigen) {
+            "acta_visita" -> getString(R.string.galeria_fragment_acta_visita)
+            "verificacion_contractual" -> getString(R.string.galeria_fragment_verificacion)
+            "verificacion_siplaft" -> getString(R.string.galeria_fragment_siplaft)
+            "inventario_reportado" -> getString(R.string.galeria_fragment_inventario)
+            else -> getString(R.string.galeria_titulo)
+        }
     }
 
     private fun setupFab() {
@@ -124,7 +134,7 @@ class GaleriaFragment : BaseCameraFragment() {
     }
 
     private fun loadImagenes() {
-        imagenViewModel.loadImagenesByActa(args.actaUuid)
+        imagenViewModel.loadImagenesByActaAndFragment(args.actaUuid, args.fragmentOrigen)
     }
 
     private fun showImageFullScreen(imagen: ImagenEntity) {
@@ -158,7 +168,7 @@ class GaleriaFragment : BaseCameraFragment() {
             }
 
             // Guardar referencia en base de datos
-            imagenViewModel.saveImagen(args.actaUuid, internalFile.absolutePath, fileName)
+            imagenViewModel.saveImagen(args.actaUuid, args.fragmentOrigen, internalFile.absolutePath, fileName)
 
             Snackbar.make(binding.root, "Imagen guardada exitosamente", Snackbar.LENGTH_SHORT).show()
 

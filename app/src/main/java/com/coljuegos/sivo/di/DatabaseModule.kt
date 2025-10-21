@@ -11,6 +11,7 @@ import com.coljuegos.sivo.data.dao.InventarioDao
 import com.coljuegos.sivo.data.dao.MunicipioDao
 import com.coljuegos.sivo.data.dao.SessionDao
 import com.coljuegos.sivo.data.dao.VerificacionContractualDao
+import com.coljuegos.sivo.data.dao.VerificacionSiplaftDao
 import com.coljuegos.sivo.data.database.SivoDatabase
 import dagger.Module
 import dagger.Provides
@@ -58,5 +59,8 @@ object DatabaseModule {
 
     @Provides
     fun provideVerificacionContractualDao(database: SivoDatabase): VerificacionContractualDao = database.verificacionContractualDao()
+
+    @Provides
+    fun provideVerificacionSiplaftDao(database: SivoDatabase): VerificacionSiplaftDao = database.verificacionSiplaftDao()
 
 }

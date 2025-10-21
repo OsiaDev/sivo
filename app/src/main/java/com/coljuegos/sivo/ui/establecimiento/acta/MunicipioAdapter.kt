@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Filter
 import android.widget.TextView
+import com.coljuegos.sivo.R
 import com.coljuegos.sivo.data.entity.MunicipioDisplayItem
 
 class MunicipioAdapter(
     context: Context,
     private var allMunicipios: List<MunicipioDisplayItem>
-) : ArrayAdapter<MunicipioDisplayItem>(context, android.R.layout.simple_dropdown_item_1line, allMunicipios) {
+) : ArrayAdapter<MunicipioDisplayItem>(context, R.layout.item_dropdown_municipio, allMunicipios) {
 
     private var filteredMunicipios = allMunicipios
 
@@ -23,8 +24,8 @@ class MunicipioAdapter(
     override fun getItem(position: Int): MunicipioDisplayItem = filteredMunicipios[position]
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: inflater.inflate(android.R.layout.simple_dropdown_item_1line, parent, false)
-        val textView = view.findViewById<TextView>(android.R.id.text1)
+        val view = convertView ?: inflater.inflate(R.layout.item_dropdown_municipio, parent, false)
+        val textView = view.findViewById<TextView>(R.id.dropdown_item_text)
 
         val municipio = getItem(position)
         textView.text = municipio.displayName

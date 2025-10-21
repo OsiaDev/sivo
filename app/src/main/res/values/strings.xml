@@ -64,10 +64,17 @@
     <string name="acta_visita_email_representante_title">E-Mail de la persona que atiende</string>
     <string name="acta_visita_email_representante">E-Mail</string>
     <string name="acta_visita_siguiente">Siguiente</string>
+    <!-- NUEVOS STRINGS PARA CORREOS DE CONTACTO -->
+    <string name="acta_visita_correos_contacto_title">Correos de contacto</string>
+    <string name="acta_visita_correos_contacto_hint">Ingrese un correo electrónico</string>
+    <string name="acta_visita_agregar_correo">Agregar</string>
+    <string name="acta_visita_correo_vacio">Debe ingresar un correo electrónico</string>
+    <string name="acta_visita_correo_invalido">Correo electrónico inválido</string>
+    <string name="acta_visita_correo_duplicado">Este correo ya fue agregado</string>
 
     <!-- VERIFICACIÓN CONTRACTUAL FRAGMENT -->
     <string name="verificacion_contractual_title">Verificación Contractual</string>
-    <string name="verificacion_contractual_subtitle">1. Verificación contractuales</string>
+    <string name="verificacion_contractual_subtitle">1. Verificación contractual</string>
     <string name="verificacion_contractual_pregunta1">1. El aviso de autorización para establecimientos de juegos localizados está de acuerdo a lo estipulado en la resolución 20171200022554 de 2017.</string>
     <string name="verificacion_contractual_pregunta2">2. ¿La dirección corresponde a lo registrado por el operador en Coljuegos?</string>
     <string name="verificacion_contractual_pregunta3">3. ¿El nombre del establecimiento corresponde al registro por el operador en Coljuegos?</string>
@@ -93,6 +100,53 @@
     <string name="galeria_subtitulo">Captura y administra las imágenes del acta</string>
     <string name="galeria_no_imagenes">No hay imágenes capturadas</string>
     <string name="galeria_tomar_foto">Toma una foto para comenzar</string>
+    <string name="galeria_fragment_acta_visita">Acta de Visita</string>
+    <string name="galeria_fragment_verificacion">Verificación Contractual</string>
+    <string name="galeria_fragment_siplaft">Verificación SIPLAFT</string>
+    <string name="galeria_fragment_inventario">Inventario Reportado</string>
+
+    <!-- Verificación SIPLAFT -->
+    <string name="verificacion_siplaft_title">Verificación SIPLAFT</string>
+    <string name="verificacion_siplaft_subtitle">2. Verificación SIPLAFT</string>
+    <string name="verificacion_siplaft_subtitle2">(Implementación del sistema de prevención y control de lavado de activos y de la financiación al terrorismo)</string>
+    <string name="siplaft_pregunta1">¿Cuenta con el formato de identificación de clientes para premios y/o transacciones?</string>
+    <string name="siplaft_pregunta2">¿Cuenta con el formato de reporte interno de eventos inusuales?</string>
+    <string name="siplaft_pregunta3">¿Conoce lo dispuesto en el código de conducta?</string>
+    <string name="siplaft_monto_hint">Especifique el monto</string>
+    <string name="siplaft_senales_hint">Especifique las señales de alerta</string>
+    <string name="seleccione_opcion">Seleccione una opción</string>
+    <string name="verificacion_siplaft_anterior">Anterior</string>
+    <string name="verificacion_siplaft_siguiente">Siguiente</string>
+
+    <!-- Inventario -->
+    <string name="inventario_reportado_title">Inventario reportado</string>
+    <string name="inventario_reportado_subtitle">3. Inventario reportado ante coljuegos</string>
+    <string name="inventario_total">Total registros: %1$d</string>
+    <string name="inventario_serial">Serial:</string>
+    <string name="inventario_nuc">NUC:</string>
+    <string name="inventario_marca">Marca:</string>
+    <string name="inventario_online">Online:</string>
+    <string name="inventario_codigo_apuesta">Código apuesta:</string>
+    <string name="inventario_seleccionar">Seleccionar</string>
+    <string name="inventario_vacio">No hay inventario registrado</string>
+    <string name="expandir">Expandir</string>
+    <string name="inventario_reportado_anterior">Anterior</string>
+    <string name="inventario_reportado_siguiente">Siguiente</string>
+
+    <string name="zero">$0</string>
+
+    <string-array name="si_no_na_options">
+        <item>Si</item>
+        <item>No</item>
+        <item>NA</item>
+    </string-array>
+
+    <string-array name="actividades_options">
+        <item>Bar</item>
+        <item>Billares</item>
+        <item>Tienda</item>
+        <item>Otros</item>
+    </string-array>
 
 
 </resources>

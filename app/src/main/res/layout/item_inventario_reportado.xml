@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="4dp"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Header colapsable -->
+        <TextView
+            android:id="@+id/nombreMarcaText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/expandIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="IGT - 123456789" />
+
+        <ImageView
+            android:id="@+id/expandIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/expandir"
+            android:src="@drawable/ic_expand_more"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/acta_text_subtitle" />
+
+        <!-- Contenido expandible -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/expandableContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nombreMarcaText"
+            tools:visibility="visible">
+
+            <!-- Serial -->
+            <TextView
+                android:id="@+id/serialLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/inventario_serial"
+                android:textColor="@color/text_title_detail"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@id/serialValue"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.4" />
+
+            <TextView
+                android:id="@+id/serialValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_detail"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/serialLabel"
+                app:layout_constraintTop_toTopOf="@id/serialLabel"
+                tools:text="123456789" />
+
+            <!-- NUC -->
+            <TextView
+                android:id="@+id/nucLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inventario_nuc"
+                android:textColor="@color/text_title_detail"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@id/nucValue"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/serialLabel"
+                app:layout_constraintWidth_percent="0.4" />
+
+            <TextView
+                android:id="@+id/nucValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_detail"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/nucLabel"
+                app:layout_constraintTop_toTopOf="@id/nucLabel"
+                tools:text="NUC123" />
+
+            <!-- Marca -->
+            <TextView
+                android:id="@+id/marcaLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inventario_marca"
+                android:textColor="@color/text_title_detail"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@id/marcaValue"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nucLabel"
+                app:layout_constraintWidth_percent="0.4" />
+
+            <TextView
+                android:id="@+id/marcaValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_detail"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/marcaLabel"
+                app:layout_constraintTop_toTopOf="@id/marcaLabel"
+                tools:text="IGT" />
+
+            <!-- Online -->
+            <TextView
+                android:id="@+id/onlineLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inventario_online"
+                android:textColor="@color/text_title_detail"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@id/onlineValue"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/marcaLabel"
+                app:layout_constraintWidth_percent="0.4" />
+
+            <TextView
+                android:id="@+id/onlineValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_detail"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/onlineLabel"
+                app:layout_constraintTop_toTopOf="@id/onlineLabel"
+                tools:text="Sí" />
+
+            <!-- Código apuesta -->
+            <TextView
+                android:id="@+id/codigoApuestaLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/inventario_codigo_apuesta"
+                android:textColor="@color/text_title_detail"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@id/codigoApuestaValue"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/onlineLabel"
+                app:layout_constraintWidth_percent="0.4" />
+
+            <TextView
+                android:id="@+id/codigoApuestaValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_detail"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/codigoApuestaLabel"
+                app:layout_constraintTop_toTopOf="@id/codigoApuestaLabel"
+                tools:text="001" />
+
+            <!-- Botón Seleccionar -->
+            <Button
+                android:id="@+id/btnSeleccionar"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/inventario_seleccionar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/codigoApuestaLabel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

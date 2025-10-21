@@ -31,7 +31,11 @@ class VerificacionContractualViewModel @Inject constructor(
     private fun loadVerificacionContractual() {
         viewModelScope.launch {
             try {
-                _uiState.value = _uiState.value.copy(isLoading = true, errorMessage = null)
+                _uiState.value = _uiState.value.copy(
+                    isLoading = true,
+                    errorMessage = null,
+                    actaUuid = actaUuid  // AGREGAR ESTA LÍNEA
+                )
 
                 val verificacion = verificacionContractualDao.getVerificacionContractualByActaId(actaUuid)
 

@@ -27,18 +27,6 @@
         <item name="boxStrokeWidth">1dp</item>
     </style>
 
-    <style name="Input.Coljuegos.TextInputLayout.Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:textColorHint">@color/input_text_hint</item>
-        <item name="boxBackgroundColor">@color/input_background</item>
-        <item name="boxStrokeColor">@color/text_input_stroke_color</item>
-        <item name="boxBackgroundMode">outline</item>
-        <item name="boxCornerRadiusBottomEnd">@dimen/input_border</item>
-        <item name="boxCornerRadiusBottomStart">@dimen/input_border</item>
-        <item name="boxCornerRadiusTopEnd">@dimen/input_border</item>
-        <item name="boxCornerRadiusTopStart">@dimen/input_border</item>
-        <item name="boxStrokeWidth">1dp</item>
-    </style>
-
     <!-- Títulos principales -->
     <style name="TextAppearance.Coljuegos.Title" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="android:textSize">56sp</item>
@@ -152,5 +140,21 @@
         <item name="pressedTranslationZ">12dp</item>
         <item name="rippleColor">@color/login_icon_color</item>
     </style>
+
+    <style name="Widget.Coljuegos.MaterialAutoCompleteTextView" parent="Widget.Material3.AutoCompleteTextView.OutlinedBox">
+        <item name="android:layout_height">56dp</item>
+        <item name="android:textColor">@color/input_text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingStart">@dimen/input_horizontal_padding</item>
+        <item name="android:paddingEnd">@dimen/input_horizontal_padding</item>
+        <item name="android:paddingTop">@dimen/input_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/input_vertical_padding</item>
+
+        <!-- popup -->
+        <item name="android:popupBackground">@drawable/dropdown_background</item>
+        <item name="android:popupElevation">@dimen/dropdown_elevation</item>
+        <item name="android:dropDownWidth">match_parent</item>
+    </style>
+
 
 </resources>

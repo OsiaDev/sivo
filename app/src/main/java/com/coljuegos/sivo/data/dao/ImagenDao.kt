@@ -24,6 +24,12 @@ interface ImagenDao {
     @Query("SELECT * FROM imagenes WHERE uuidActa = :uuidActa ORDER BY fechaCaptura DESC")
     fun getImagenesByActaFlow(uuidActa: UUID): Flow<List<ImagenEntity>>
 
+    @Query("SELECT * FROM imagenes WHERE uuidActa = :uuidActa AND fragmentOrigen = :fragmentOrigen ORDER BY fechaCaptura DESC")
+    suspend fun getImagenesByActaAndFragment(uuidActa: UUID, fragmentOrigen: String): List<ImagenEntity>
+
+    @Query("SELECT * FROM imagenes WHERE uuidActa = :uuidActa AND fragmentOrigen = :fragmentOrigen ORDER BY fechaCaptura DESC")
+    fun getImagenesByActaAndFragmentFlow(uuidActa: UUID, fragmentOrigen: String): Flow<List<ImagenEntity>>
+
     @Query("SELECT * FROM imagenes WHERE uuidImagen = :uuidImagen")
     suspend fun getImagenById(uuidImagen: UUID): ImagenEntity?
 

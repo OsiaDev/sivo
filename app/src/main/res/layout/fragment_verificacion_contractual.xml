@@ -52,8 +52,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pregunta1Title">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/pregunta1Spinner"
+                style="@style/Widget.Coljuegos.MaterialAutoCompleteTextView"
+                android:dropDownWidth="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:completionThreshold="1"
@@ -89,8 +91,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pregunta2Title">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/pregunta2Spinner"
+                style="@style/Widget.Coljuegos.MaterialAutoCompleteTextView"
+                android:dropDownWidth="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:completionThreshold="1"
@@ -126,8 +130,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pregunta3Title">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/pregunta3Spinner"
+                style="@style/Widget.Coljuegos.MaterialAutoCompleteTextView"
+                android:dropDownWidth="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:completionThreshold="1"
@@ -163,8 +169,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pregunta4Title">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/pregunta4Spinner"
+                style="@style/Widget.Coljuegos.MaterialAutoCompleteTextView"
+                android:dropDownWidth="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:completionThreshold="1"
@@ -204,8 +212,10 @@
                 android:hint="@string/verificacion_contractual_seleccionar_tipo"
                 app:endIconMode="dropdown_menu">
 
-                <AutoCompleteTextView
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/tipoActividadSpinner"
+                    style="@style/Widget.Coljuegos.MaterialAutoCompleteTextView"
+                    android:dropDownWidth="wrap_content"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:completionThreshold="1"
@@ -265,8 +275,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pregunta5Title">
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/pregunta5Spinner"
+                style="@style/Widget.Coljuegos.MaterialAutoCompleteTextView"
+                android:dropDownWidth="wrap_content"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:completionThreshold="1"

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import com.coljuegos.sivo.R
 import com.coljuegos.sivo.databinding.FragmentVerificacionContractualBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,8 +23,6 @@ class VerificacionContractualFragment : Fragment() {
     private var _binding: FragmentVerificacionContractualBinding? = null
 
     private val binding get() = _binding!!
-
-    private val args: VerificacionContractualFragmentArgs by navArgs()
 
     private val viewModel: VerificacionContractualViewModel by viewModels()
 
@@ -38,10 +36,6 @@ class VerificacionContractualFragment : Fragment() {
 
         Log.d("ActaVisitaFragment", "Registrando listener")
 
-        parentFragmentManager.setFragmentResultListener("camera_action", this) { _, _ ->
-            Log.d("ActaVisitaFragment", "Recibido evento de cámara")
-            navigateToGallery()
-        }
     }
 
     override fun onCreateView(
@@ -62,19 +56,36 @@ class VerificacionContractualFragment : Fragment() {
         observeViewModel()
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Registrar listener cuando el fragment es visible
+        parentFragmentManager.setFragmentResultListener("camera_action", viewLifecycleOwner) { _, _ ->
+            Log.d("ActaVisitaFragment", "Recibido evento de cámara")
+            navigateToGallery()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Limpiar listener cuando el fragment no es visible
+        parentFragmentManager.clearFragmentResultListener("camera_action")
+    }
+
     private fun setupAdapters() {
         // Adapter para opciones Si/No/N/A
+        val opcionesSiNoNa = resources.getStringArray(R.array.si_no_na_options)
         adapterSiNoNa = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            listOf("Si", "No", "N/A")
+            R.layout.item_dropdown,
+            opcionesSiNoNa
         )
 
         // Adapter para tipos de actividad
+        val opcionesActividades = resources.getStringArray(R.array.actividades_options)
         adapterTipoActividad = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_dropdown_item_1line,
-            listOf("Bar", "Billares", "Tienda", "Otros")
+            R.layout.item_dropdown,
+            opcionesActividades
         )
 
         // Asignar adapters a los spinners
@@ -89,7 +100,7 @@ class VerificacionContractualFragment : Fragment() {
     private fun navigateToGallery() {
         val currentState = viewModel.uiState.value
         currentState.actaUuid?.let { acta ->
-            val action = VerificacionContractualFragmentDirections.actionVerificacionContractualFragmentToVerificacionCumplimientoFragment(acta)
+            val action = VerificacionContractualFragmentDirections.actionVerificacionContractualFragmentToGalleryFragment(acta, "verificacion_contractual")
             findNavController().navigate(action)
         }
     }
@@ -133,8 +144,12 @@ class VerificacionContractualFragment : Fragment() {
 
         binding.btnSiguiente.setOnClickListener {
             // Navegaría al siguiente fragment (Verificación cumplimiento siplaft)
-            // TODO: Implementar cuando se cree el siguiente fragment
-            showSnackbar("Funcionalidad próximamente disponible")
+            val currentState = viewModel.uiState.value
+            currentState.actaUuid?.let { acta ->
+                val action = VerificacionContractualFragmentDirections
+                    .actionVerificacionContractualFragmentToVerificacionSiplaftFragment(acta)
+                findNavController().navigate(action)
+            }
         }
     }
 
