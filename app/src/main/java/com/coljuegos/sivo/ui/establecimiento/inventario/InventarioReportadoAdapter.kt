@@ -37,29 +37,7 @@ class InventarioReportadoAdapter(
             with(binding) {
                 // Nombre y Serial
                 val nombreCompleto = "${inventario.nombreMarcaInventario} - ${inventario.metSerialInventario}"
-                nombreMarcaText.text = nombreCompleto
 
-                // Valores
-                serialValue.text = inventario.metSerialInventario
-                nucValue.text = inventario.nucInventario
-                marcaValue.text = inventario.nombreMarcaInventario
-                onlineValue.text = if (inventario.metOnlineInventario) "Sí" else "No"
-                codigoApuestaValue.text = inventario.codigoTipoApuestaInventario
-
-                // Expandir/Colapsar
-                val isExpanded = isItemExpanded(inventario.uuidInventario)
-                expandableContent.isVisible = isExpanded
-                expandIcon.rotation = if (isExpanded) 180f else 0f
-
-                // Click en el card para expandir/colapsar
-                cardView.setOnClickListener {
-                    onExpandClick(inventario.uuidInventario)
-                }
-
-                // Click en el botón Seleccionar
-                btnSeleccionar.setOnClickListener {
-                    onItemClick(inventario)
-                }
             }
         }
     }
