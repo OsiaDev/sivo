@@ -20,48 +20,7 @@ class InventarioActaViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(InventarioActaUiState())
     val uiState: StateFlow<InventarioActaUiState> = _uiState.asStateFlow()
 
-    fun loadInventario(actaUuid: UUID) {
-        viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true) }
 
-            try {
-                inventarioDao.getInventarioByActa(actaUuid).collect { inventarios ->
-                    _uiState.update {
-                        it.copy(
-                            inventarios = inventarios,
-                            filteredInventarios = inventarios,
-                            isLoading = false
-                        )
-                    }
-                }
-            } catch (e: Exception) {
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        errorMessage = "Error al cargar inventario: ${e.message}"
-                    )
-                }
-            }
-        }
-    }
-
-    fun filterInventario(query: String) {
-        _uiState.update { currentState ->
-            val filtered = if (query.isBlank()) {
-                currentState.inventarios
-            } else {
-                currentState.inventarios.filter { inventario ->
-                    inventario.metSerialInventario.contains(query, ignoreCase = true) ||
-                            inventario.marcaInventario.contains(query, ignoreCase = true)
-                }
-            }
-
-            currentState.copy(
-                searchQuery = query,
-                filteredInventarios = filtered
-            )
-        }
-    }
 
     fun clearError() {
         _uiState.update { it.copy(errorMessage = null) }

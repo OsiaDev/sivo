@@ -130,8 +130,21 @@
     <string name="inventario_seleccionar">Seleccionar</string>
     <string name="inventario_vacio">No hay inventario registrado</string>
     <string name="expandir">Expandir</string>
+    <string name="inventario_reportado_agregar">Agregar</string>
     <string name="inventario_reportado_anterior">Anterior</string>
     <string name="inventario_reportado_siguiente">Siguiente</string>
+
+    <!-- INVENTARIO ACTA -->
+    <string name="inventario_acta_total">Total registros: %1$d</string>
+    <string name="inventario_acta_busqueda">Buscar marca o serial</string>
+    <string name="inventario_acta_marca">Marca: %1$s</string>
+    <string name="inventario_acta_nuc">Nuc: %1$s</string>
+    <string name="inventario_acta_serial">Serial: %1$s</string>
+    <string name="inventario_acta_codigo">Código: %1$i</string>
+    <string name="inventario_acta_online">Online: %1$s</string>
+    <string name="inventario_acta_codigo_apuesta">Código apuesta: %1$s</string>
+    <string name="inventario_acta_si">Sí</string>
+    <string name="inventario_acta_no">No</string>
 
     <string name="zero">$0</string>
 
