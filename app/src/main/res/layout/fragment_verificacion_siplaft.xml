@@ -13,30 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Título de la sección -->
         <TextView
-            android:id="@+id/titleText"
-            android:layout_width="match_parent"
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/verificacion_siplaft_title"
+            android:gravity="center_horizontal"
+            android:paddingTop="2dp"
+            android:text="@string/verificacion_siplaft_subtitle"
             android:textColor="@color/fragment_subtitle_color"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/subtitleText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/verificacion_siplaft_subtitle"
-            android:textColor="@color/text_title_detail"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleText" />
 
         <!-- Pregunta 1 -->
         <TextView
@@ -49,7 +38,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/subtitleText" />
+            app:layout_constraintTop_toBottomOf="@id/subtitle" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/pregunta1Layout"
@@ -86,6 +75,7 @@
             android:layout_marginTop="16dp"
             android:hint="@string/siplaft_monto_hint"
             android:visibility="gone"
+            app:prefixText="$"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pregunta1Layout"
@@ -100,7 +90,6 @@
                 android:padding="15dp"
                 android:textColor="@color/input_text_color"
                 android:textSize="16sp"
-                android:hint="@string/zero"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>

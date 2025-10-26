@@ -37,7 +37,6 @@
             android:hint="@string/inventario_acta_busqueda"
             app:endIconMode="clear_text"
             app:startIconDrawable="@android:drawable/ic_menu_search"
-            app:startIconContentDescription="@string/inventario_acta_busqueda"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/countValue">

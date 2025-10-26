@@ -13,30 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Título y total -->
         <TextView
-            android:id="@+id/titleText"
-            android:layout_width="match_parent"
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/inventario_reportado_title"
+            android:gravity="center_horizontal"
+            android:paddingTop="2dp"
+            android:text="@string/inventario_reportado_subtitle"
             android:textColor="@color/fragment_subtitle_color"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/subtitleText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/inventario_reportado_subtitle"
-            android:textColor="@color/text_title_detail"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleText" />
 
         <!-- Botón Agregar -->
         <com.google.android.material.button.MaterialButton
@@ -50,7 +39,36 @@
             app:backgroundTint="@color/login_button_color_init"
             app:cornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/subtitleText" />
+            app:layout_constraintTop_toBottomOf="@id/subtitle" />
+
+        <!-- Título de inventarios registrados -->
+        <TextView
+            android:id="@+id/tvInventariosRegistrados"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/inventario_registrado_titulo"
+            android:textColor="@color/fragment_subtitle_color"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnAgregar" />
+
+
+        <!-- RecyclerView de inventarios registrados -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerInventariosRegistrados"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvInventariosRegistrados"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_inventario_reportado" />
 
         <!-- Botones de navegación -->
         <LinearLayout
@@ -62,7 +80,7 @@
             android:weightSum="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnAgregar">
+            app:layout_constraintTop_toBottomOf="@id/recyclerInventariosRegistrados">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAnterior"
