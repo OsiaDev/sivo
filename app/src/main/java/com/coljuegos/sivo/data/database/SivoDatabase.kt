@@ -9,6 +9,7 @@ import com.coljuegos.sivo.data.dao.DepartamentoDao
 import com.coljuegos.sivo.data.dao.FuncionarioDao
 import com.coljuegos.sivo.data.dao.ImagenDao
 import com.coljuegos.sivo.data.dao.InventarioDao
+import com.coljuegos.sivo.data.dao.InventarioRegistradoDao
 import com.coljuegos.sivo.data.dao.MunicipioDao
 import com.coljuegos.sivo.data.dao.SessionDao
 import com.coljuegos.sivo.data.dao.VerificacionContractualDao
@@ -19,6 +20,7 @@ import com.coljuegos.sivo.data.entity.DepartamentoEntity
 import com.coljuegos.sivo.data.entity.FuncionarioEntity
 import com.coljuegos.sivo.data.entity.ImagenEntity
 import com.coljuegos.sivo.data.entity.InventarioEntity
+import com.coljuegos.sivo.data.entity.InventarioRegistradoEntity
 import com.coljuegos.sivo.data.entity.MunicipioEntity
 import com.coljuegos.sivo.data.entity.SessionEntity
 import com.coljuegos.sivo.data.entity.VerificacionContractualEntity
@@ -37,11 +39,12 @@ import com.coljuegos.sivo.utils.LocalDateTimeConverter
         ActaEntity::class,
         FuncionarioEntity::class,
         InventarioEntity::class,
+        InventarioRegistradoEntity::class,
         ImagenEntity::class,
         ActaVisitaEntity::class,
         VerificacionContractualEntity::class,
         VerificacionSiplaftEntity::class,
-    ], version = 5, exportSchema = false
+    ], version = 6, exportSchema = false
 )
 @TypeConverters(
     BigDecimalConverter::class,
@@ -63,6 +66,8 @@ abstract class SivoDatabase : RoomDatabase() {
     abstract fun funcionarioDao(): FuncionarioDao
 
     abstract fun inventarioDao(): InventarioDao
+
+    abstract fun inventarioRegistradoDao(): InventarioRegistradoDao  // AGREGADO
 
     abstract fun imagenDao(): ImagenDao
 

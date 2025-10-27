@@ -139,6 +139,7 @@
     <string name="inventario_registrado_vacio">No hay inventarios registrados</string>
 
     <!-- INVENTARIO ACTA -->
+    <string name="inventario_acta_title">Inventario</string>
     <string name="inventario_acta_total">Total registros: %1$d</string>
     <string name="inventario_acta_busqueda">Buscar marca o serial</string>
     <string name="inventario_acta_marca">Marca: %1$s</string>
