@@ -9,7 +9,9 @@ import com.coljuegos.sivo.R
 import com.coljuegos.sivo.data.entity.InventarioEntity
 import com.coljuegos.sivo.databinding.ItemInventarioActaBinding
 
-class InventarioActaAdapter : ListAdapter<InventarioEntity, InventarioActaAdapter.InventarioViewHolder>(InventarioDiffCallback()) {
+class InventarioActaAdapter(
+    private val onItemClick: (InventarioEntity) -> Unit
+) : ListAdapter<InventarioEntity, InventarioActaAdapter.InventarioViewHolder>(InventarioDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InventarioViewHolder {
         val binding = ItemInventarioActaBinding.inflate(
@@ -31,6 +33,7 @@ class InventarioActaAdapter : ListAdapter<InventarioEntity, InventarioActaAdapte
         fun bind(inventario: InventarioEntity) {
             with(binding) {
                 val context = binding.root.context
+
                 // Marca
                 marcaValue.text = context.getString(R.string.inventario_acta_marca, inventario.nombreMarcaInventario)
 
@@ -43,10 +46,17 @@ class InventarioActaAdapter : ListAdapter<InventarioEntity, InventarioActaAdapte
                 // NUC
                 nucValue.text = context.getString(R.string.inventario_acta_nuc, inventario.nucInventario)
 
+                // Código apuesta
                 codigoApuestaValue.text = context.getString(R.string.inventario_acta_codigo_apuesta, inventario.codigoTipoApuestaInventario)
 
+                // Online
                 val online = context.getString(if (inventario.metOnlineInventario) R.string.inventario_acta_si else R.string.inventario_acta_no)
                 onlineValue.text = context.getString(R.string.inventario_acta_online, online)
+
+                // Click en la card
+                root.setOnClickListener {
+                    onItemClick(inventario)
+                }
             }
         }
     }

@@ -1,23 +1,31 @@
 package com.coljuegos.sivo.ui.establecimiento.inventario
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.coljuegos.sivo.R
 import com.coljuegos.sivo.databinding.FragmentInventarioActaBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class InventarioActaFragment : Fragment() {
 
     private var _binding: FragmentInventarioActaBinding? = null
+
     private val binding get() = _binding!!
 
     private val args: InventarioActaFragmentArgs by navArgs()
+
     private val viewModel: InventarioActaViewModel by viewModels()
 
     private lateinit var inventarioAdapter: InventarioActaAdapter
@@ -38,12 +46,23 @@ class InventarioActaFragment : Fragment() {
         setupButtons()
         observeViewModel()
 
-        // Cargar inventario del acta
-        viewModel.loadInventario(args.actaUuid)
+        // Cargar inventario del acta (solo no registrados)
+        viewModel.loadInventariosNoRegistrados(args.actaUuid)
     }
 
     private fun setupRecyclerView() {
-        inventarioAdapter = InventarioActaAdapter()
+        inventarioAdapter = InventarioActaAdapter(
+            onItemClick = { inventario ->
+                // Navegar a RegistrarInventarioFragment
+                val action = InventarioActaFragmentDirections
+                    .actionInventarioActaFragmentToRegistrarInventarioFragment(
+                        actaUuid = args.actaUuid,
+                        inventarioUuid = inventario.uuidInventario,
+                        inventarioRegistradoUuid = null
+                    )
+                findNavController().navigate(action)
+            }
+        )
         binding.inventarioRecyclerView.adapter = inventarioAdapter
     }
 
@@ -57,11 +76,6 @@ class InventarioActaFragment : Fragment() {
         binding.btnCerrar.setOnClickListener {
             findNavController().navigateUp()
         }
-
-        binding.btnGuardar.setOnClickListener {
-            // TODO: Implementar lógica de guardado
-            showSnackbar("Funcionalidad de guardado próximamente")
-        }
     }
 
     private fun observeViewModel() {
@@ -73,12 +87,27 @@ class InventarioActaFragment : Fragment() {
     }
 
     private fun updateUI(uiState: InventarioActaUiState) {
-        binding.progressIndicator.visibility = if (uiState.isLoading) View.VISIBLE else View.GONE
-        binding.inventarioRecyclerView.visibility = if (uiState.inventarios.isNotEmpty()) View.VISIBLE else View.GONE
-        binding.emptyStateLayout.visibility = if (uiState.inventarios.isEmpty() && !uiState.isLoading) View.VISIBLE else View.GONE
+        // Actualizar contador en el título
+        val tituloConContador = getString(R.string.inventario_acta_total, uiState.totalInventariosNoRegistrados)
+        binding.countValue.text = tituloConContador
 
-        inventarioAdapter.submitList(uiState.inventarios)
+        // Mostrar/ocultar progress bar
+        binding.progressBar.isVisible = uiState.isLoading
 
+        // Actualizar RecyclerView
+        val inventariosAMostrar = if (uiState.searchQuery.isNotEmpty()) {
+            uiState.filteredInventarios
+        } else {
+            uiState.inventariosNoRegistrados
+        }
+
+        inventarioAdapter.submitList(inventariosAMostrar)
+
+        // Mostrar/ocultar estado vacío
+        binding.inventarioRecyclerView.isVisible = inventariosAMostrar.isNotEmpty() && !uiState.isLoading
+        binding.textViewNoLoans.isVisible = inventariosAMostrar.isEmpty() && !uiState.isLoading
+
+        // Mostrar errores
         uiState.errorMessage?.let { errorMessage ->
             showError(errorMessage)
             viewModel.clearError()
@@ -87,10 +116,6 @@ class InventarioActaFragment : Fragment() {
 
     private fun showError(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
-    }
-
-    private fun showSnackbar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

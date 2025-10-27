@@ -14,29 +14,26 @@ import androidx.navigation.fragment.navArgs
 import com.coljuegos.sivo.R
 import com.coljuegos.sivo.data.entity.InventarioEntity
 import com.coljuegos.sivo.databinding.FragmentInventarioReportadoBinding
-import com.coljuegos.sivo.ui.establecimiento.verificacion.VerificacionContractualFragmentDirections
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 @AndroidEntryPoint
 class InventarioReportadoFragment : Fragment() {
 
     private var _binding: FragmentInventarioReportadoBinding? = null
-
     private val binding get() = _binding!!
 
     private val args: InventarioReportadoFragmentArgs by navArgs()
-
     private val viewModel: InventarioReportadoViewModel by viewModels()
 
-    private lateinit var inventarioAdapter: InventarioReportadoAdapter
+    private lateinit var inventarioRegistradoAdapter: InventarioRegistradoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         Log.d("InventarioFragment", "Registrando listener")
-
     }
 
     override fun onCreateView(
@@ -54,42 +51,63 @@ class InventarioReportadoFragment : Fragment() {
         setupRecyclerView()
         setupButtons()
         observeViewModel()
+
+        // Cargar inventarios registrados
+        viewModel.loadInventariosRegistrados(args.actaUuid)
     }
 
     override fun onResume() {
         super.onResume()
-        // Registrar listener cuando el fragment es visible
-        parentFragmentManager.setFragmentResultListener("camera_action", viewLifecycleOwner) { _, _ ->
-            Log.d("ActaVisitaFragment", "Recibido evento de cámara")
-            navigateToGallery()
-        }
+        // Recargar inventarios al volver de registrar
+        viewModel.loadInventariosRegistrados(args.actaUuid)
     }
 
     private fun setupRecyclerView() {
-        inventarioAdapter = InventarioReportadoAdapter(
-            onItemClick = { inventario ->
-                onInventarioSelected(inventario)
+        inventarioRegistradoAdapter = InventarioRegistradoAdapter(
+            onEditClick = { inventarioConRegistro ->
+                // ✅ CORREGIDO: Navegar DIRECTAMENTE a RegistrarInventarioFragment en modo edición
+                inventarioConRegistro.registro?.let { registro ->
+                    val action = InventarioReportadoFragmentDirections
+                        .actionInventarioFragmentToInventarioActaFragment(args.actaUuid)
+                    // Nota: Necesitamos una acción directa a RegistrarInventarioFragment
+                    // Por ahora navegamos a InventarioActa y de ahí el usuario selecciona
+                    // MEJOR SOLUCIÓN: Crear acción directa en navigation.xml
+
+                    // TODO: Cambiar esto cuando agregues la acción directa
+                    showSnackbar("Funcionalidad de edición próximamente")
+                }
             },
-            onExpandClick = { inventarioUuid ->
-                viewModel.toggleItemExpanded(inventarioUuid)
-            },
-            isItemExpanded = { inventarioUuid ->
-                viewModel.uiState.value.expandedItems.contains(inventarioUuid)
+            onDeleteClick = { inventarioConRegistro ->
+                // Mostrar diálogo de confirmación
+                inventarioConRegistro.registro?.let { registro ->
+                    showDeleteConfirmationDialog(registro.uuidInventarioRegistrado)
+                }
             }
         )
 
-        //binding.inventarioRecyclerView.adapter = inventarioAdapter
+        binding.recyclerInventariosRegistrados.adapter = inventarioRegistradoAdapter
     }
 
     private fun setupButtons() {
+        // Botón Agregar - navega a InventarioActaFragment
+        binding.btnAgregar.setOnClickListener {
+            val action = InventarioReportadoFragmentDirections
+                .actionInventarioFragmentToInventarioActaFragment(args.actaUuid)
+            findNavController().navigate(action)
+        }
+
         binding.btnAnterior.setOnClickListener {
             findNavController().navigateUp()
         }
 
         binding.btnSiguiente.setOnClickListener {
-            // Navegar al siguiente fragment
-            // TODO: Implementar navegación cuando se cree el siguiente fragment
-            showSnackbar("Funcionalidad próximamente disponible")
+            // Navegar al siguiente fragment (Galería)
+            val action = InventarioReportadoFragmentDirections
+                .actionInventarioFragmentToGalleryFragment(
+                    actaUuid = args.actaUuid,
+                    fragmentOrigen = "inventario"
+                )
+            findNavController().navigate(action)
         }
     }
 
@@ -101,19 +119,16 @@ class InventarioReportadoFragment : Fragment() {
         }
     }
 
-    private fun updateUI(uiState: InventarioUiState) {
-        // Mostrar/ocultar loading
-        //binding.progressIndicator.isVisible = uiState.isLoading
+    private fun updateUI(uiState: InventarioReportadoUiState) {
+        // Mostrar/ocultar progress bar
+        binding.progressIndicator.isVisible = uiState.isLoading
 
-        // Actualizar total
-        //binding.totalText.text = getString(R.string.inventario_total, uiState.totalInventarios)
+        // Actualizar RecyclerView con inventarios registrados
+        inventarioRegistradoAdapter.submitList(uiState.inventariosRegistrados)
 
-        // Actualizar lista
-        inventarioAdapter.submitList(uiState.inventarios)
-
-        // Mostrar empty state si no hay inventarios
-        //binding.emptyStateLayout.isVisible = uiState.inventarios.isEmpty() && !uiState.isLoading
-        //binding.inventarioRecyclerView.isVisible = uiState.inventarios.isNotEmpty()
+        // Mostrar/ocultar mensaje de vacío
+        binding.tvInventariosRegistrados.isVisible = uiState.inventariosRegistrados.isNotEmpty()
+        binding.recyclerInventariosRegistrados.isVisible = uiState.inventariosRegistrados.isNotEmpty()
 
         // Mostrar errores
         uiState.errorMessage?.let { errorMessage ->
@@ -122,28 +137,20 @@ class InventarioReportadoFragment : Fragment() {
         }
     }
 
-    private fun onInventarioSelected(inventario: InventarioEntity) {
-        // Aquí navegarías a la pantalla de edición/verificación del inventario
-        // Por ahora solo mostramos un mensaje
-        showSnackbar("Seleccionado: ${inventario.metSerialInventario}")
-
-        // TODO: Implementar navegación a InventarioEditFragment cuando se cree
-        // val action = InventarioFragmentDirections
-        //     .actionInventarioFragmentToInventarioEditFragment(
-        //         args.actaUuid,
-        //         inventario.uuidInventario,
-        //         inventario.metSerialInventario,
-        //         inventario.codigoTipoApuestaInventario
-        //     )
-        // findNavController().navigate(action)
+    private fun showDeleteConfirmationDialog(inventarioRegistradoUuid: UUID) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Eliminar inventario")
+            .setMessage("¿Está seguro que desea eliminar este inventario registrado?")
+            .setPositiveButton("Eliminar") { _, _ ->
+                viewModel.deleteInventarioRegistrado(inventarioRegistradoUuid)
+                showSnackbar("Inventario eliminado correctamente")
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 
     private fun showError(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG)
-            .setAction("Reintentar") {
-                viewModel.retry()
-            }
-            .show()
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 
     private fun showSnackbar(message: String) {
@@ -151,11 +158,12 @@ class InventarioReportadoFragment : Fragment() {
     }
 
     private fun navigateToGallery() {
-        val currentState = viewModel.uiState.value
-        currentState.actaUuid?.let { acta ->
-            val action = InventarioReportadoFragmentDirections.actionInventarioFragmentToGalleryFragment(acta, "inventario_reportado")
-            findNavController().navigate(action)
-        }
+        val action = InventarioReportadoFragmentDirections
+            .actionInventarioFragmentToGalleryFragment(
+                actaUuid = args.actaUuid,
+                fragmentOrigen = "inventario"
+            )
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

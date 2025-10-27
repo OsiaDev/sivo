@@ -1,13 +1,14 @@
 package com.coljuegos.sivo.ui.establecimiento.inventario
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coljuegos.sivo.data.dao.InventarioDao
+import com.coljuegos.sivo.data.dao.InventarioRegistradoDao
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.UUID
 import javax.inject.Inject
@@ -15,57 +16,68 @@ import javax.inject.Inject
 @HiltViewModel
 class InventarioReportadoViewModel @Inject constructor(
     private val inventarioDao: InventarioDao,
-    savedStateHandle: SavedStateHandle
+    private val inventarioRegistradoDao: InventarioRegistradoDao
 ) : ViewModel() {
 
-    private val actaUuid: UUID = checkNotNull(savedStateHandle.get<UUID>("actaUuid"))
+    private val _uiState = MutableStateFlow(InventarioReportadoUiState())
+    val uiState: StateFlow<InventarioReportadoUiState> = _uiState.asStateFlow()
 
-    private val _uiState = MutableStateFlow(InventarioUiState())
-    val uiState: StateFlow<InventarioUiState> = _uiState.asStateFlow()
-
-    init {
-        loadInventarios()
-    }
-
-    private fun loadInventarios() {
+    fun loadInventariosRegistrados(actaUuid: UUID) {
         viewModelScope.launch {
             try {
-                _uiState.value = _uiState.value.copy(isLoading = true, errorMessage = null)
+                _uiState.update { it.copy(isLoading = true, errorMessage = null) }
 
-                val inventarios = inventarioDao.getInventariosByActa(actaUuid)
+                // Obtener inventarios registrados con Flow
+                inventarioRegistradoDao.getInventariosRegistradosByActa(actaUuid).collect { registrados ->
+                    // Obtener todos los inventarios del acta
+                    val todosInventarios = inventarioDao.getInventariosByActa(actaUuid)
 
-                _uiState.value = _uiState.value.copy(
-                    isLoading = false,
-                    actaUuid = actaUuid,
-                    inventarios = inventarios,
-                    totalInventarios = inventarios.size,
-                    errorMessage = null
-                )
+                    // Crear lista de InventarioConRegistro
+                    val inventariosConRegistro = todosInventarios.map { inventario ->
+                        val registro = registrados.find { it.uuidInventario == inventario.uuidInventario }
+                        InventarioConRegistro(
+                            inventario = inventario,
+                            registro = registro
+                        )
+                    }
+
+                    // Filtrar solo los que están registrados
+                    val soloRegistrados = inventariosConRegistro.filter { it.registro != null }
+
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            inventariosRegistrados = soloRegistrados,
+                            totalInventariosRegistrados = soloRegistrados.size,
+                            errorMessage = null
+                        )
+                    }
+                }
             } catch (e: Exception) {
-                _uiState.value = _uiState.value.copy(
-                    isLoading = false,
-                    errorMessage = "Error al cargar inventarios: ${e.message}"
-                )
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = "Error al cargar inventarios: ${e.message}"
+                    )
+                }
             }
         }
     }
 
-    fun toggleItemExpanded(inventarioUuid: UUID) {
-        val currentExpanded = _uiState.value.expandedItems
-        val newExpanded = if (currentExpanded.contains(inventarioUuid)) {
-            currentExpanded - inventarioUuid
-        } else {
-            currentExpanded + inventarioUuid
+    fun deleteInventarioRegistrado(inventarioRegistradoUuid: UUID) {
+        viewModelScope.launch {
+            try {
+                inventarioRegistradoDao.deleteById(inventarioRegistradoUuid)
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(errorMessage = "Error al eliminar inventario: ${e.message}")
+                }
+            }
         }
-        _uiState.value = _uiState.value.copy(expandedItems = newExpanded)
     }
 
     fun clearError() {
-        _uiState.value = _uiState.value.copy(errorMessage = null)
-    }
-
-    fun retry() {
-        loadInventarios()
+        _uiState.update { it.copy(errorMessage = null) }
     }
 
 }
