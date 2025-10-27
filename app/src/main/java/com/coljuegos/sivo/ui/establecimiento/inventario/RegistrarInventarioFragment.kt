@@ -64,7 +64,7 @@ class RegistrarInventarioFragment : Fragment() {
 
     private fun setupCheckboxListeners() {
         // Listener para el checkbox de contadores
-        binding.contador.setOnCheckedChangeListener { _, isChecked ->
+        binding.contadoresCheckbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 showContadoresFields()
             } else {

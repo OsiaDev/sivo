@@ -65,16 +65,15 @@ class InventarioReportadoFragment : Fragment() {
     private fun setupRecyclerView() {
         inventarioRegistradoAdapter = InventarioRegistradoAdapter(
             onEditClick = { inventarioConRegistro ->
-                // ✅ CORREGIDO: Navegar DIRECTAMENTE a RegistrarInventarioFragment en modo edición
+                // Navegar directamente a RegistrarInventarioFragment en modo edición
                 inventarioConRegistro.registro?.let { registro ->
                     val action = InventarioReportadoFragmentDirections
-                        .actionInventarioFragmentToInventarioActaFragment(args.actaUuid)
-                    // Nota: Necesitamos una acción directa a RegistrarInventarioFragment
-                    // Por ahora navegamos a InventarioActa y de ahí el usuario selecciona
-                    // MEJOR SOLUCIÓN: Crear acción directa en navigation.xml
-
-                    // TODO: Cambiar esto cuando agregues la acción directa
-                    showSnackbar("Funcionalidad de edición próximamente")
+                        .actionInventarioFragmentToRegistrarInventarioFragment(
+                            actaUuid = args.actaUuid,
+                            inventarioUuid = inventarioConRegistro.inventario.uuidInventario,
+                            inventarioRegistradoUuid = registro.uuidInventarioRegistrado
+                        )
+                    findNavController().navigate(action)
                 }
             },
             onDeleteClick = { inventarioConRegistro ->

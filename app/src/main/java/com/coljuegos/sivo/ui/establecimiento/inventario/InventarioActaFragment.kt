@@ -50,6 +50,12 @@ class InventarioActaFragment : Fragment() {
         viewModel.loadInventariosNoRegistrados(args.actaUuid)
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Recargar inventarios al volver de registrar
+        viewModel.loadInventariosNoRegistrados(args.actaUuid)
+    }
+
     private fun setupRecyclerView() {
         inventarioAdapter = InventarioActaAdapter(
             onItemClick = { inventario ->
