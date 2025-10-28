@@ -64,13 +64,25 @@ class InventarioReportadoViewModel @Inject constructor(
         }
     }
 
-    fun deleteInventarioRegistrado(inventarioRegistradoUuid: UUID) {
+    fun eliminarInventarioRegistrado(uuidInventarioRegistrado: UUID) {
         viewModelScope.launch {
             try {
-                inventarioRegistradoDao.deleteById(inventarioRegistradoUuid)
+                _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+
+                inventarioRegistradoDao.deleteById(uuidInventarioRegistrado)
+
+                _uiState.update {
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = null
+                    )
+                }
             } catch (e: Exception) {
                 _uiState.update {
-                    it.copy(errorMessage = "Error al eliminar inventario: ${e.message}")
+                    it.copy(
+                        isLoading = false,
+                        errorMessage = "Error al eliminar inventario: ${e.message}"
+                    )
                 }
             }
         }

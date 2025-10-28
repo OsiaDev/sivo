@@ -21,11 +21,9 @@ import kotlinx.coroutines.launch
 class InventarioActaFragment : Fragment() {
 
     private var _binding: FragmentInventarioActaBinding? = null
-
     private val binding get() = _binding!!
 
     private val args: InventarioActaFragmentArgs by navArgs()
-
     private val viewModel: InventarioActaViewModel by viewModels()
 
     private lateinit var inventarioAdapter: InventarioActaAdapter

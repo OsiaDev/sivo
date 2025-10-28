@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,11 +19,9 @@ import kotlinx.coroutines.launch
 class RegistrarInventarioFragment : Fragment() {
 
     private var _binding: FragmentRegistrarInventarioBinding? = null
-
     private val binding get() = _binding!!
 
     private val args: RegistrarInventarioFragmentArgs by navArgs()
-
     private val viewModel: RegistrarInventarioViewModel by viewModels()
 
     override fun onCreateView(
@@ -118,64 +115,60 @@ class RegistrarInventarioFragment : Fragment() {
             binding.valorCreditoEditText.setText(registro.valorCredito ?: "")
             binding.contadoresCheckbox.isChecked = registro.contadoresVerificado
 
-            // Contadores MET
-            binding.coinInMetEditText.setText(registro.coinInMet ?: "")
-            binding.coinOutMetEditText.setText(registro.coinOutMet ?: "")
-            binding.jackpotMetEditText.setText(registro.jackpotMet ?: "")
+            // Si los contadores están verificados, cargar los valores
+            if (registro.contadoresVerificado) {
+                showContadoresFields()
+                binding.coinInMetEditText.setText(registro.coinInMet ?: "")
+                binding.coinOutMetEditText.setText(registro.coinOutMet ?: "")
+                binding.jackpotMetEditText.setText(registro.jackpotMet ?: "")
+                binding.coinInSclmEditText.setText(registro.coinInSclm ?: "")
+                binding.coinOutSclmEditText.setText(registro.coinOutSclm ?: "")
+                binding.jackpotSclmEditText.setText(registro.jackpotSclm ?: "")
+            }
 
-            // Contadores SCLM
-            binding.coinInSclmEditText.setText(registro.coinInSclm ?: "")
-            binding.coinOutSclmEditText.setText(registro.coinOutSclm ?: "")
-            binding.jackpotSclmEditText.setText(registro.jackpotSclm ?: "")
-
-            // Observaciones
             binding.observacionesEditText.setText(registro.observaciones ?: "")
         }
 
-        // Mostrar éxito y volver
+        // Si se guardó exitosamente, navegar de vuelta
         if (uiState.guardadoExitoso) {
-            showSnackbar("Inventario registrado correctamente")
+            Snackbar.make(binding.root, "Inventario guardado exitosamente", Snackbar.LENGTH_SHORT).show()
             findNavController().navigateUp()
         }
 
         // Mostrar errores
         uiState.errorMessage?.let { errorMessage ->
-            showError(errorMessage)
-            viewModel.clearError()
+            Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_LONG).show()
         }
     }
 
     private fun guardarInventario() {
+        // Validar que el código de apuesta no esté vacío
+        val codigoApuesta = binding.codigoApuestaEditText.text?.toString()?.trim()
+        if (codigoApuesta.isNullOrEmpty()) {
+            Snackbar.make(binding.root, "Por favor ingrese el código de apuesta", Snackbar.LENGTH_SHORT).show()
+            return
+        }
+
         // Recopilar datos del formulario
-        val codigoApuesta = binding.codigoApuestaEditText.text.toString()
         val codigoApuestaDiferente = binding.codigoApuestaDiferenteCheckbox.isChecked
         val serialVerificado = binding.serialVerificadoCheckbox.isChecked
         val descripcionJuego = binding.descripcionJuegoCheckbox.isChecked
         val planPremios = binding.planPremiosCheckbox.isChecked
         val valorPremios = binding.valorPremiosCheckbox.isChecked
-        val valorCredito = binding.valorCreditoEditText.text.toString()
+        val valorCredito = binding.valorCreditoEditText.text?.toString()?.trim()
         val contadoresVerificado = binding.contadoresCheckbox.isChecked
 
-        // Contadores MET
-        val coinInMet = binding.coinInMetEditText.text.toString()
-        val coinOutMet = binding.coinOutMetEditText.text.toString()
-        val jackpotMet = binding.jackpotMetEditText.text.toString()
+        // Datos de contadores (solo si están verificados)
+        val coinInMet = if (contadoresVerificado) binding.coinInMetEditText.text?.toString()?.trim() else null
+        val coinOutMet = if (contadoresVerificado) binding.coinOutMetEditText.text?.toString()?.trim() else null
+        val jackpotMet = if (contadoresVerificado) binding.jackpotMetEditText.text?.toString()?.trim() else null
+        val coinInSclm = if (contadoresVerificado) binding.coinInSclmEditText.text?.toString()?.trim() else null
+        val coinOutSclm = if (contadoresVerificado) binding.coinOutSclmEditText.text?.toString()?.trim() else null
+        val jackpotSclm = if (contadoresVerificado) binding.jackpotSclmEditText.text?.toString()?.trim() else null
 
-        // Contadores SCLM
-        val coinInSclm = binding.coinInSclmEditText.text.toString()
-        val coinOutSclm = binding.coinOutSclmEditText.text.toString()
-        val jackpotSclm = binding.jackpotSclmEditText.text.toString()
+        val observaciones = binding.observacionesEditText.text?.toString()?.trim()
 
-        // Observaciones
-        val observaciones = binding.observacionesEditText.text.toString()
-
-        // Validar que el código de apuesta no esté vacío
-        if (codigoApuesta.isEmpty()) {
-            showError("El código de apuesta es obligatorio")
-            return
-        }
-
-        // Guardar el inventario
+        // Guardar en el ViewModel
         viewModel.guardarInventario(
             codigoApuesta = codigoApuesta,
             codigoApuestaDiferente = codigoApuestaDiferente,
@@ -183,24 +176,16 @@ class RegistrarInventarioFragment : Fragment() {
             descripcionJuego = descripcionJuego,
             planPremios = planPremios,
             valorPremios = valorPremios,
-            valorCredito = valorCredito.takeIf { it.isNotEmpty() },
+            valorCredito = valorCredito,
             contadoresVerificado = contadoresVerificado,
-            coinInMet = coinInMet.takeIf { it.isNotEmpty() },
-            coinOutMet = coinOutMet.takeIf { it.isNotEmpty() },
-            jackpotMet = jackpotMet.takeIf { it.isNotEmpty() },
-            coinInSclm = coinInSclm.takeIf { it.isNotEmpty() },
-            coinOutSclm = coinOutSclm.takeIf { it.isNotEmpty() },
-            jackpotSclm = jackpotSclm.takeIf { it.isNotEmpty() },
-            observaciones = observaciones.takeIf { it.isNotEmpty() }
+            coinInMet = coinInMet,
+            coinOutMet = coinOutMet,
+            jackpotMet = jackpotMet,
+            coinInSclm = coinInSclm,
+            coinOutSclm = coinOutSclm,
+            jackpotSclm = jackpotSclm,
+            observaciones = observaciones
         )
-    }
-
-    private fun showError(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
-    }
-
-    private fun showSnackbar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

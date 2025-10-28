@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.coljuegos.sivo.R
-import com.coljuegos.sivo.data.entity.InventarioEntity
 import com.coljuegos.sivo.databinding.FragmentInventarioReportadoBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -119,8 +118,8 @@ class InventarioReportadoFragment : Fragment() {
     }
 
     private fun updateUI(uiState: InventarioReportadoUiState) {
-        // Mostrar/ocultar progress bar
-        //binding.progressIndicator.isVisible = uiState.isLoading
+        // Mostrar/ocultar progress bar si lo tienes en el layout
+        // binding.progressIndicator.isVisible = uiState.isLoading
 
         // Actualizar RecyclerView con inventarios registrados
         inventarioRegistradoAdapter.submitList(uiState.inventariosRegistrados)
@@ -141,8 +140,7 @@ class InventarioReportadoFragment : Fragment() {
             .setTitle("Eliminar inventario")
             .setMessage("¿Está seguro que desea eliminar este inventario registrado?")
             .setPositiveButton("Eliminar") { _, _ ->
-                viewModel.deleteInventarioRegistrado(inventarioRegistradoUuid)
-                showSnackbar("Inventario eliminado correctamente")
+                viewModel.eliminarInventarioRegistrado(inventarioRegistradoUuid)
             }
             .setNegativeButton("Cancelar", null)
             .show()
@@ -150,19 +148,6 @@ class InventarioReportadoFragment : Fragment() {
 
     private fun showError(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
-    }
-
-    private fun showSnackbar(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    private fun navigateToGallery() {
-        val action = InventarioReportadoFragmentDirections
-            .actionInventarioFragmentToGalleryFragment(
-                actaUuid = args.actaUuid,
-                fragmentOrigen = "inventario"
-            )
-        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

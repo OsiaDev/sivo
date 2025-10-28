@@ -176,6 +176,163 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layoutTextoLegal1_2Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutData">
+
+            <TextView
+                android:id="@+id/textoLegal1Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/registrar_inventario_codigo_pregunta_1"
+                android:textColor="@color/text_title_detail"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textoLegal2Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/registrar_inventario_codigo_pregunta_2"
+                android:textColor="@color/text_title_detail"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutCheck12Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal1_2Title">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/codigoApuestaDiferenteCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Coljuegos.CheckBox"
+                    android:layout_marginTop="0dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/serialVerificadoCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Coljuegos.CheckBox"
+                    android:layout_marginTop="0dp"
+                    android:checked="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutTextoLegal34Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutCheck12Title">
+
+            <TextView
+                android:id="@+id/textoLegal3Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/registrar_inventario_codigo_pregunta_3"
+                android:textColor="@color/text_title_detail"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textoLegal4Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/registrar_inventario_codigo_pregunta_4"
+                android:textColor="@color/text_title_detail"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutCheck34Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal34Title">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/descripcionJuegoCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Coljuegos.CheckBox"
+                    android:layout_marginTop="0dp"
+                    android:checked="true"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/planPremiosCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Coljuegos.CheckBox"
+                    android:layout_marginTop="0dp"
+                    android:checked="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <!-- Campo: Código de Apuesta -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/codigoApuestaInputLayout"
@@ -186,7 +343,7 @@
             android:hint="@string/registrar_inventario_codigo_apuesta"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutData">
+            app:layout_constraintTop_toBottomOf="@id/layoutCheck34Title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/codigoApuestaEditText"
@@ -196,47 +353,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Checkboxes de Verificación -->
-        <CheckBox
-            android:id="@+id/codigoApuestaDiferenteCheckbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/registrar_inventario_codigo_pregunta_1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/codigoApuestaInputLayout" />
-
-        <CheckBox
-            android:id="@+id/serialVerificadoCheckbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/registrar_inventario_codigo_pregunta_2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/codigoApuestaDiferenteCheckbox" />
-
-        <CheckBox
-            android:id="@+id/descripcionJuegoCheckbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/registrar_inventario_codigo_pregunta_3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/serialVerificadoCheckbox" />
-
-        <CheckBox
-            android:id="@+id/planPremiosCheckbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/registrar_inventario_codigo_pregunta_4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/descripcionJuegoCheckbox" />
-
         <CheckBox
             android:id="@+id/valorPremiosCheckbox"
             android:layout_width="match_parent"
@@ -245,7 +361,7 @@
             android:text="@string/registrar_inventario_codigo_pregunta_5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/planPremiosCheckbox" />
+            app:layout_constraintTop_toBottomOf="@id/codigoApuestaInputLayout" />
 
         <!-- Campo: Valor Crédito -->
         <com.google.android.material.textfield.TextInputLayout

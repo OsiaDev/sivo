@@ -105,11 +105,8 @@ class RegistrarInventarioViewModel @Inject constructor(
                     observaciones = observaciones
                 )
 
-                if (_uiState.value.esEdicion) {
-                    inventarioRegistradoDao.update(inventarioRegistrado)
-                } else {
-                    inventarioRegistradoDao.insert(inventarioRegistrado)
-                }
+                // Insertar o actualizar
+                inventarioRegistradoDao.insert(inventarioRegistrado)
 
                 _uiState.update {
                     it.copy(
@@ -122,6 +119,7 @@ class RegistrarInventarioViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         isLoading = false,
+                        guardadoExitoso = false,
                         errorMessage = "Error al guardar inventario: ${e.message}"
                     )
                 }
@@ -132,5 +130,5 @@ class RegistrarInventarioViewModel @Inject constructor(
     fun clearError() {
         _uiState.update { it.copy(errorMessage = null) }
     }
-
+    
 }

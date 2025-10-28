@@ -62,20 +62,27 @@ class InventarioActaViewModel @Inject constructor(
 
     fun filterInventario(query: String) {
         val currentState = _uiState.value
-        val filtered = if (query.isEmpty()) {
-            currentState.inventariosNoRegistrados
-        } else {
-            currentState.inventariosNoRegistrados.filter { inventario ->
-                inventario.nombreMarcaInventario.contains(query, ignoreCase = true) ||
-                        inventario.metSerialInventario.contains(query, ignoreCase = true)
-            }
-        }
 
-        _uiState.update {
-            it.copy(
-                searchQuery = query,
-                filteredInventarios = filtered
-            )
+        if (query.isEmpty()) {
+            _uiState.update {
+                it.copy(
+                    filteredInventarios = currentState.inventariosNoRegistrados,
+                    searchQuery = query
+                )
+            }
+        } else {
+            val filtered = currentState.inventariosNoRegistrados.filter { inventario ->
+                inventario.nombreMarcaInventario.contains(query, ignoreCase = true) ||
+                        inventario.metSerialInventario.contains(query, ignoreCase = true) ||
+                        inventario.nucInventario.contains(query, ignoreCase = true)
+            }
+
+            _uiState.update {
+                it.copy(
+                    filteredInventarios = filtered,
+                    searchQuery = query
+                )
+            }
         }
     }
 
