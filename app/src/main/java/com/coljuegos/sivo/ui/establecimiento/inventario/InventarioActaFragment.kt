@@ -111,7 +111,7 @@ class InventarioActaFragment : Fragment() {
 
         // Mostrar/ocultar estado vacío
         binding.inventarioRecyclerView.isVisible = inventariosAMostrar.isNotEmpty() && !uiState.isLoading
-        binding.textViewNoLoans.isVisible = inventariosAMostrar.isEmpty() && !uiState.isLoading
+        binding.textViewNoInventario.isVisible = inventariosAMostrar.isEmpty() && !uiState.isLoading
 
         // Mostrar errores
         uiState.errorMessage?.let { errorMessage ->

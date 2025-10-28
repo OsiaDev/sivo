@@ -44,7 +44,7 @@ import com.coljuegos.sivo.utils.LocalDateTimeConverter
         ActaVisitaEntity::class,
         VerificacionContractualEntity::class,
         VerificacionSiplaftEntity::class,
-    ], version = 6, exportSchema = false
+    ], version = 7, exportSchema = false
 )
 @TypeConverters(
     BigDecimalConverter::class,

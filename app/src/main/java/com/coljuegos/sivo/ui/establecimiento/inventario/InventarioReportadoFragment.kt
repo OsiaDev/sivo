@@ -120,7 +120,7 @@ class InventarioReportadoFragment : Fragment() {
 
     private fun updateUI(uiState: InventarioReportadoUiState) {
         // Mostrar/ocultar progress bar
-        binding.progressIndicator.isVisible = uiState.isLoading
+        //binding.progressIndicator.isVisible = uiState.isLoading
 
         // Actualizar RecyclerView con inventarios registrados
         inventarioRegistradoAdapter.submitList(uiState.inventariosRegistrados)

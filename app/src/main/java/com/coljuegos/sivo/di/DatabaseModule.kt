@@ -8,6 +8,7 @@ import com.coljuegos.sivo.data.dao.DepartamentoDao
 import com.coljuegos.sivo.data.dao.FuncionarioDao
 import com.coljuegos.sivo.data.dao.ImagenDao
 import com.coljuegos.sivo.data.dao.InventarioDao
+import com.coljuegos.sivo.data.dao.InventarioRegistradoDao
 import com.coljuegos.sivo.data.dao.MunicipioDao
 import com.coljuegos.sivo.data.dao.SessionDao
 import com.coljuegos.sivo.data.dao.VerificacionContractualDao
@@ -62,5 +63,8 @@ object DatabaseModule {
 
     @Provides
     fun provideVerificacionSiplaftDao(database: SivoDatabase): VerificacionSiplaftDao = database.verificacionSiplaftDao()
+
+    @Provides
+    fun provideInventarioRegistradoDao(database: SivoDatabase): InventarioRegistradoDao = database.inventarioRegistradoDao()
 
 }
