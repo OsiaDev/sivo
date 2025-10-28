@@ -333,66 +333,154 @@
 
         </LinearLayout>
 
-        <!-- Campo: Código de Apuesta -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/codigoApuestaInputLayout"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        <LinearLayout
+            android:id="@+id/layoutTextoLegal5Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:hint="@string/registrar_inventario_codigo_apuesta"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutCheck34Title">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/codigoApuestaEditText"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textoLegal5Title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:layout_weight="1"
+                android:text="@string/registrar_inventario_codigo_pregunta_5"
+                android:textColor="@color/text_title_detail"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/valorPremiosCheckbox"
+        <LinearLayout
+            android:id="@+id/layoutCheck6Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/registrar_inventario_codigo_pregunta_5"
+            android:layout_marginTop="0dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/codigoApuestaInputLayout" />
+            app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal5Title">
 
-        <!-- Campo: Valor Crédito -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/valorCreditoInputLayout"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/valorPremiosCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Coljuegos.CheckBox"
+                    android:layout_marginTop="0dp"
+                    android:checked="true"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutTextoLegal6Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/registrar_inventario_codigo_pregunta_6"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/valorPremiosCheckbox">
+            app:layout_constraintTop_toBottomOf="@id/layoutCheck6Title">
+
+            <TextView
+                android:id="@+id/valorCreditoTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/registrar_inventario_codigo_pregunta_6"
+                android:textColor="@color/text_title_detail"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/valorCreditoInputLayout"
+            style="@style/Form.InputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/zero"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal6Title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/valorCreditoEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal" />
+                android:drawablePadding="12dp"
+                android:inputType="text"
+                android:padding="15dp"
+                android:textColor="@color/input_text_color"
+                android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Checkbox: Contadores -->
-        <CheckBox
-            android:id="@+id/contadoresCheckbox"
+        <LinearLayout
+            android:id="@+id/layoutTextoLegal7Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/registrar_inventario_codigo_pregunta_7"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/valorCreditoInputLayout" />
+            app:layout_constraintTop_toBottomOf="@id/valorCreditoInputLayout">
+
+            <TextView
+                android:id="@+id/textoLegal7Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/registrar_inventario_codigo_pregunta_7"
+                android:textColor="@color/text_title_detail"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutCheck7Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal7Title">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/contadoresCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Coljuegos.CheckBox"
+                    android:layout_marginTop="0dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <!-- SECCIÓN DE CONTADORES MET (OCULTA POR DEFECTO) -->
         <TextView
@@ -406,7 +494,7 @@
             android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/contadoresCheckbox"
+            app:layout_constraintTop_toBottomOf="@id/layoutCheck7Title"
             tools:visibility="visible" />
 
         <LinearLayout
@@ -421,51 +509,135 @@
             app:layout_constraintTop_toBottomOf="@id/contadoresMetTitle"
             tools:visibility="visible">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/coinInMetInputLayout"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            <LinearLayout
+                android:id="@+id/layoutTextoLegal8Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="@string/registrar_inventario_codigo_pregunta_8">
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/metCoinInTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/registrar_inventario_codigo_pregunta_8"
+                    android:textColor="@color/text_title_detail"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/coinInMetInputLayout"
+                style="@style/Form.InputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/zero"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal8Title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/coinInMetEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:drawablePadding="12dp"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/input_text_color"
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/coinOutMetInputLayout"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            <LinearLayout
+                android:id="@+id/layoutTextoLegal9Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="@string/registrar_inventario_codigo_pregunta_9">
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/coinInMetInputLayout">
+
+                <TextView
+                    android:id="@+id/metCoinOutTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/registrar_inventario_codigo_pregunta_9"
+                    android:textColor="@color/text_title_detail"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/coinOutMetInputLayout"
+                style="@style/Form.InputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/zero"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal9Title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/coinOutMetEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:drawablePadding="12dp"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/input_text_color"
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/jackpotMetInputLayout"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            <LinearLayout
+                android:id="@+id/layoutTextoLegal10Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="@string/registrar_inventario_codigo_pregunta_10">
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/coinOutMetInputLayout">
+
+                <TextView
+                    android:id="@+id/metJackpotTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/registrar_inventario_codigo_pregunta_10"
+                    android:textColor="@color/text_title_detail"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/jackpotMetInputLayout"
+                style="@style/Form.InputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/zero"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal10Title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/jackpotMetEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:drawablePadding="12dp"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/input_text_color"
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -498,76 +670,182 @@
             app:layout_constraintTop_toBottomOf="@id/contadoresSclmTitle"
             tools:visibility="visible">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/coinInSclmInputLayout"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            <LinearLayout
+                android:id="@+id/layoutTextoLegal11Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="@string/registrar_inventario_codigo_pregunta_11">
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/sclmCoinInTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/registrar_inventario_codigo_pregunta_11"
+                    android:textColor="@color/text_title_detail"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/coinInSclmInputLayout"
+                style="@style/Form.InputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/zero"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal11Title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/coinInSclmEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:drawablePadding="12dp"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/input_text_color"
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/coinOutSclmInputLayout"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            <LinearLayout
+                android:id="@+id/layoutTextoLegal12Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="@string/registrar_inventario_codigo_pregunta_12">
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/coinInSclmInputLayout">
+
+                <TextView
+                    android:id="@+id/sclmCoinOutTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/registrar_inventario_codigo_pregunta_12"
+                    android:textColor="@color/text_title_detail"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/coinOutSclmInputLayout"
+                style="@style/Form.InputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/zero"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal12Title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/coinOutSclmEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:drawablePadding="12dp"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/input_text_color"
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/jackpotSclmInputLayout"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            <LinearLayout
+                android:id="@+id/layoutTextoLegal13Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="@string/registrar_inventario_codigo_pregunta_13">
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/coinOutSclmInputLayout">
+
+                <TextView
+                    android:id="@+id/sclmJackpotTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/registrar_inventario_codigo_pregunta_13"
+                    android:textColor="@color/text_title_detail"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/jackpotSclmInputLayout"
+                style="@style/Form.InputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/zero"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal13Title">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/jackpotSclmEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:drawablePadding="12dp"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/input_text_color"
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
-        <!-- Campo: Observaciones -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/observacionesInputLayout"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        <LinearLayout
+            android:id="@+id/layoutTextoLegal14Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/registrar_inventario_codigo_pregunta_14"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutContadoresSclm">
+
+            <TextView
+                android:id="@+id/observacionTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/registrar_inventario_codigo_pregunta_14"
+                android:textColor="@color/text_title_detail"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/observacionesInputLayout"
+            style="@style/Form.InputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/zero"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal14Title">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/observacionesEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="top"
+                android:drawablePadding="12dp"
                 android:inputType="textMultiLine"
-                android:lines="4"
-                android:minLines="4" />
+                android:lines="3"
+                android:padding="15dp"
+                android:textColor="@color/input_text_color"
+                android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
