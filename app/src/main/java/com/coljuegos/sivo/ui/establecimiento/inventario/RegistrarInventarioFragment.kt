@@ -106,7 +106,6 @@ class RegistrarInventarioFragment : Fragment() {
 
         // Si es edición, cargar datos del registro
         uiState.inventarioRegistrado?.let { registro ->
-            binding.codigoApuestaEditText.setText(registro.codigoApuesta)
             binding.codigoApuestaDiferenteCheckbox.isChecked = registro.codigoApuestaDiferente
             binding.serialVerificadoCheckbox.isChecked = registro.serialVerificado
             binding.descripcionJuegoCheckbox.isChecked = registro.descripcionJuego
@@ -143,11 +142,6 @@ class RegistrarInventarioFragment : Fragment() {
 
     private fun guardarInventario() {
         // Validar que el código de apuesta no esté vacío
-        val codigoApuesta = binding.codigoApuestaEditText.text?.toString()?.trim()
-        if (codigoApuesta.isNullOrEmpty()) {
-            Snackbar.make(binding.root, "Por favor ingrese el código de apuesta", Snackbar.LENGTH_SHORT).show()
-            return
-        }
 
         // Recopilar datos del formulario
         val codigoApuestaDiferente = binding.codigoApuestaDiferenteCheckbox.isChecked
@@ -170,7 +164,6 @@ class RegistrarInventarioFragment : Fragment() {
 
         // Guardar en el ViewModel
         viewModel.guardarInventario(
-            codigoApuesta = codigoApuesta,
             codigoApuestaDiferente = codigoApuestaDiferente,
             serialVerificado = serialVerificado,
             descripcionJuego = descripcionJuego,
