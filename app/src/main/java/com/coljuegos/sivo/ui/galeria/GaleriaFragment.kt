@@ -86,6 +86,7 @@ class GaleriaFragment : BaseCameraFragment() {
             "verificacion_contractual" -> getString(R.string.galeria_fragment_verificacion)
             "verificacion_siplaft" -> getString(R.string.galeria_fragment_siplaft)
             "inventario_reportado" -> getString(R.string.galeria_fragment_inventario)
+            "foto_identificacion" -> getString(R.string.galeria_fragment_identificacion)
             else -> getString(R.string.galeria_titulo)
         }
     }

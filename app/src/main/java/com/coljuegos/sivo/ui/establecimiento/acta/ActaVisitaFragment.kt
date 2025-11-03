@@ -136,6 +136,14 @@ class ActaVisitaFragment : Fragment() {
             agregarCorreo()
             true
         }
+
+        binding.btnCapturarIdentificacion.setOnClickListener {
+            val currentState = viewModel.uiState.value
+            currentState.acta?.let { acta ->
+                val action = ActaVisitaFragmentDirections.actionActaVisitaFragmentToGalleryFragment(acta.uuidActa, "foto_identificacion")
+                findNavController().navigate(action)
+            }
+        }
     }
 
     private fun agregarCorreo() {
@@ -164,7 +172,6 @@ class ActaVisitaFragment : Fragment() {
         }
     }
 
-    // NUEVO MÉTODO: Actualizar chips
     private fun updateCorreosChips(correos: List<String>) {
         binding.chipGroupCorreos.removeAllViews()
 

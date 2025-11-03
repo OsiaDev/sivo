@@ -59,6 +59,7 @@
     <string name="acta_visita_municipio_cedula">Municipio de expedición</string>
     <string name="acta_visita_buscar_municipio">Buscar municipio</string>
     <string name="acta_visita_no_municipios">No se encontraron municipios</string>
+    <string name="acta_visita_capturar_identificacion">Capturar documento de identidad</string>
     <string name="acta_visita_calidad">En su calidad de</string>
     <string name="acta_visita_cargo">Cargo</string>
     <string name="acta_visita_email_representante_title">E-Mail de la persona que atiende</string>
@@ -75,7 +76,7 @@
     <!-- VERIFICACIÓN CONTRACTUAL FRAGMENT -->
     <string name="verificacion_contractual_title">Verificación Contractual</string>
     <string name="verificacion_contractual_subtitle">1. Verificación contractual</string>
-    <string name="verificacion_contractual_pregunta1">1. El aviso de autorización para establecimientos de juegos localizados está de acuerdo a lo estipulado en la resolución 20171200022554 de 2017.</string>
+    <string name="verificacion_contractual_pregunta1">1. El aviso de autorización para establecimientos de juegos localizados está de acuerdo a lo estipulado en la resolución 20250007074 de 2025.</string>
     <string name="verificacion_contractual_pregunta2">2. ¿La dirección corresponde a lo registrado por el operador en Coljuegos?</string>
     <string name="verificacion_contractual_pregunta3">3. ¿El nombre del establecimiento corresponde al registro por el operador en Coljuegos?</string>
     <string name="verificacion_contractual_pregunta4">4. ¿Desarrolla dentro del establecimiento actividades diferentes a las autorizadas?</string>
@@ -104,6 +105,7 @@
     <string name="galeria_fragment_verificacion">Verificación Contractual</string>
     <string name="galeria_fragment_siplaft">Verificación SIPLAFT</string>
     <string name="galeria_fragment_inventario">Inventario Reportado</string>
+    <string name="galeria_fragment_identificacion">Documento de Identidad</string>
 
     <!-- Verificación SIPLAFT -->
     <string name="verificacion_siplaft_title">Verificación SIPLAFT</string>
