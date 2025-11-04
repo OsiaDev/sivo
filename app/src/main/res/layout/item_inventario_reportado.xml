@@ -23,14 +23,14 @@
             android:id="@+id/layoutMarca"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/marcaValue"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:lines="1"
@@ -41,7 +41,7 @@
 
             <TextView
                 android:id="@+id/serialValue"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
@@ -56,40 +56,32 @@
         <!-- Botones de acción -->
         <LinearLayout
             android:id="@+id/layoutBotones"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:orientation="horizontal"
+            android:gravity="center_vertical|end"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutMarca">
+            app:layout_constraintTop_toTopOf="@id/layoutMarca"
+            app:layout_constraintBottom_toBottomOf="@id/layoutMarca">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEditar"
-                style="@style/Widget.Material3.Button.OutlinedButton"
+                style="@style/Widget.Material3.Button.IconButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="@string/inventario_reportado_editar"
-                android:textSize="16sp"
-                app:cornerRadius="8dp"
-                app:strokeColor="@color/login_button_color_init"
-                app:strokeWidth="2dp" />
+                app:icon="@drawable/ic_edit"
+                app:iconTint="@color/blue"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEliminar"
-                style="@style/Widget.Material3.Button.OutlinedButton"
+                style="@style/Widget.Material3.Button.IconButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="@string/inventario_reportado_eliminar"
-                android:textSize="16sp"
-                android:textColor="@color/red"
-                app:cornerRadius="8dp"
-                app:strokeColor="@color/red"
-                app:strokeWidth="2dp" />
+                app:icon="@drawable/ic_delete"
+                app:iconTint="@color/red"/>
 
         </LinearLayout>
 

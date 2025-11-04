@@ -3,6 +3,7 @@ package com.coljuegos.sivo.data.remote.api
 import com.coljuegos.sivo.data.remote.model.ActaResponseDTO
 import com.coljuegos.sivo.data.remote.model.LoginRequestDTO
 import com.coljuegos.sivo.data.remote.model.LoginResponseDTO
+import com.coljuegos.sivo.data.remote.model.MaestrosResponseDTO
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,5 +19,8 @@ interface ApiService {
     suspend fun getActasByUserId(
         @Header("Authorization") authorization: String
     ): Response<ActaResponseDTO>
+
+    @GET("maestros/obtenerMaestros")
+    suspend fun getMaestros(): Response<MaestrosResponseDTO>
 
 }

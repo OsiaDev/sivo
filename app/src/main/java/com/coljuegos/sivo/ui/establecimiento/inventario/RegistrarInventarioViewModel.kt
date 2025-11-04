@@ -65,6 +65,7 @@ class RegistrarInventarioViewModel @Inject constructor(
 
     fun guardarInventario(
         codigoApuestaDiferente: Boolean,
+        codigoApuestaDiferenteValor: String?,
         serialVerificado: Boolean,
         descripcionJuego: Boolean,
         planPremios: Boolean,
@@ -88,6 +89,7 @@ class RegistrarInventarioViewModel @Inject constructor(
                     uuidActa = actaUuid,
                     uuidInventario = inventarioUuid,
                     codigoApuestaDiferente = codigoApuestaDiferente,
+                    codigoApuestaDiferenteValor = codigoApuestaDiferenteValor,
                     serialVerificado = serialVerificado,
                     descripcionJuego = descripcionJuego,
                     planPremios = planPremios,

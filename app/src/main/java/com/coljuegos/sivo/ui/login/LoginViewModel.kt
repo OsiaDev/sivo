@@ -3,6 +3,7 @@ package com.coljuegos.sivo.ui.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coljuegos.sivo.data.repository.AuthRepository
+import com.coljuegos.sivo.data.repository.MaestrosRepository
 import com.coljuegos.sivo.utils.NetworkResult
 import com.coljuegos.sivo.utils.SessionManager
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val sessionManager: SessionManager
+    private val sessionManager: SessionManager,
+    private val maestrosRepository: MaestrosRepository
 ) : ViewModel() {
 
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Idle)
@@ -52,6 +54,10 @@ class LoginViewModel @Inject constructor(
                             try {
                                 // Guardar datos de sesión (esto desactiva automáticamente las sesiones anteriores)
                                 sessionManager.saveUserSession(loginResponse)
+
+                                // Sincronizar maestros después del login exitoso
+                                sincronizarMaestros()
+
                                 _loginState.value = LoginState.Success(loginResponse)
                             } catch (e: Exception) {
                                 _loginState.value = LoginState.Error("Error al guardar la sesión: ${e.message}")
@@ -74,6 +80,30 @@ class LoginViewModel @Inject constructor(
     fun resetLoginState() {
         _loginState.value = LoginState.Idle
         _isLoading.value = false
+    }
+
+    /**
+     * Sincroniza los maestros en segundo plano
+     * No bloquea el flujo de login
+     */
+    private fun sincronizarMaestros() {
+        viewModelScope.launch {
+            maestrosRepository.sincronizarMaestros().collect { result ->
+                // La sincronización es silenciosa
+                // Si falla, los maestros locales seguirán disponibles
+                when (result) {
+                    is NetworkResult.Success -> {
+                        // Maestros sincronizados exitosamente
+                    }
+                    is NetworkResult.Error -> {
+                        // Log o manejo silencioso del error
+                    }
+                    is NetworkResult.Loading -> {
+                        // Sincronizando...
+                    }
+                }
+            }
+        }
     }
 
     /**

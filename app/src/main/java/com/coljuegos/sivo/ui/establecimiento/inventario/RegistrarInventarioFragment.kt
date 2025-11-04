@@ -47,6 +47,8 @@ class RegistrarInventarioFragment : Fragment() {
     private fun setupUI() {
         // Ocultar inicialmente los campos de contadores
         hideContadoresFields()
+        // Ocultar inicialmente el campo de código de apuesta diferente
+        hideCodigoApuestaDiferenteField()
     }
 
     private fun setupButtons() {
@@ -68,6 +70,14 @@ class RegistrarInventarioFragment : Fragment() {
                 hideContadoresFields()
             }
         }
+        // Listener para el checkbox de código de apuesta diferente
+        binding.codigoApuestaDiferenteCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                showCodigoApuestaDiferenteField()
+            } else {
+                hideCodigoApuestaDiferenteField()
+            }
+        }
     }
 
     private fun showContadoresFields() {
@@ -82,6 +92,15 @@ class RegistrarInventarioFragment : Fragment() {
         binding.layoutContadoresMet.isVisible = false
         binding.contadoresSclmTitle.isVisible = false
         binding.layoutContadoresSclm.isVisible = false
+    }
+
+    private fun showCodigoApuestaDiferenteField() {
+        binding.codigoApuestaDiferenteInputLayout.isVisible = true
+    }
+
+    private fun hideCodigoApuestaDiferenteField() {
+        binding.codigoApuestaDiferenteInputLayout.isVisible = false
+        binding.codigoApuestaDiferenteEditText.setText("")
     }
 
     private fun observeViewModel() {
@@ -107,6 +126,10 @@ class RegistrarInventarioFragment : Fragment() {
         // Si es edición, cargar datos del registro
         uiState.inventarioRegistrado?.let { registro ->
             binding.codigoApuestaDiferenteCheckbox.isChecked = registro.codigoApuestaDiferente
+            if (registro.codigoApuestaDiferente && !registro.codigoApuestaDiferenteValor.isNullOrEmpty()) {
+                showCodigoApuestaDiferenteField()
+                binding.codigoApuestaDiferenteEditText.setText(registro.codigoApuestaDiferenteValor)
+            }
             binding.serialVerificadoCheckbox.isChecked = registro.serialVerificado
             binding.descripcionJuegoCheckbox.isChecked = registro.descripcionJuego
             binding.planPremiosCheckbox.isChecked = registro.planPremios
@@ -145,6 +168,10 @@ class RegistrarInventarioFragment : Fragment() {
 
         // Recopilar datos del formulario
         val codigoApuestaDiferente = binding.codigoApuestaDiferenteCheckbox.isChecked
+        val codigoApuestaDiferenteValor = if (codigoApuestaDiferente)
+            binding.codigoApuestaDiferenteEditText.text?.toString()?.trim()
+        else
+            null
         val serialVerificado = binding.serialVerificadoCheckbox.isChecked
         val descripcionJuego = binding.descripcionJuegoCheckbox.isChecked
         val planPremios = binding.planPremiosCheckbox.isChecked
@@ -165,6 +192,7 @@ class RegistrarInventarioFragment : Fragment() {
         // Guardar en el ViewModel
         viewModel.guardarInventario(
             codigoApuestaDiferente = codigoApuestaDiferente,
+            codigoApuestaDiferenteValor = codigoApuestaDiferenteValor,
             serialVerificado = serialVerificado,
             descripcionJuego = descripcionJuego,
             planPremios = planPremios,

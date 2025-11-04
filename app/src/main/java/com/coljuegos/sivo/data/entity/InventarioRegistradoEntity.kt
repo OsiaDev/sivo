@@ -35,6 +35,7 @@ data class InventarioRegistradoEntity(
     val uuidInventario: UUID,
     // Datos del formulario de registro
     val codigoApuestaDiferente: Boolean,
+    val codigoApuestaDiferenteValor: String? = null,
     val serialVerificado: Boolean,
     val descripcionJuego: Boolean,
     val planPremios: Boolean,
