@@ -69,4 +69,49 @@ class MaestrosRepository @Inject constructor(
         )
     }
 
+    /**
+     * Verifica si necesita sincronizar maestros
+     * @return true si necesita sincronizar (primera vez o desactualizado)
+     */
+    suspend fun necesitaSincronizacion(): Boolean {
+        val tiposApuestaLocales = tipoApuestaDao.getAllTiposApuesta()
+        return tiposApuestaLocales.isEmpty()
+    }
+
+    /**
+     * Obtiene el número de tipos de apuesta almacenados
+     */
+    suspend fun getCantidadTiposApuesta(): Int {
+        return tipoApuestaDao.getCount()
+    }
+
+    /**
+     * Fuerza la actualización de maestros desde el servidor
+     * Elimina los datos locales y descarga nuevamente
+     */
+    suspend fun forzarActualizacion(): Flow<NetworkResult<Boolean>> = flow {
+        try {
+            emit(NetworkResult.Loading())
+
+            // Eliminar datos locales
+            tipoApuestaDao.deleteAll()
+
+            // Descargar nuevos datos
+            val response = apiService.getMaestros()
+
+            if (response.isSuccessful) {
+                response.body()?.let { maestros ->
+                    val tiposApuesta = maestros.tiposApuesta.map { mapToTipoApuestaEntity(it) }
+                    tipoApuestaDao.insertAll(tiposApuesta)
+                    emit(NetworkResult.Success(true))
+                } ?: emit(NetworkResult.Error("Respuesta vacía del servidor"))
+            } else {
+                emit(NetworkResult.Error("Error al obtener maestros: ${response.code()}"))
+            }
+
+        } catch (e: Exception) {
+            emit(NetworkResult.Error("Error de conexión: ${e.message}"))
+        }
+    }
+
 }

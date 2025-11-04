@@ -182,6 +182,22 @@
 
     <string name="zero">$0</string>
 
+    <!-- Sincronización de Maestros -->
+    <string name="maestros_sincronizacion_titulo">Sincronización de Maestros</string>
+    <string name="maestros_sincronizacion_descripcion">Mantén actualizados los catálogos de tipos de apuesta y otros datos maestros</string>
+    <string name="maestros_estado">Estado:</string>
+    <string name="maestros_estado_pendiente">Pendiente de sincronización</string>
+    <string name="maestros_estado_sincronizado">Sincronizado correctamente</string>
+    <string name="maestros_estado_sincronizado_con_cantidad">Sincronizado (%1$d registros)</string>
+    <string name="maestros_ultima_actualizacion">Última actualización:</string>
+    <string name="maestros_nunca_sincronizado">Nunca sincronizado</string>
+    <string name="maestros_sincronizar">Sincronizar ahora</string>
+    <string name="maestros_forzar_actualizacion">Forzar actualización</string>
+    <string name="maestros_sincronizando">Sincronizando maestros</string>
+    <string name="maestros_sincronizando_inicio">Sincronizando catálogos</string>
+    <string name="maestros_sincronizado_exito">Maestros sincronizados correctamente</string>
+    <string name="maestros_error_sincronizacion">Error al sincronizar maestros</string>
+
     <string-array name="si_no_na_options">
         <item>Si</item>
         <item>No</item>

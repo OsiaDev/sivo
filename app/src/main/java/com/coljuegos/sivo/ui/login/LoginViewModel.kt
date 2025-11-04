@@ -83,20 +83,30 @@ class LoginViewModel @Inject constructor(
     }
 
     /**
-     * Sincroniza los maestros en segundo plano
-     * No bloquea el flujo de login
+     * Sincroniza los maestros con reintentos automáticos
+     * Si el login fue exitoso, la sincronización DEBE funcionar
      */
     private fun sincronizarMaestros() {
+        sincronizarMaestrosConReintento(intentosRestantes = 2)
+    }
+
+    private fun sincronizarMaestrosConReintento(intentosRestantes: Int) {
         viewModelScope.launch {
             maestrosRepository.sincronizarMaestros().collect { result ->
-                // La sincronización es silenciosa
-                // Si falla, los maestros locales seguirán disponibles
                 when (result) {
                     is NetworkResult.Success -> {
                         // Maestros sincronizados exitosamente
                     }
                     is NetworkResult.Error -> {
-                        // Log o manejo silencioso del error
+                        if (intentosRestantes > 0) {
+                            // Reintentar después de 1 segundo
+                            kotlinx.coroutines.delay(1000)
+                            sincronizarMaestrosConReintento(intentosRestantes - 1)
+                        } else {
+                            // Falló después de todos los reintentos
+                            // Aquí podrías mostrar un error al usuario
+                            // o permitir continuar sin maestros actualizados
+                        }
                     }
                     is NetworkResult.Loading -> {
                         // Sincronizando...
