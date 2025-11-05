@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        app:indicatorColor="@color/primary" />
+        app:indicatorColor="@color/blue" />
 
     <TextView
         android:id="@+id/sync_status_text"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:text="@string/maestros_sincronizando_inicio"
         android:textSize="14sp"
-        android:textColor="@color/gray_text"
+        android:textColor="@color/blue"
         android:layout_marginTop="8dp" />
 
 </LinearLayout>
