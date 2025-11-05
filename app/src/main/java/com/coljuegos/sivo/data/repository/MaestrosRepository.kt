@@ -82,8 +82,7 @@ class MaestrosRepository @Inject constructor(
      * Obtiene el número de tipos de apuesta almacenados
      */
     suspend fun getCantidadTiposApuesta(): Int {
-        return 8
-        //return tipoApuestaDao.getCount()
+        return tipoApuestaDao.getCount()
     }
 
     /**
