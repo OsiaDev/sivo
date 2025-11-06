@@ -122,9 +122,8 @@ class InventarioReportadoFragment : Fragment() {
         binding.btnSiguiente.setOnClickListener {
             // Navegar al siguiente fragment (Galería)
             val action = InventarioReportadoFragmentDirections
-                .actionInventarioFragmentToGalleryFragment(
-                    actaUuid = args.actaUuid,
-                    fragmentOrigen = "inventario"
+                .actionInventarioFragmentToNovedadFragment(
+                    actaUuid = args.actaUuid
                 )
             findNavController().navigate(action)
         }

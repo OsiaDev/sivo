@@ -10,6 +10,7 @@ import com.coljuegos.sivo.data.dao.ImagenDao
 import com.coljuegos.sivo.data.dao.InventarioDao
 import com.coljuegos.sivo.data.dao.InventarioRegistradoDao
 import com.coljuegos.sivo.data.dao.MunicipioDao
+import com.coljuegos.sivo.data.dao.NovedadRegistradaDao
 import com.coljuegos.sivo.data.dao.SessionDao
 import com.coljuegos.sivo.data.dao.TipoApuestaDao
 import com.coljuegos.sivo.data.dao.VerificacionContractualDao
@@ -70,5 +71,8 @@ object DatabaseModule {
 
     @Provides
     fun provideTipoApuestaDao(database: SivoDatabase): TipoApuestaDao = database.tipoApuestaDao()
+
+    @Provides
+    fun provideNovedadRegistradaDao(database: SivoDatabase): NovedadRegistradaDao = database.novedadRegistradaDao()
 
 }

@@ -139,6 +139,14 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_inventarioFragment_to_novedadFragment"
+            app:destination="@id/novedadFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
 
     <fragment
@@ -180,6 +188,72 @@
             app:argType="java.util.UUID"
             app:nullable="true"
             android:defaultValue="@null" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/novedadFragment"
+        android:name="com.coljuegos.sivo.ui.establecimiento.inventario.InventarioReportadoFragment"
+        android:label="@string/novedad_reportada_title"
+        tools:layout="@layout/fragment_inventario_reportado">
+
+        <argument
+            android:name="actaUuid"
+            app:argType="java.util.UUID" />
+
+        <action
+            android:id="@+id/action_novedadFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_novedadFragment_to_inventarioActaFragment"
+            app:destination="@id/inventarioActaFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_novedadFragment_to_registrarNovedadFragment"
+            app:destination="@id/registrarNovedadFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrarNovedadFragment"
+        android:name="com.coljuegos.sivo.ui.establecimiento.novedad.RegistrarNovedadFragment"
+        android:label="@string/registrar_novedad_title"
+        tools:layout="@layout/fragment_registrar_novedad">
+
+        <argument
+            android:name="actaUuid"
+            app:argType="java.util.UUID" />
+
+        <argument
+            android:name="inventarioUuid"
+            app:argType="java.util.UUID" />
+
+        <argument
+            android:name="novedadRegistradaUuid"
+            android:defaultValue="@null"
+            app:argType="java.util.UUID"
+            app:nullable="true" />
+
+        <action
+            android:id="@+id/action_registrarNovedadFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
 
