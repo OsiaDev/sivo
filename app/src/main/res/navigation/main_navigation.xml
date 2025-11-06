@@ -193,7 +193,7 @@
 
     <fragment
         android:id="@+id/novedadFragment"
-        android:name="com.coljuegos.sivo.ui.establecimiento.inventario.InventarioReportadoFragment"
+        android:name="com.coljuegos.sivo.ui.establecimiento.novedad.NovedadReportadaFragment"
         android:label="@string/novedad_reportada_title"
         tools:layout="@layout/fragment_inventario_reportado">
 

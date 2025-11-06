@@ -45,6 +45,7 @@
       <w>belen</w>
       <w>billares</w>
       <w>boletín</w>
+      <w>botón</w>
       <w>cabecera</w>
       <w>calidad</w>
       <w>captura</w>
@@ -52,6 +53,7 @@
       <w>capturar</w>
       <w>caracteres</w>
       <w>cargando</w>
+      <w>cargar</w>
       <w>catálogos</w>
       <w>cerrar</w>
       <w>ciudadanía</w>
@@ -190,6 +192,7 @@
       <w>juegos</w>
       <w>junio</w>
       <w>latitud</w>
+      <w>limpiar</w>
       <w>localizados</w>
       <w>logueado</w>
       <w>longitud</w>
@@ -212,6 +215,7 @@
       <w>mismos</w>
       <w>navegaría</w>
       <w>novedad</w>
+      <w>novedades</w>
       <w>nuevas</w>
       <w>numerales</w>
       <w>nunca</w>
@@ -245,16 +249,19 @@
       <w>puede</w>
       <w>quien</w>
       <w>recargar</w>
+      <w>recibido</w>
       <w>reducida</w>
       <w>reducir</w>
       <w>reemplaza</w>
       <w>registrada</w>
+      <w>registradas</w>
       <w>registrado</w>
       <w>registrados</w>
       <w>registrando</w>
       <w>registro</w>
       <w>reintentar</w>
       <w>relacionados</w>
+      <w>reportada</w>
       <w>reportado</w>
       <w>reportar</w>
       <w>representante</w>
@@ -311,6 +318,7 @@
       <w>verificados</w>
       <w>vicepresidencia</w>
       <w>visita</w>
+      <w>volver</w>
     </words>
   </dictionary>
 </component>

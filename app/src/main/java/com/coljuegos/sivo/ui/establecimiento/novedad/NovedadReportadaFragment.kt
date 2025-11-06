@@ -17,14 +17,17 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 @AndroidEntryPoint
 class NovedadReportadaFragment : Fragment() {
 
     private var _binding: FragmentNovedadReportadaBinding? = null
+
     private val binding get() = _binding!!
 
     private val args: NovedadReportadaFragmentArgs by navArgs()
+
     private val viewModel: NovedadReportadaViewModel by viewModels()
 
     private lateinit var novedadRegistradaAdapter: NovedadRegistradaAdapter
@@ -58,92 +61,59 @@ class NovedadReportadaFragment : Fragment() {
         super.onResume()
         // Recargar novedades al volver de registrar
         viewModel.loadNovedadesRegistradas(args.actaUuid)
+
+        // Registrar listener para el botón de cámara del toolbar
+        parentFragmentManager.setFragmentResultListener("camera_action", viewLifecycleOwner) { _, _ ->
+            Log.d("NovedadFragment", "Recibido evento de cámara")
+            navigateToGallery()
+        }
+    }
+
+    private fun navigateToGallery() {
+        val action = NovedadReportadaFragmentDirections
+            .actionNovedadFragmentToGalleryFragment(
+                actaUuid = args.actaUuid,
+                fragmentOrigen = "novedad"
+            )
+        findNavController().navigate(action)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Limpiar listener cuando el fragment no es visible
+        parentFragmentManager.clearFragmentResultListener("camera_action")
     }
 
     private fun setupRecyclerView() {
         novedadRegistradaAdapter = NovedadRegistradaAdapter(
-            onEditClick = { novedadConRegistro ->
-                // Navegar a RegistrarNovedadFragment en modo edición
-                novedadConRegistro.novedad?.let { novedad ->
-                    val action = NovedadReportadaFragmentDirections
-                        .actionNovedadFragmentToRegistrarNovedadFragment(
+            onEditClick = { inventarioConRegistro ->
+                // Navegar directamente a RegistrarInventarioFragment en modo edición
+                inventarioConRegistro.registro?.let { registro ->
+                    val action = InventarioReportadoFragmentDirections
+                        .actionInventarioFragmentToRegistrarInventarioFragment(
                             actaUuid = args.actaUuid,
-                            inventarioUuid = novedadConRegistro.inventario.uuidInventario,
-                            novedadRegistradaUuid = novedad.uuidNovedadRegistrada
+                            inventarioUuid = inventarioConRegistro.inventario.uuidInventario,
+                            inventarioRegistradoUuid = registro.uuidInventarioRegistrado
                         )
                     findNavController().navigate(action)
                 }
             },
-            onDeleteClick = { novedadConRegistro ->
-                novedadConRegistro.novedad?.let { novedad ->
-                    showDeleteConfirmationDialog(novedad.uuidNovedadRegistrada)
+            onDeleteClick = { inventarioConRegistro ->
+                // Mostrar diálogo de confirmación
+                inventarioConRegistro.registro?.let { registro ->
+                    showDeleteConfirmationDialog(registro.uuidInventarioRegistrado)
                 }
             }
         )
 
-        binding.recyclerNovedadesRegistradas.adapter = novedadRegistradaAdapter
+        binding.recyclerInventariosRegistrados.adapter = inventarioRegistradoAdapter
     }
 
     private fun setupButtons() {
+        // Botón Agregar - navega a InventarioActaFragment
         binding.btnAgregar.setOnClickListener {
-            // Navegar al fragment de selección de inventario (InventarioActaFragment)
-            val action = NovedadReportadaFragmentDirections
-                .actionNovedadFragmentToInventarioActaFragment(
-                    actaUuid = args.actaUuid
-                )
-            findNavController().navigate(action)
-        }
-
-        binding.btnAnterior.setOnClickListener {
-            findNavController().navigateUp()
-        }
-
-        binding.btnSiguiente.setOnClickListener {
-            // Navegar al siguiente fragment (puedes modificar esto según tu flujo)
-            findNavController().navigate(R.id.action_novedadFragment_to_siguiente)
-        }
-    }
-
-    private fun observeViewModel() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.uiState.collect { state ->
-                // Actualizar UI según el estado
-                binding.recyclerNovedadesRegistradas.isVisible = !state.isLoading
-
-                // Actualizar RecyclerView
-                novedadRegistradaAdapter.submitList(state.novedadesRegistradas)
-
-                // Mostrar mensaje de error si existe
-                state.errorMessage?.let { errorMsg ->
-                    Snackbar.make(binding.root, errorMsg, Snackbar.LENGTH_LONG).show()
-                    viewModel.clearError()
-                }
-            }
-        }
-    }
-
-    private fun showDeleteConfirmationDialog(uuidNovedadRegistrada: java.util.UUID) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Eliminar novedad")
-            .setMessage("¿Está seguro que desea eliminar esta novedad?")
-            .setPositiveButton("Eliminar") { _, _ ->
-                viewModel.eliminarNovedadRegistrada(uuidNovedadRegistrada)
-                Snackbar.make(binding.root, "Novedad eliminada", Snackbar.LENGTH_SHORT).show()
-            }
-            .setNegativeButton("Cancelar", null)
-            .show()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun setupButtons() {
-        // Botón Agregar - navega a NovedadActaFragment para seleccionar inventario
-        binding.btnAgregar.setOnClickListener {
-            val action = NovedadReportadaFragmentDirections
-                .actionNovedadFragmentToNovedadActaFragment(args.actaUuid)
+            val action = InventarioReportadoFragmentDirections
+                .actionInventarioFragmentToInventarioActaFragment(args.actaUuid)
             findNavController().navigate(action)
         }
 
@@ -153,10 +123,9 @@ class NovedadReportadaFragment : Fragment() {
 
         binding.btnSiguiente.setOnClickListener {
             // Navegar al siguiente fragment (Galería)
-            val action = NovedadReportadaFragmentDirections
-                .actionNovedadFragmentToGalleryFragment(
-                    actaUuid = args.actaUuid,
-                    fragmentOrigen = "novedad"
+            val action = InventarioReportadoFragmentDirections
+                .actionInventarioFragmentToNovedadFragment(
+                    actaUuid = args.actaUuid
                 )
             findNavController().navigate(action)
         }
@@ -170,13 +139,16 @@ class NovedadReportadaFragment : Fragment() {
         }
     }
 
-    private fun updateUI(uiState: NovedadReportadaUiState) {
-        // Actualizar RecyclerView con novedades registradas
-        novedadRegistradaAdapter.submitList(uiState.novedadesRegistradas)
+    private fun updateUI(uiState: InventarioReportadoUiState) {
+        // Mostrar/ocultar progress bar si lo tienes en el layout
+        // binding.progressIndicator.isVisible = uiState.isLoading
 
-        // Mostrar/ocultar título y recycler
-        binding.tvNovedadesRegistradas.isVisible = uiState.novedadesRegistradas.isNotEmpty()
-        binding.recyclerNovedadesRegistradas.isVisible = uiState.novedadesRegistradas.isNotEmpty()
+        // Actualizar RecyclerView con inventarios registrados
+        inventarioRegistradoAdapter.submitList(uiState.inventariosRegistrados)
+
+        // Mostrar/ocultar mensaje de vacío
+        binding.tvInventariosRegistrados.isVisible = uiState.inventariosRegistrados.isNotEmpty()
+        binding.recyclerInventariosRegistrados.isVisible = uiState.inventariosRegistrados.isNotEmpty()
 
         // Mostrar errores
         uiState.errorMessage?.let { errorMessage ->
@@ -185,13 +157,12 @@ class NovedadReportadaFragment : Fragment() {
         }
     }
 
-    private fun showDeleteConfirmationDialog(novedadRegistradaUuid: java.util.UUID) {
+    private fun showDeleteConfirmationDialog(inventarioRegistradoUuid: UUID) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Eliminar novedad")
-            .setMessage("¿Está seguro que desea eliminar esta novedad registrada?")
+            .setTitle("Eliminar inventario")
+            .setMessage("¿Está seguro que desea eliminar este inventario registrado?")
             .setPositiveButton("Eliminar") { _, _ ->
-                viewModel.deleteNovedad(novedadRegistradaUuid)
-                Snackbar.make(binding.root, "Novedad eliminada", Snackbar.LENGTH_SHORT).show()
+                viewModel.eliminarInventarioRegistrado(inventarioRegistradoUuid)
             }
             .setNegativeButton("Cancelar", null)
             .show()
@@ -201,13 +172,9 @@ class NovedadReportadaFragment : Fragment() {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
     }
 
-    private fun navigateToGallery() {
-        val action = NovedadReportadaFragmentDirections
-            .actionNovedadFragmentToGalleryFragment(
-                actaUuid = args.actaUuid,
-                fragmentOrigen = "novedad"
-            )
-        findNavController().navigate(action)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

@@ -23,13 +23,20 @@ class RegistrarNovedadViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val actaUuid: UUID = checkNotNull(savedStateHandle.get<UUID>("actaUuid"))
+
     private val inventarioUuid: UUID = checkNotNull(savedStateHandle.get<UUID>("inventarioUuid"))
+
     private val novedadRegistradaUuid: UUID? = savedStateHandle.get<UUID>("novedadRegistradaUuid")
 
     private val _uiState = MutableStateFlow(RegistrarNovedadUiState())
+
     val uiState: StateFlow<RegistrarNovedadUiState> = _uiState.asStateFlow()
 
-    fun loadInventario(actaUuid: UUID, inventarioUuid: UUID, novedadRegistradaUuid: UUID?) {
+    init {
+        loadInventario()
+    }
+
+    private fun loadInventario() {
         viewModelScope.launch {
             try {
                 _uiState.update { it.copy(isLoading = true, errorMessage = null) }
@@ -63,22 +70,102 @@ class RegistrarNovedadViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Valida si ya existe una novedad registrada con el mismo serial
+     * Retorna true si el serial está duplicado
+     */
+    private suspend fun validarSerialDuplicado(serial: String): Boolean {
+        // Si estamos en modo edición, permitir guardar con el mismo serial
+        if (novedadRegistradaUuid != null) {
+            return false
+        }
+
+        // Obtener todas las novedades del acta actual
+        val novedadesExistentes = novedadRegistradaDao.getNovedadesRegistradasByActaList(actaUuid)
+
+        // Verificar si alguna novedad tiene el mismo serial
+        return novedadesExistentes.any { it.serial.equals(serial, ignoreCase = true) }
+    }
+
     fun guardarNovedad(
-        descripcionNovedad: String,
-        tipoNovedad: String,
+        serial: String,
+        marca: String,
+        codigoApuesta: String,
+        operando: String,
+        coinInMet: String?,
+        coinOutMet: String?,
+        jackpotMet: String?,
+        coinInSclm: String?,
+        coinOutSclm: String?,
+        jackpotSclm: String?,
         observaciones: String?
     ) {
         viewModelScope.launch {
             try {
                 _uiState.update { it.copy(isLoading = true, errorMessage = null) }
 
+                // Validar campos obligatorios
+                if (serial.isBlank()) {
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            guardadoExitoso = false,
+                            errorMessage = "El serial es obligatorio"
+                        )
+                    }
+                    return@launch
+                }
+
+                if (marca.isBlank()) {
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            guardadoExitoso = false,
+                            errorMessage = "La marca es obligatoria"
+                        )
+                    }
+                    return@launch
+                }
+
+                if (operando.isBlank()) {
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            guardadoExitoso = false,
+                            errorMessage = "Debe seleccionar el estado operativo"
+                        )
+                    }
+                    return@launch
+                }
+
+                // Validar serial duplicado (solo en modo creación)
+                if (validarSerialDuplicado(serial)) {
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            guardadoExitoso = false,
+                            errorMessage = "Ya existe una novedad registrada con el serial: $serial. No se pueden registrar dos novedades con el mismo serial."
+                        )
+                    }
+                    return@launch
+                }
+
+                // Crear o actualizar la novedad
                 val novedadRegistrada = NovedadRegistradaEntity(
                     uuidNovedadRegistrada = novedadRegistradaUuid ?: UUID.randomUUID(),
                     uuidActa = actaUuid,
                     uuidInventario = inventarioUuid,
-                    descripcionNovedad = descripcionNovedad,
-                    tipoNovedad = tipoNovedad,
-                    observaciones = observaciones
+                    serial = serial.trim(),
+                    marca = marca.trim(),
+                    codigoApuesta = codigoApuesta.trim(),
+                    operando = operando.trim(),
+                    coinInMet = coinInMet?.trim()?.takeIf { it.isNotBlank() },
+                    coinOutMet = coinOutMet?.trim()?.takeIf { it.isNotBlank() },
+                    jackpotMet = jackpotMet?.trim()?.takeIf { it.isNotBlank() },
+                    coinInSclm = coinInSclm?.trim()?.takeIf { it.isNotBlank() },
+                    coinOutSclm = coinOutSclm?.trim()?.takeIf { it.isNotBlank() },
+                    jackpotSclm = jackpotSclm?.trim()?.takeIf { it.isNotBlank() },
+                    observaciones = observaciones?.trim()?.takeIf { it.isNotBlank() }
                 )
 
                 // Insertar o actualizar
@@ -105,6 +192,10 @@ class RegistrarNovedadViewModel @Inject constructor(
 
     fun clearError() {
         _uiState.update { it.copy(errorMessage = null) }
+    }
+
+    fun resetGuardadoExitoso() {
+        _uiState.update { it.copy(guardadoExitoso = false) }
     }
 
 }

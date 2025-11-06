@@ -34,8 +34,24 @@ data class NovedadRegistradaEntity(
     val uuidActa: UUID,
     val uuidInventario: UUID,
 
-    // Datos del formulario de registro
-    val descripcionNovedad: String,
-    val tipoNovedad: String, // "TÉCNICA", "OPERATIVA", "ADMINISTRATIVA", "OTRA"
+    // Datos básicos
+    val serial: String,
+    val marca: String,
+    val codigoApuesta: String,
+
+    // Estado operativo
+    val operando: String, // "Operando" o "Apagado"
+
+    // Contadores MET
+    val coinInMet: String? = null,
+    val coinOutMet: String? = null,
+    val jackpotMet: String? = null,
+
+    // Contadores SCLM
+    val coinInSclm: String? = null,
+    val coinOutSclm: String? = null,
+    val jackpotSclm: String? = null,
+
+    // Observaciones
     val observaciones: String? = null
 )

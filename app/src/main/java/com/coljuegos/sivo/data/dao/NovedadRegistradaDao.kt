@@ -16,6 +16,9 @@ interface NovedadRegistradaDao {
     @Query("SELECT * FROM novedades_registradas WHERE uuidActa = :actaUuid")
     fun getNovedadesRegistradasByActa(actaUuid: UUID): Flow<List<NovedadRegistradaEntity>>
 
+    @Query("SELECT * FROM novedades_registradas WHERE uuidActa = :actaUuid")
+    suspend fun getNovedadesRegistradasByActaList(actaUuid: UUID): List<NovedadRegistradaEntity>
+
     @Query("SELECT * FROM novedades_registradas WHERE uuidNovedadRegistrada = :uuidNovedadRegistrada")
     suspend fun getNovedadRegistradaById(uuidNovedadRegistrada: UUID): NovedadRegistradaEntity?
 
