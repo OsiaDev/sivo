@@ -52,6 +52,54 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/subtitle" />
 
+        <LinearLayout
+            android:id="@+id/layoutEstadoTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/inventarioTitle">
+
+            <TextView
+                android:id="@+id/estadoTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/registrar_novedad_estado"
+                android:textColor="@color/text_title_detail"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/estadoLayout"
+            style="@style/Widget.Coljuegos.TextInputLayout.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/seleccione_opcion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutEstadoTitle"
+            app:endIconMode="dropdown_menu">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/estadoSpinner"
+                style="@style/Widget.Coljuegos.MaterialAutoCompleteTextView"
+                android:dropDownWidth="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:completionThreshold="1"
+                android:inputType="none"
+                android:padding="15dp"
+                android:textColor="@color/input_text_color"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <!-- Cabecera - Marca y Serial (Títulos) -->
         <LinearLayout
             android:id="@+id/layoutCabeceraTitle"
@@ -61,7 +109,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inventarioTitle">
+            app:layout_constraintTop_toBottomOf="@id/estadoLayout">
 
             <TextView
                 android:id="@+id/marcaTitle"

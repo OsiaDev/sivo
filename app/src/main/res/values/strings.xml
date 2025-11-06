@@ -214,6 +214,7 @@
     <string name="registrar_novedad_marca">Marca</string>
     <string name="registrar_novedad_serial">Serial</string>
     <string name="registrar_novedad_operando">Operando</string>
+    <string name="registrar_novedad_estado">Estado</string>
     <string name="registrar_novedad_codigo_apuesta">Código de apuesta</string>
     <string name="registrar_novedad_nuc">NUC</string>
     <string name="registrar_novedad_descripcion">Descripción de la novedad</string>
@@ -242,6 +243,12 @@
     <string-array name="operando_options">
         <item>Operando</item>
         <item>Apagado</item>
+    </string-array>
+
+    <string-array name="estado_options">
+        <item>Operando</item>
+        <item>Apagado</item>
+        <item>No encontrado</item>
     </string-array>
 
 </resources>

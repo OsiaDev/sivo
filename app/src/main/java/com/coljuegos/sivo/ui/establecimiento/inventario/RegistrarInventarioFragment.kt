@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.coljuegos.sivo.R
 import com.coljuegos.sivo.databinding.FragmentRegistrarInventarioBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,10 +21,14 @@ import kotlinx.coroutines.launch
 class RegistrarInventarioFragment : Fragment() {
 
     private var _binding: FragmentRegistrarInventarioBinding? = null
+
     private val binding get() = _binding!!
 
     private val args: RegistrarInventarioFragmentArgs by navArgs()
+
     private val viewModel: RegistrarInventarioViewModel by viewModels()
+
+    private lateinit var adapterEstado: ArrayAdapter<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +41,8 @@ class RegistrarInventarioFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupAdapters()
+        setupSpinners()
         setupUI()
         setupButtons()
         setupCheckboxListeners()
@@ -49,6 +57,20 @@ class RegistrarInventarioFragment : Fragment() {
         hideContadoresFields()
         // Ocultar inicialmente el campo de código de apuesta diferente
         hideCodigoApuestaDiferenteField()
+    }
+
+    private fun setupAdapters() {
+        // Adapter para estados
+        val opcionesEstado = resources.getStringArray(R.array.estado_options)
+        adapterEstado = ArrayAdapter(
+            requireContext(),
+            R.layout.item_dropdown,
+            opcionesEstado
+        )
+    }
+
+    private fun setupSpinners() {
+        binding.estadoSpinner.setAdapter(adapterEstado)
     }
 
     private fun setupButtons() {
