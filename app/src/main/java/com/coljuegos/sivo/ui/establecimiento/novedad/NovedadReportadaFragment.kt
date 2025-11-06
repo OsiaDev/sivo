@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.coljuegos.sivo.R
 import com.coljuegos.sivo.databinding.FragmentNovedadReportadaBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -86,34 +85,34 @@ class NovedadReportadaFragment : Fragment() {
 
     private fun setupRecyclerView() {
         novedadRegistradaAdapter = NovedadRegistradaAdapter(
-            onEditClick = { inventarioConRegistro ->
-                // Navegar directamente a RegistrarInventarioFragment en modo edición
-                inventarioConRegistro.registro?.let { registro ->
-                    val action = InventarioReportadoFragmentDirections
-                        .actionInventarioFragmentToRegistrarInventarioFragment(
+            onEditClick = { novedadConRegistro ->
+                // Navegar directamente a RegistrarNovedadFragment en modo edición
+                novedadConRegistro.novedad?.let { novedad ->
+                    val action = NovedadReportadaFragmentDirections
+                        .actionNovedadFragmentToRegistrarNovedadFragment(
                             actaUuid = args.actaUuid,
-                            inventarioUuid = inventarioConRegistro.inventario.uuidInventario,
-                            inventarioRegistradoUuid = registro.uuidInventarioRegistrado
+                            inventarioUuid = novedadConRegistro.inventario.uuidInventario,
+                            novedadRegistradaUuid = novedad.uuidNovedadRegistrada
                         )
                     findNavController().navigate(action)
                 }
             },
-            onDeleteClick = { inventarioConRegistro ->
+            onDeleteClick = { novedadConRegistro ->
                 // Mostrar diálogo de confirmación
-                inventarioConRegistro.registro?.let { registro ->
-                    showDeleteConfirmationDialog(registro.uuidInventarioRegistrado)
+                novedadConRegistro.novedad?.let { novedad ->
+                    showDeleteConfirmationDialog(novedad.uuidNovedadRegistrada)
                 }
             }
         )
 
-        binding.recyclerInventariosRegistrados.adapter = inventarioRegistradoAdapter
+        binding.recyclerNovedadesRegistradas.adapter = novedadRegistradaAdapter
     }
 
     private fun setupButtons() {
-        // Botón Agregar - navega a InventarioActaFragment
+        // Botón Agregar - navega a NovedadActaFragment
         binding.btnAgregar.setOnClickListener {
-            val action = InventarioReportadoFragmentDirections
-                .actionInventarioFragmentToInventarioActaFragment(args.actaUuid)
+            val action = NovedadReportadaFragmentDirections
+                .actionNovedadFragmentToRegistrarNovedadFragment(args.actaUuid)
             findNavController().navigate(action)
         }
 
@@ -123,9 +122,10 @@ class NovedadReportadaFragment : Fragment() {
 
         binding.btnSiguiente.setOnClickListener {
             // Navegar al siguiente fragment (Galería)
-            val action = InventarioReportadoFragmentDirections
-                .actionInventarioFragmentToNovedadFragment(
-                    actaUuid = args.actaUuid
+            val action = NovedadReportadaFragmentDirections
+                .actionNovedadFragmentToGalleryFragment(
+                    actaUuid = args.actaUuid,
+                    fragmentOrigen = "novedad"
                 )
             findNavController().navigate(action)
         }
@@ -139,16 +139,16 @@ class NovedadReportadaFragment : Fragment() {
         }
     }
 
-    private fun updateUI(uiState: InventarioReportadoUiState) {
+    private fun updateUI(uiState: NovedadReportadaUiState) {
         // Mostrar/ocultar progress bar si lo tienes en el layout
         // binding.progressIndicator.isVisible = uiState.isLoading
 
-        // Actualizar RecyclerView con inventarios registrados
-        inventarioRegistradoAdapter.submitList(uiState.inventariosRegistrados)
+        // Actualizar RecyclerView con novedades registradas
+        novedadRegistradaAdapter.submitList(uiState.novedadesRegistradas)
 
         // Mostrar/ocultar mensaje de vacío
-        binding.tvInventariosRegistrados.isVisible = uiState.inventariosRegistrados.isNotEmpty()
-        binding.recyclerInventariosRegistrados.isVisible = uiState.inventariosRegistrados.isNotEmpty()
+        binding.tvNovedadesRegistradas.isVisible = uiState.novedadesRegistradas.isNotEmpty()
+        binding.recyclerNovedadesRegistradas.isVisible = uiState.novedadesRegistradas.isNotEmpty()
 
         // Mostrar errores
         uiState.errorMessage?.let { errorMessage ->
@@ -157,12 +157,12 @@ class NovedadReportadaFragment : Fragment() {
         }
     }
 
-    private fun showDeleteConfirmationDialog(inventarioRegistradoUuid: UUID) {
+    private fun showDeleteConfirmationDialog(novedadRegistradaUuid: UUID) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Eliminar inventario")
-            .setMessage("¿Está seguro que desea eliminar este inventario registrado?")
+            .setTitle("Eliminar novedad")
+            .setMessage("¿Está seguro que desea eliminar esta novedad registrada?")
             .setPositiveButton("Eliminar") { _, _ ->
-                viewModel.eliminarInventarioRegistrado(inventarioRegistradoUuid)
+                viewModel.deleteNovedad(novedadRegistradaUuid)
             }
             .setNegativeButton("Cancelar", null)
             .show()
