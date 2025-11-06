@@ -33,7 +33,7 @@ class NovedadReportadaViewModel @Inject constructor(
                     val todosInventarios = inventarioDao.getInventariosByActa(actaUuid)
 
                     // Crear lista de NovedadConRegistro
-                    val novedadesConRegistro = novedades.mapNotNull { novedad ->
+                    val novedadesConInventario = novedades.mapNotNull { novedad ->
                         val inventario = todosInventarios.find { it.uuidInventario == novedad.uuidInventario }
                         inventario?.let {
                             NovedadConRegistro(
@@ -46,8 +46,8 @@ class NovedadReportadaViewModel @Inject constructor(
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            novedadesRegistradas = novedadesConRegistro,
-                            totalNovedadesRegistradas = novedadesConRegistro.size,
+                            novedadesRegistradas = novedadesConInventario,
+                            totalNovedadesRegistradas = novedadesConInventario.size,
                             errorMessage = null
                         )
                     }
@@ -63,19 +63,11 @@ class NovedadReportadaViewModel @Inject constructor(
         }
     }
 
-    fun eliminarNovedadRegistrada(uuidNovedadRegistrada: UUID) {
+    fun deleteNovedad(novedadRegistradaUuid: UUID) {
         viewModelScope.launch {
             try {
-                _uiState.update { it.copy(isLoading = true, errorMessage = null) }
-
-                novedadRegistradaDao.deleteById(uuidNovedadRegistrada)
-
-                _uiState.update {
-                    it.copy(
-                        isLoading = false,
-                        errorMessage = null
-                    )
-                }
+                _uiState.update { it.copy(isLoading = true) }
+                novedadRegistradaDao.deleteById(novedadRegistradaUuid)
             } catch (e: Exception) {
                 _uiState.update {
                     it.copy(

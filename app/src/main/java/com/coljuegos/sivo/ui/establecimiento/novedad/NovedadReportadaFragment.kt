@@ -139,4 +139,75 @@ class NovedadReportadaFragment : Fragment() {
         _binding = null
     }
 
+    private fun setupButtons() {
+        // Botón Agregar - navega a NovedadActaFragment para seleccionar inventario
+        binding.btnAgregar.setOnClickListener {
+            val action = NovedadReportadaFragmentDirections
+                .actionNovedadFragmentToNovedadActaFragment(args.actaUuid)
+            findNavController().navigate(action)
+        }
+
+        binding.btnAnterior.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.btnSiguiente.setOnClickListener {
+            // Navegar al siguiente fragment (Galería)
+            val action = NovedadReportadaFragmentDirections
+                .actionNovedadFragmentToGalleryFragment(
+                    actaUuid = args.actaUuid,
+                    fragmentOrigen = "novedad"
+                )
+            findNavController().navigate(action)
+        }
+    }
+
+    private fun observeViewModel() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.uiState.collect { uiState ->
+                updateUI(uiState)
+            }
+        }
+    }
+
+    private fun updateUI(uiState: NovedadReportadaUiState) {
+        // Actualizar RecyclerView con novedades registradas
+        novedadRegistradaAdapter.submitList(uiState.novedadesRegistradas)
+
+        // Mostrar/ocultar título y recycler
+        binding.tvNovedadesRegistradas.isVisible = uiState.novedadesRegistradas.isNotEmpty()
+        binding.recyclerNovedadesRegistradas.isVisible = uiState.novedadesRegistradas.isNotEmpty()
+
+        // Mostrar errores
+        uiState.errorMessage?.let { errorMessage ->
+            showError(errorMessage)
+            viewModel.clearError()
+        }
+    }
+
+    private fun showDeleteConfirmationDialog(novedadRegistradaUuid: java.util.UUID) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Eliminar novedad")
+            .setMessage("¿Está seguro que desea eliminar esta novedad registrada?")
+            .setPositiveButton("Eliminar") { _, _ ->
+                viewModel.deleteNovedad(novedadRegistradaUuid)
+                Snackbar.make(binding.root, "Novedad eliminada", Snackbar.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun showError(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun navigateToGallery() {
+        val action = NovedadReportadaFragmentDirections
+            .actionNovedadFragmentToGalleryFragment(
+                actaUuid = args.actaUuid,
+                fragmentOrigen = "novedad"
+            )
+        findNavController().navigate(action)
+    }
+
 }
