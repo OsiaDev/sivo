@@ -24,8 +24,6 @@ class RegistrarNovedadViewModel @Inject constructor(
 
     private val actaUuid: UUID = checkNotNull(savedStateHandle.get<UUID>("actaUuid"))
 
-    private val inventarioUuid: UUID = checkNotNull(savedStateHandle.get<UUID>("inventarioUuid"))
-
     private val novedadRegistradaUuid: UUID? = savedStateHandle.get<UUID>("novedadRegistradaUuid")
 
     private val _uiState = MutableStateFlow(RegistrarNovedadUiState())
@@ -43,7 +41,6 @@ class RegistrarNovedadViewModel @Inject constructor(
 
                 // Obtener el inventario
                 val todosInventarios = inventarioDao.getInventariosByActa(actaUuid)
-                val inventario = todosInventarios.find { it.uuidInventario == inventarioUuid }
 
                 // Si es edición, obtener el registro de novedad
                 val novedad = novedadRegistradaUuid?.let { uuid ->
@@ -53,7 +50,6 @@ class RegistrarNovedadViewModel @Inject constructor(
                 _uiState.update {
                     it.copy(
                         isLoading = false,
-                        inventario = inventario,
                         novedadRegistrada = novedad,
                         esEdicion = novedad != null,
                         errorMessage = null
@@ -154,7 +150,6 @@ class RegistrarNovedadViewModel @Inject constructor(
                 val novedadRegistrada = NovedadRegistradaEntity(
                     uuidNovedadRegistrada = novedadRegistradaUuid ?: UUID.randomUUID(),
                     uuidActa = actaUuid,
-                    uuidInventario = inventarioUuid,
                     serial = serial.trim(),
                     marca = marca.trim(),
                     codigoApuesta = codigoApuesta.trim(),

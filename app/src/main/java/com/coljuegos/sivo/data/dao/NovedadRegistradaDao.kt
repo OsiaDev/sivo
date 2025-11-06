@@ -22,9 +22,6 @@ interface NovedadRegistradaDao {
     @Query("SELECT * FROM novedades_registradas WHERE uuidNovedadRegistrada = :uuidNovedadRegistrada")
     suspend fun getNovedadRegistradaById(uuidNovedadRegistrada: UUID): NovedadRegistradaEntity?
 
-    @Query("SELECT * FROM novedades_registradas WHERE uuidInventario = :uuidInventario")
-    suspend fun getNovedadesRegistradasByInventarioId(uuidInventario: UUID): List<NovedadRegistradaEntity>
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(novedadRegistrada: NovedadRegistradaEntity): Long
 

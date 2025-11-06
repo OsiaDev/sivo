@@ -34,13 +34,10 @@ class NovedadReportadaViewModel @Inject constructor(
 
                     // Crear lista de NovedadConRegistro
                     val novedadesConInventario = novedades.mapNotNull { novedad ->
-                        val inventario = todosInventarios.find { it.uuidInventario == novedad.uuidInventario }
-                        inventario?.let {
                             NovedadConRegistro(
-                                inventario = it,
                                 novedad = novedad
                             )
-                        }
+
                     }
 
                     _uiState.update {

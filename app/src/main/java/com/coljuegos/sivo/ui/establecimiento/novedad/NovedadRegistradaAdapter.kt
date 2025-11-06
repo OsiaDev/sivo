@@ -31,11 +31,11 @@ class NovedadRegistradaAdapter(
 
         fun bind(item: NovedadConRegistro) {
             with(binding) {
-                val inventario = item.inventario
+                val novedad = item.novedad
 
                 // Mostrar marca y serial
-                marcaValue.text = "Marca: ${inventario.nombreMarcaInventario}"
-                serialValue.text = "Serial: ${inventario.metSerialInventario}"
+                marcaValue.text = "Marca: ${novedad?.marca}"
+                serialValue.text = "Serial: ${novedad?.serial}"
 
                 // Configurar botón editar
                 btnEditar.setOnClickListener {
@@ -52,7 +52,7 @@ class NovedadRegistradaAdapter(
 
     class NovedadDiffCallback : DiffUtil.ItemCallback<NovedadConRegistro>() {
         override fun areItemsTheSame(oldItem: NovedadConRegistro, newItem: NovedadConRegistro): Boolean {
-            return oldItem.inventario.uuidInventario == newItem.inventario.uuidInventario
+            return oldItem.novedad?.serial == newItem.novedad?.serial
         }
 
         override fun areContentsTheSame(oldItem: NovedadConRegistro, newItem: NovedadConRegistro): Boolean {

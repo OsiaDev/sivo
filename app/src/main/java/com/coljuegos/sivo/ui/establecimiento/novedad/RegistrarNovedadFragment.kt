@@ -131,16 +131,16 @@ class RegistrarNovedadFragment : Fragment() {
 
         // Si es creación, cargar datos del inventario de referencia
         if (!state.esEdicion) {
-            state.inventario?.let { inventario ->
+            state.novedadRegistrada?.let { novedad ->
                 // Prellenar con datos del inventario si existen
                 if (binding.valorSerialEditText.text.isNullOrBlank()) {
-                    binding.valorSerialEditText.setText(inventario.metSerialInventario)
+                    binding.valorSerialEditText.setText(novedad.serial)
                 }
                 if (binding.valorMarcaEditText.text.isNullOrBlank()) {
-                    binding.valorMarcaEditText.setText(inventario.nombreMarcaInventario)
+                    binding.valorMarcaEditText.setText(novedad.marca)
                 }
                 if (binding.valorCodigoApuestaEditText.text.isNullOrBlank()) {
-                    binding.valorCodigoApuestaEditText.setText(inventario.codigoTipoApuestaInventario)
+                    binding.valorCodigoApuestaEditText.setText(novedad.codigoApuesta)
                 }
             }
         }
