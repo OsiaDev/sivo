@@ -59,6 +59,27 @@ class InventarioReportadoFragment : Fragment() {
         super.onResume()
         // Recargar inventarios al volver de registrar
         viewModel.loadInventariosRegistrados(args.actaUuid)
+
+        // Registrar listener para el botón de cámara del toolbar
+        parentFragmentManager.setFragmentResultListener("camera_action", viewLifecycleOwner) { _, _ ->
+            Log.d("InventarioFragment", "Recibido evento de cámara")
+            navigateToGallery()
+        }
+    }
+
+    private fun navigateToGallery() {
+        val action = InventarioReportadoFragmentDirections
+            .actionInventarioFragmentToGalleryFragment(
+                actaUuid = args.actaUuid,
+                fragmentOrigen = "inventario"
+            )
+        findNavController().navigate(action)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Limpiar listener cuando el fragment no es visible
+        parentFragmentManager.clearFragmentResultListener("camera_action")
     }
 
     private fun setupRecyclerView() {

@@ -198,6 +198,34 @@
     <string name="maestros_sincronizado_exito">Maestros sincronizados correctamente</string>
     <string name="maestros_error_sincronizacion">Error al sincronizar maestros</string>
 
+    <!-- Fragment Novedad Reportada -->
+    <string name="novedad_reportada_title">Novedades reportadas</string>
+    <string name="novedad_reportada_subtitle">4. Novedades reportadas</string>
+    <string name="novedad_reportada_agregar">Agregar</string>
+    <string name="novedad_reportada_anterior">Anterior</string>
+    <string name="novedad_reportada_siguiente">Siguiente</string>
+    <string name="novedad_reportada_editar">Editar</string>
+    <string name="novedad_reportada_eliminar">Eliminar</string>
+    <string name="novedad_registrada_titulo">Novedades registradas</string>
+    <string name="novedad_registrada_vacio">No hay novedades registradas</string>
+
+    <!-- Fragment Registrar Novedad -->
+    <string name="registrar_novedad_title">Registrar</string>
+    <string name="registrar_novedad_marca">Marca</string>
+    <string name="registrar_novedad_serial">Serial</string>
+    <string name="registrar_novedad_codigo_apuesta">Código de apuesta</string>
+    <string name="registrar_novedad_nuc">NUC</string>
+    <string name="registrar_novedad_descripcion">Descripción de la novedad</string>
+    <string name="registrar_novedad_descripcion_hint">Describa detalladamente la novedad encontrada</string>
+    <string name="registrar_novedad_tipo">Tipo de novedad</string>
+    <string name="registrar_novedad_tipo_hint">Seleccione el tipo</string>
+    <string name="registrar_novedad_observaciones">Observaciones</string>
+    <string name="registrar_novedad_observaciones_hint">Observaciones adicionales (opcional)</string>
+    <string name="registrar_novedad_galeria">Agregar fotos</string>
+    <string name="registrar_novedad_cancelar">Cancelar</string>
+    <string name="registrar_novedad_guardar">Guardar</string>
+    <string name="registrar_novedad_actualizar">Actualizar</string>
+
     <string-array name="si_no_na_options">
         <item>Si</item>
         <item>No</item>
@@ -211,5 +239,9 @@
         <item>Otros</item>
     </string-array>
 
+    <string-array name="operando_options">
+        <item>Operando</item>
+        <item>Apagado</item>
+    </string-array>
 
 </resources>

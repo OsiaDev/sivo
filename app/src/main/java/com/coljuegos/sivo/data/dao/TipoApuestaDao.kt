@@ -18,6 +18,9 @@ interface TipoApuestaDao {
     @Query("SELECT * FROM tipos_apuesta WHERE codigoTipoApuesta = :codigo LIMIT 1")
     suspend fun getTipoApuestaByCodigo(codigo: Long): TipoApuestaEntity?
 
+    @Query("SELECT COUNT(*) FROM tipos_apuesta")
+    suspend fun getCount(): Int
+
     @Query("DELETE FROM tipos_apuesta")
     suspend fun deleteAll()
 
