@@ -124,9 +124,8 @@ class NovedadReportadaFragment : Fragment() {
         binding.btnSiguiente.setOnClickListener {
             // Navegar al siguiente fragment (Galería)
             val action = NovedadReportadaFragmentDirections
-                .actionNovedadFragmentToGalleryFragment(
-                    actaUuid = args.actaUuid,
-                    fragmentOrigen = "novedad"
+                .actionNovedadFragmentToResumenInventarioFragment(
+                    actaUuid = args.actaUuid
                 )
             findNavController().navigate(action)
         }
