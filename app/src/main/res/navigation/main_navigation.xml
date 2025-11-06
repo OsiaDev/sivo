@@ -230,10 +230,6 @@
             app:argType="java.util.UUID" />
 
         <argument
-            android:name="inventarioUuid"
-            app:argType="java.util.UUID" />
-
-        <argument
             android:name="novedadRegistradaUuid"
             android:defaultValue="@null"
             app:argType="java.util.UUID"

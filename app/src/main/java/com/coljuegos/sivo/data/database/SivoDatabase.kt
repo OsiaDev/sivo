@@ -50,7 +50,7 @@ import com.coljuegos.sivo.utils.LocalDateTimeConverter
         VerificacionSiplaftEntity::class,
         TipoApuestaEntity::class,
         NovedadRegistradaEntity::class,
-    ], version = 12, exportSchema = false
+    ], version = 13, exportSchema = false
 )
 @TypeConverters(
     BigDecimalConverter::class,

@@ -91,7 +91,6 @@ class NovedadReportadaFragment : Fragment() {
                     val action = NovedadReportadaFragmentDirections
                         .actionNovedadFragmentToRegistrarNovedadFragment(
                             actaUuid = args.actaUuid,
-                            inventarioUuid = novedadConRegistro.inventario.uuidInventario,
                             novedadRegistradaUuid = novedad.uuidNovedadRegistrada
                         )
                     findNavController().navigate(action)
@@ -111,7 +110,10 @@ class NovedadReportadaFragment : Fragment() {
     private fun setupButtons() {
         binding.btnAgregar.setOnClickListener {
             val action = NovedadReportadaFragmentDirections
-                .actionNovedadFragmentToRegistrarNovedadFragment(args.actaUuid)
+                .actionNovedadFragmentToRegistrarNovedadFragment(
+                    actaUuid = args.actaUuid,
+                    novedadRegistradaUuid = null
+                )
             findNavController().navigate(action)
         }
 

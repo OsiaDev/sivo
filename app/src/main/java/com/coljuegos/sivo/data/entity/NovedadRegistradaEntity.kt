@@ -14,25 +14,17 @@ import java.util.UUID
             parentColumns = arrayOf("uuidActa"),
             childColumns = arrayOf("uuidActa"),
             onDelete = ForeignKey.CASCADE
-        ),
-        ForeignKey(
-            entity = InventarioEntity::class,
-            parentColumns = arrayOf("uuidInventario"),
-            childColumns = arrayOf("uuidInventario"),
-            onDelete = ForeignKey.CASCADE
         )
     ],
     indices = [
         Index(value = ["uuidNovedadRegistrada"]),
-        Index(value = ["uuidActa"]),
-        Index(value = ["uuidInventario"])
+        Index(value = ["uuidActa"])
     ]
 )
 data class NovedadRegistradaEntity(
     @PrimaryKey
     val uuidNovedadRegistrada: UUID = UUID.randomUUID(),
     val uuidActa: UUID,
-    val uuidInventario: UUID,
 
     // Datos básicos
     val serial: String,
