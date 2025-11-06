@@ -109,7 +109,6 @@ class NovedadReportadaFragment : Fragment() {
     }
 
     private fun setupButtons() {
-        // Botón Agregar - navega a NovedadActaFragment
         binding.btnAgregar.setOnClickListener {
             val action = NovedadReportadaFragmentDirections
                 .actionNovedadFragmentToRegistrarNovedadFragment(args.actaUuid)
