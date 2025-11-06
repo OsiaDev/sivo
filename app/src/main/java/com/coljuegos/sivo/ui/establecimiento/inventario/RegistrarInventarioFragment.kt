@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.coljuegos.sivo.R
+import com.coljuegos.sivo.data.entity.EstadoInventarioEnum
 import com.coljuegos.sivo.databinding.FragmentRegistrarInventarioBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -171,6 +172,8 @@ class RegistrarInventarioFragment : Fragment() {
             }
 
             binding.observacionesEditText.setText(registro.observaciones ?: "")
+            // Cargar estado
+            binding.estadoSpinner.setText(EstadoInventarioEnum.toString(registro.estado), false)
         }
 
         // Si se guardó exitosamente, navegar de vuelta
@@ -209,6 +212,8 @@ class RegistrarInventarioFragment : Fragment() {
         val coinOutSclm = if (contadoresVerificado) binding.coinOutSclmEditText.text?.toString()?.trim() else null
         val jackpotSclm = if (contadoresVerificado) binding.jackpotSclmEditText.text?.toString()?.trim() else null
 
+        // Obtener el estado seleccionado del spinner
+        val estadoSeleccionado = binding.estadoSpinner.text?.toString() ?: "Operando"
         val observaciones = binding.observacionesEditText.text?.toString()?.trim()
 
         // Guardar en el ViewModel
@@ -227,7 +232,8 @@ class RegistrarInventarioFragment : Fragment() {
             coinInSclm = coinInSclm,
             coinOutSclm = coinOutSclm,
             jackpotSclm = jackpotSclm,
-            observaciones = observaciones
+            observaciones = observaciones,
+            estado = estadoSeleccionado
         )
     }
 

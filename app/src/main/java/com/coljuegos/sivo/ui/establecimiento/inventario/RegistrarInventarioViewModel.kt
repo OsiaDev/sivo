@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coljuegos.sivo.data.dao.InventarioDao
 import com.coljuegos.sivo.data.dao.InventarioRegistradoDao
+import com.coljuegos.sivo.data.entity.EstadoInventarioEnum
 import com.coljuegos.sivo.data.entity.InventarioRegistradoEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -78,7 +79,8 @@ class RegistrarInventarioViewModel @Inject constructor(
         coinInSclm: String?,
         coinOutSclm: String?,
         jackpotSclm: String?,
-        observaciones: String?
+        observaciones: String?,
+        estado: String
     ) {
         viewModelScope.launch {
             try {
@@ -102,7 +104,8 @@ class RegistrarInventarioViewModel @Inject constructor(
                     coinInSclm = coinInSclm,
                     coinOutSclm = coinOutSclm,
                     jackpotSclm = jackpotSclm,
-                    observaciones = observaciones
+                    observaciones = observaciones,
+                    estado = EstadoInventarioEnum.fromString(estado)
                 )
 
                 // Insertar o actualizar

@@ -32,6 +32,7 @@ import com.coljuegos.sivo.data.entity.VerificacionSiplaftEntity
 import com.coljuegos.sivo.utils.ActaStateConverter
 import com.coljuegos.sivo.utils.UUIDConverter
 import com.coljuegos.sivo.utils.BigDecimalConverter
+import com.coljuegos.sivo.utils.EstadoInventarioConverter
 import com.coljuegos.sivo.utils.LocalDateConverter
 import com.coljuegos.sivo.utils.LocalDateTimeConverter
 
@@ -57,7 +58,8 @@ import com.coljuegos.sivo.utils.LocalDateTimeConverter
     LocalDateConverter::class,
     LocalDateTimeConverter::class,
     UUIDConverter::class,
-    ActaStateConverter::class
+    ActaStateConverter::class,
+    EstadoInventarioConverter::class,
 )
 abstract class SivoDatabase : RoomDatabase() {
 

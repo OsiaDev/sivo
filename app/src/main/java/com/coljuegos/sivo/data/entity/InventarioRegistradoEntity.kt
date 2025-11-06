@@ -56,5 +56,6 @@ data class InventarioRegistradoEntity(
     val jackpotSclm: String? = null,
 
     // Observaciones
-    val observaciones: String? = null
+    val observaciones: String? = null,
+    val estado: EstadoInventarioEnum = EstadoInventarioEnum.OPERANDO
 )
