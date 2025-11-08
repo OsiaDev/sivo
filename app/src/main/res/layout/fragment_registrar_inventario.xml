@@ -772,7 +772,6 @@
             android:textColor="@color/fragment_subtitle_color"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutContadoresMet"
             tools:visibility="visible" />
@@ -783,7 +782,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="vertical"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/contadoresSclmTitle"

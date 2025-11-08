@@ -54,8 +54,10 @@ class RegistrarInventarioFragment : Fragment() {
     }
 
     private fun setupUI() {
-        // Ocultar inicialmente los campos de contadores
-        hideContadoresFields()
+        // Ocultar inicialmente los campos de contadores MET
+        hideContadoresMetFields()
+        // Mostrar siempre los campos SCLM
+        showContadoresSclmFields()
         // Ocultar inicialmente el campo de código de apuesta diferente
         hideCodigoApuestaDiferenteField()
     }
@@ -72,6 +74,21 @@ class RegistrarInventarioFragment : Fragment() {
 
     private fun setupSpinners() {
         binding.estadoSpinner.setAdapter(adapterEstado)
+
+        // Listener para el spinner de estado
+        binding.estadoSpinner.setOnItemClickListener { _, _, _, _ ->
+            val estadoSeleccionado = binding.estadoSpinner.text.toString()
+            if (estadoSeleccionado == "No encontrado") {
+                clearAllFieldsExceptObservaciones()
+                hideAllFieldsExceptObservaciones()
+                // Forzar ocultación de campos condicionales por si los listeners los mostraron
+                binding.codigoApuestaDiferenteInputLayout.isVisible = false
+                binding.serialDiferenteInputLayout.isVisible = false
+            } else {
+                showAllFieldsExceptObservaciones()
+                restoreDefaultValues()
+            }
+        }
     }
 
     private fun setupButtons() {
@@ -85,12 +102,12 @@ class RegistrarInventarioFragment : Fragment() {
     }
 
     private fun setupCheckboxListeners() {
-        // Listener para el checkbox de contadores
+        // Listener para el checkbox de contadores - solo afecta a MET
         binding.contadoresCheckbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                showContadoresFields()
+                showContadoresMetFields()
             } else {
-                hideContadoresFields()
+                hideContadoresMetFields()
             }
         }
         // Listener para el checkbox de código de apuesta diferente
@@ -114,18 +131,121 @@ class RegistrarInventarioFragment : Fragment() {
 
     }
 
-    private fun showContadoresFields() {
+    private fun clearAllFieldsExceptObservaciones() {
+        // Limpiar checkboxes
+        binding.codigoApuestaDiferenteCheckbox.isChecked = false
+        binding.serialVerificadoCheckbox.isChecked = false
+        binding.descripcionJuegoCheckbox.isChecked = false
+        binding.planPremiosCheckbox.isChecked = false
+        binding.valorPremiosCheckbox.isChecked = false
+        binding.contadoresCheckbox.isChecked = false
+
+        // Limpiar campos de texto
+        binding.codigoApuestaDiferenteEditText.setText("")
+        binding.serialDiferenteEditText.setText("")
+        binding.valorCreditoEditText.setText("")
+
+        // Limpiar contadores MET
+        binding.coinInMetEditText.setText("")
+        binding.coinOutMetEditText.setText("")
+        binding.jackpotMetEditText.setText("")
+
+        // Limpiar contadores SCLM
+        binding.coinInSclmEditText.setText("")
+        binding.coinOutSclmEditText.setText("")
+        binding.jackpotSclmEditText.setText("")
+    }
+
+    private fun showContadoresMetFields() {
         binding.contadoresMetTitle.isVisible = true
         binding.layoutContadoresMet.isVisible = true
+    }
+
+    private fun hideContadoresMetFields() {
+        binding.contadoresMetTitle.isVisible = false
+        binding.layoutContadoresMet.isVisible = false
+    }
+
+    private fun showContadoresSclmFields() {
         binding.contadoresSclmTitle.isVisible = true
         binding.layoutContadoresSclm.isVisible = true
     }
 
-    private fun hideContadoresFields() {
-        binding.contadoresMetTitle.isVisible = false
-        binding.layoutContadoresMet.isVisible = false
+    private fun hideContadoresSclmFields() {
         binding.contadoresSclmTitle.isVisible = false
         binding.layoutContadoresSclm.isVisible = false
+    }
+
+    private fun showAllFieldsExceptObservaciones() {
+        binding.layoutTextoLegal1Title.isVisible = true
+        binding.layoutCheck1Title.isVisible = true
+        binding.layoutTextoLegal2Title.isVisible = true
+        binding.layoutCheck2Title.isVisible = true
+        binding.layoutTextoLegal34Title.isVisible = true
+        binding.layoutCheck34Title.isVisible = true
+        binding.layoutTextoLegal5Title.isVisible = true
+        binding.layoutCheck5Title.isVisible = true
+        binding.layoutTextoLegal6Title.isVisible = true
+        binding.valorCreditoInputLayout.isVisible = true
+        binding.layoutTextoLegal7Title.isVisible = true
+        binding.layoutCheck7Title.isVisible = true
+        showContadoresSclmFields()
+    }
+
+    private fun hideAllFieldsExceptObservaciones() {
+        // Ocultar títulos y checkboxes
+        binding.layoutTextoLegal1Title.isVisible = false
+        binding.layoutCheck1Title.isVisible = false
+        binding.layoutTextoLegal2Title.isVisible = false
+        binding.layoutCheck2Title.isVisible = false
+        binding.layoutTextoLegal34Title.isVisible = false
+        binding.layoutCheck34Title.isVisible = false
+        binding.layoutTextoLegal5Title.isVisible = false
+        binding.layoutCheck5Title.isVisible = false
+        binding.layoutTextoLegal6Title.isVisible = false
+        binding.layoutTextoLegal7Title.isVisible = false
+        binding.layoutCheck7Title.isVisible = false
+
+        // Ocultar campos condicionales
+        binding.codigoApuestaDiferenteInputLayout.isVisible = false
+        binding.serialDiferenteInputLayout.isVisible = false
+        binding.valorCreditoInputLayout.isVisible = false
+
+        // Ocultar contadores
+        hideContadoresMetFields()
+        hideContadoresSclmFields()
+    }
+
+    private fun restoreDefaultValues() {
+        // Restaurar checkboxes a sus valores por defecto
+        binding.codigoApuestaDiferenteCheckbox.isChecked = false
+        binding.serialVerificadoCheckbox.isChecked = true
+        binding.descripcionJuegoCheckbox.isChecked = true
+        binding.planPremiosCheckbox.isChecked = true
+        binding.valorPremiosCheckbox.isChecked = true
+        binding.contadoresCheckbox.isChecked = false
+
+        // Limpiar y ocultar campos condicionales
+        binding.codigoApuestaDiferenteEditText.setText("")
+        binding.codigoApuestaDiferenteInputLayout.isVisible = false
+        binding.serialDiferenteEditText.setText("")
+        binding.serialDiferenteInputLayout.isVisible = false
+
+        // Limpiar campos de texto
+        binding.valorCreditoEditText.setText("")
+
+        // Limpiar contadores MET
+        binding.coinInMetEditText.setText("")
+        binding.coinOutMetEditText.setText("")
+        binding.jackpotMetEditText.setText("")
+
+        // Limpiar contadores SCLM
+        binding.coinInSclmEditText.setText("")
+        binding.coinOutSclmEditText.setText("")
+        binding.jackpotSclmEditText.setText("")
+
+        // Ocultar contadores MET (dependen del checkbox)
+        hideContadoresMetFields()
     }
 
     private fun showCodigoApuestaDiferenteField() {
@@ -184,20 +304,27 @@ class RegistrarInventarioFragment : Fragment() {
             binding.valorCreditoEditText.setText(registro.valorCredito ?: "")
             binding.contadoresCheckbox.isChecked = registro.contadoresVerificado
 
-            // Si los contadores están verificados, cargar los valores
+            // Si los contadores están verificados, cargar los valores MET
             if (registro.contadoresVerificado) {
-                showContadoresFields()
+                showContadoresMetFields()
                 binding.coinInMetEditText.setText(registro.coinInMet ?: "")
                 binding.coinOutMetEditText.setText(registro.coinOutMet ?: "")
                 binding.jackpotMetEditText.setText(registro.jackpotMet ?: "")
-                binding.coinInSclmEditText.setText(registro.coinInSclm ?: "")
-                binding.coinOutSclmEditText.setText(registro.coinOutSclm ?: "")
-                binding.jackpotSclmEditText.setText(registro.jackpotSclm ?: "")
             }
+
+            // Cargar siempre los valores SCLM
+            binding.coinInSclmEditText.setText(registro.coinInSclm ?: "")
+            binding.coinOutSclmEditText.setText(registro.coinOutSclm ?: "")
+            binding.jackpotSclmEditText.setText(registro.jackpotSclm ?: "")
 
             binding.observacionesEditText.setText(registro.observaciones ?: "")
             // Cargar estado
             binding.estadoSpinner.setText(EstadoInventarioEnum.toString(registro.estado), false)
+
+            // Aplicar visibilidad según estado
+            if (registro.estado == EstadoInventarioEnum.NO_ENCONTRADO) {
+                hideAllFieldsExceptObservaciones()
+            }
         } ?: run {
             // Si no hay registro (es nuevo), establecer "Operando" por defecto solo si el spinner está vacío
             if (binding.estadoSpinner.text.isNullOrEmpty()) {
@@ -218,8 +345,47 @@ class RegistrarInventarioFragment : Fragment() {
     }
 
     private fun guardarInventario() {
-        // Validar que el código de apuesta no esté vacío
+        val estadoSeleccionado = binding.estadoSpinner.text.toString()
+        val estado = EstadoInventarioEnum.fromString(estadoSeleccionado)
 
+        // Validar que se haya seleccionado un estado
+        if (estadoSeleccionado.isEmpty()) {
+            Snackbar.make(binding.root, "Debe seleccionar un estado", Snackbar.LENGTH_LONG).show()
+            return
+        }
+
+        // Si el estado es NO_ENCONTRADO, solo guardar observaciones
+        if (estado == EstadoInventarioEnum.NO_ENCONTRADO) {
+            val observaciones = binding.observacionesEditText.text?.toString()
+
+            if (observaciones.isNullOrBlank()) {
+                Snackbar.make(binding.root, "Debe ingresar una observación cuando la máquina no está encontrada", Snackbar.LENGTH_LONG).show()
+                return
+            }
+
+            viewModel.guardarInventario(
+                codigoApuestaDiferente = false,
+                codigoApuestaDiferenteValor = null,
+                serialVerificado = false,
+                serialDiferente = null,
+                descripcionJuego = false,
+                planPremios = false,
+                valorPremios = false,
+                valorCredito = null,
+                contadoresVerificado = false,
+                coinInMet = null,
+                coinOutMet = null,
+                jackpotMet = null,
+                coinInSclm = null,
+                coinOutSclm = null,
+                jackpotSclm = null,
+                observaciones = observaciones,
+                estado = estadoSeleccionado
+            )
+            return
+        }
+
+        // Si el estado NO es NO_ENCONTRADO, validar y guardar todos los campos
         // Recopilar datos del formulario
         val codigoApuestaDiferente = binding.codigoApuestaDiferenteCheckbox.isChecked
         val codigoApuestaDiferenteValor = if (codigoApuestaDiferente)
@@ -238,16 +404,16 @@ class RegistrarInventarioFragment : Fragment() {
         val valorCredito = binding.valorCreditoEditText.text?.toString()?.trim()
         val contadoresVerificado = binding.contadoresCheckbox.isChecked
 
-        // Datos de contadores (solo si están verificados)
+        // Datos de contadores MET (solo si están verificados)
         val coinInMet = if (contadoresVerificado) binding.coinInMetEditText.text?.toString()?.trim() else null
         val coinOutMet = if (contadoresVerificado) binding.coinOutMetEditText.text?.toString()?.trim() else null
         val jackpotMet = if (contadoresVerificado) binding.jackpotMetEditText.text?.toString()?.trim() else null
-        val coinInSclm = if (contadoresVerificado) binding.coinInSclmEditText.text?.toString()?.trim() else null
-        val coinOutSclm = if (contadoresVerificado) binding.coinOutSclmEditText.text?.toString()?.trim() else null
-        val jackpotSclm = if (contadoresVerificado) binding.jackpotSclmEditText.text?.toString()?.trim() else null
 
-        // Obtener el estado seleccionado del spinner
-        val estadoSeleccionado = binding.estadoSpinner.text?.toString() ?: "Operando"
+        // Datos de contadores SCLM (siempre se piden)
+        val coinInSclm = binding.coinInSclmEditText.text?.toString()?.trim()
+        val coinOutSclm = binding.coinOutSclmEditText.text?.toString()?.trim()
+        val jackpotSclm = binding.jackpotSclmEditText.text?.toString()?.trim()
+
         val observaciones = binding.observacionesEditText.text?.toString()?.trim()
 
         // Guardar en el ViewModel
