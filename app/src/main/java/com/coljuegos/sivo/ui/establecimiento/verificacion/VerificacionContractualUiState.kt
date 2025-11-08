@@ -15,13 +15,17 @@ data class VerificacionContractualUiState(
     // Respuestas seleccionadas
     val avisoAutorizacion: String = "",
     val direccionCorresponde: String = "",
+    val otraDireccion: String = "",
     val nombreEstablecimientoCorresponde: String = "",
+    val otroNombre: String = "",
     val desarrollaActividadesDiferentes: String = "",
     val tipoActividad: String = "",
     val especificacionOtros: String = "",
     val cuentaRegistrosMantenimiento: String = "",
 
     // Estados de UI
+    val mostrarCampoOtraDireccion: Boolean = false,
+    val mostrarCampoOtroNombre: Boolean = false,
     val mostrarSeccionActividadesDiferentes: Boolean = false,
     val mostrarCampoOtros: Boolean = false
 )

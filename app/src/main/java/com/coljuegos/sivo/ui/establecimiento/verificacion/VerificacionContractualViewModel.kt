@@ -42,17 +42,23 @@ class VerificacionContractualViewModel @Inject constructor(
                 if (verificacion != null) {
                     val desarrollaActividades = verificacion.desarrollaActividadesDiferentes == "Si"
                     val esTipoOtros = verificacion.tipoActividad == "Otros"
+                    val mostrarOtraDireccion = verificacion.direccionCorresponde == "No"
+                    val mostrarOtroNombre = verificacion.nombreEstablecimientoCorresponde == "No"
 
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         actaUuid = actaUuid,
                         avisoAutorizacion = verificacion.avisoAutorizacion ?: "",
                         direccionCorresponde = verificacion.direccionCorresponde ?: "",
+                        otraDireccion = verificacion.otraDireccion ?: "",
                         nombreEstablecimientoCorresponde = verificacion.nombreEstablecimientoCorresponde ?: "",
+                        otroNombre = verificacion.otroNombre ?: "",
                         desarrollaActividadesDiferentes = verificacion.desarrollaActividadesDiferentes ?: "",
                         tipoActividad = verificacion.tipoActividad ?: "",
                         especificacionOtros = verificacion.especificacionOtros ?: "",
                         cuentaRegistrosMantenimiento = verificacion.cuentaRegistrosMantenimiento ?: "",
+                        mostrarCampoOtraDireccion = mostrarOtraDireccion,
+                        mostrarCampoOtroNombre = mostrarOtroNombre,
                         mostrarSeccionActividadesDiferentes = desarrollaActividades,
                         mostrarCampoOtros = esTipoOtros
                     )
@@ -74,12 +80,42 @@ class VerificacionContractualViewModel @Inject constructor(
     }
 
     fun updateDireccionCorresponde(value: String) {
-        _uiState.value = _uiState.value.copy(direccionCorresponde = value)
+        val mostrarOtraDireccion = value == "No"
+        _uiState.value = _uiState.value.copy(
+            direccionCorresponde = value,
+            mostrarCampoOtraDireccion = mostrarOtraDireccion
+        )
+
+        // Si no es "No", limpiar el campo
+        if (!mostrarOtraDireccion) {
+            _uiState.value = _uiState.value.copy(otraDireccion = "")
+        }
+
+        saveVerificacionContractual()
+    }
+
+    fun updateOtraDireccion(value: String) {
+        _uiState.value = _uiState.value.copy(otraDireccion = value)
         saveVerificacionContractual()
     }
 
     fun updateNombreEstablecimientoCorresponde(value: String) {
-        _uiState.value = _uiState.value.copy(nombreEstablecimientoCorresponde = value)
+        val mostrarOtroNombre = value == "No"
+        _uiState.value = _uiState.value.copy(
+            nombreEstablecimientoCorresponde = value,
+            mostrarCampoOtroNombre = mostrarOtroNombre
+        )
+
+        // Si no es "No", limpiar el campo
+        if (!mostrarOtroNombre) {
+            _uiState.value = _uiState.value.copy(otroNombre = "")
+        }
+
+        saveVerificacionContractual()
+    }
+
+    fun updateOtroNombre(value: String) {
+        _uiState.value = _uiState.value.copy(otroNombre = value)
         saveVerificacionContractual()
     }
 
@@ -138,7 +174,9 @@ class VerificacionContractualViewModel @Inject constructor(
                 val verificacionToSave = existingVerificacion?.copy(
                     avisoAutorizacion = currentState.avisoAutorizacion.takeIf { it.isNotBlank() },
                     direccionCorresponde = currentState.direccionCorresponde.takeIf { it.isNotBlank() },
+                    otraDireccion = currentState.otraDireccion.takeIf { it.isNotBlank() },
                     nombreEstablecimientoCorresponde = currentState.nombreEstablecimientoCorresponde.takeIf { it.isNotBlank() },
+                    otroNombre = currentState.otroNombre.takeIf { it.isNotBlank() },
                     desarrollaActividadesDiferentes = currentState.desarrollaActividadesDiferentes.takeIf { it.isNotBlank() },
                     tipoActividad = currentState.tipoActividad.takeIf { it.isNotBlank() },
                     especificacionOtros = currentState.especificacionOtros.takeIf { it.isNotBlank() },
@@ -147,7 +185,9 @@ class VerificacionContractualViewModel @Inject constructor(
                     uuidActa = actaUuid,
                     avisoAutorizacion = currentState.avisoAutorizacion.takeIf { it.isNotBlank() },
                     direccionCorresponde = currentState.direccionCorresponde.takeIf { it.isNotBlank() },
+                    otraDireccion = currentState.otraDireccion.takeIf { it.isNotBlank() },
                     nombreEstablecimientoCorresponde = currentState.nombreEstablecimientoCorresponde.takeIf { it.isNotBlank() },
+                    otroNombre = currentState.otroNombre.takeIf { it.isNotBlank() },
                     desarrollaActividadesDiferentes = currentState.desarrollaActividadesDiferentes.takeIf { it.isNotBlank() },
                     tipoActividad = currentState.tipoActividad.takeIf { it.isNotBlank() },
                     especificacionOtros = currentState.especificacionOtros.takeIf { it.isNotBlank() },

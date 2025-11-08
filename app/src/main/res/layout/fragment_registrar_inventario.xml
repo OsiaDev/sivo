@@ -299,7 +299,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
-            android:id="@+id/layoutTextoLegal23Title"
+            android:id="@+id/layoutTextoLegal2Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -318,20 +318,10 @@
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/textoLegal3Title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/registrar_inventario_codigo_pregunta_3"
-                android:textColor="@color/text_title_detail"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent" />
-
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layoutCheck23Title"
+            android:id="@+id/layoutCheck2Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
@@ -339,7 +329,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal23Title">
+            app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal2Title">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -353,10 +343,77 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/Widget.Coljuegos.CheckBox"
-                    android:layout_marginTop="0dp"
-                    android:checked="true" />
+                    android:layout_marginTop="0dp" />
 
             </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/serialDiferenteInputLayout"
+            style="@style/Form.InputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutCheck2Title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/serialDiferenteEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/registrar_inventario_serial_diferente_valor"
+                android:inputType="text"
+                android:padding="15dp"
+                android:textColor="@color/input_text_color"
+                android:textSize="16sp"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutTextoLegal34Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/serialDiferenteInputLayout">
+
+            <TextView
+                android:id="@+id/textoLegal3Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/registrar_inventario_codigo_pregunta_3"
+                android:textColor="@color/text_title_detail"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textoLegal4Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/registrar_inventario_codigo_pregunta_4"
+                android:textColor="@color/text_title_detail"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutCheck34Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal34Title">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -375,51 +432,6 @@
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutTextoLegal45Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutCheck23Title">
-
-            <TextView
-                android:id="@+id/textoLegal4Title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/registrar_inventario_codigo_pregunta_4"
-                android:textColor="@color/text_title_detail"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textoLegal5Title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/registrar_inventario_codigo_pregunta_5"
-                android:textColor="@color/text_title_detail"
-                android:textSize="12sp"
-                app:layout_constraintStart_toStartOf="parent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutCheck45Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal45Title">
-
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -436,6 +448,41 @@
                     android:checked="true" />
 
             </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutTextoLegal5Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutCheck34Title">
+
+            <TextView
+                android:id="@+id/textoLegal5Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/registrar_inventario_codigo_pregunta_5"
+                android:textColor="@color/text_title_detail"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutCheck5Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal5Title">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -465,7 +512,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutCheck45Title">
+            app:layout_constraintTop_toBottomOf="@id/layoutCheck5Title">
 
             <TextView
                 android:id="@+id/valorCreditoTitle"

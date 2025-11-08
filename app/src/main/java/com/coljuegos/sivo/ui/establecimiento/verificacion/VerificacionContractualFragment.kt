@@ -154,6 +154,14 @@ class VerificacionContractualFragment : Fragment() {
     }
 
     private fun setupInputBindings() {
+        binding.otraDireccionText.doOnTextChanged { text, _, _, _ ->
+            viewModel.updateOtraDireccion(text?.toString() ?: "")
+        }
+
+        binding.otroNombreText.doOnTextChanged { text, _, _, _ ->
+            viewModel.updateOtroNombre(text?.toString() ?: "")
+        }
+
         binding.otrosActividadText.doOnTextChanged { text, _, _, _ ->
             viewModel.updateEspecificacionOtros(text?.toString() ?: "")
         }
@@ -189,10 +197,24 @@ class VerificacionContractualFragment : Fragment() {
         updateSpinnerValue(binding.pregunta5Spinner, uiState.cuentaRegistrosMantenimiento)
         updateSpinnerValue(binding.tipoActividadSpinner, uiState.tipoActividad)
 
+        if (binding.otraDireccionText.text.toString() != uiState.otraDireccion) {
+            binding.otraDireccionText.setText(uiState.otraDireccion)
+        }
+
+        if (binding.otroNombreText.text.toString() != uiState.otroNombre) {
+            binding.otroNombreText.setText(uiState.otroNombre)
+        }
+
         // Actualizar campo de texto para "Otros"
         if (binding.otrosActividadText.text.toString() != uiState.especificacionOtros) {
             binding.otrosActividadText.setText(uiState.especificacionOtros)
         }
+
+        binding.otraDireccionLayout.visibility =
+            if (uiState.mostrarCampoOtraDireccion) View.VISIBLE else View.GONE
+
+        binding.otroNombreLayout.visibility =
+            if (uiState.mostrarCampoOtroNombre) View.VISIBLE else View.GONE
 
         // Mostrar/ocultar secciones condicionales
         binding.layoutActividadesDiferentes.visibility =

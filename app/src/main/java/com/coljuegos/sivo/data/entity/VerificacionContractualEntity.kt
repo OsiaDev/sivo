@@ -27,7 +27,9 @@ data class VerificacionContractualEntity(
     val uuidActa: UUID,
     val avisoAutorizacion: String? = null, // Si/No/NA
     val direccionCorresponde: String? = null, // Si/No/NA
+    val otraDireccion: String? = null,
     val nombreEstablecimientoCorresponde: String? = null, // Si/No/NA
+    val otroNombre: String? = null,
     val desarrollaActividadesDiferentes: String? = null, // Si/No/NA
     val tipoActividad: String? = null, // Bar/Billares/Tienda/Otros
     val especificacionOtros: String? = null, // Texto libre para "Otros"
