@@ -174,6 +174,11 @@ class RegistrarInventarioFragment : Fragment() {
             binding.observacionesEditText.setText(registro.observaciones ?: "")
             // Cargar estado
             binding.estadoSpinner.setText(EstadoInventarioEnum.toString(registro.estado), false)
+        } ?: run {
+            // Si no hay registro (es nuevo), establecer "Operando" por defecto solo si el spinner está vacío
+            if (binding.estadoSpinner.text.isNullOrEmpty()) {
+                binding.estadoSpinner.setText("Operando", false)
+            }
         }
 
         // Si se guardó exitosamente, navegar de vuelta

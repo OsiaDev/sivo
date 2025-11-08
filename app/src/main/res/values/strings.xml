@@ -82,6 +82,8 @@
     <string name="verificacion_contractual_pregunta4">4. ¿Desarrolla dentro del establecimiento actividades diferentes a las autorizadas?</string>
     <string name="verificacion_contractual_pregunta5">5. ¿Cuenta con los registros de mantenimiento de los elementos de juego que garanticen el adecuado funcionamiento de los mismos?</string>
     <string name="verificacion_contractual_seleccionar_opcion">Seleccionar opción</string>
+    <string name="verificacion_contractual_direccion">Dirección</string>
+    <string name="verificacion_contractual_nombre">Nombre</string>
     <string name="verificacion_contractual_tipo_actividad">De ser afirmativa la pregunta anterior indique:</string>
     <string name="verificacion_contractual_seleccionar_tipo">Seleccionar tipo de actividad</string>
     <string name="verificacion_contractual_especificar_otros">Especificar cuál</string>
