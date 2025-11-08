@@ -101,6 +101,17 @@ class RegistrarInventarioFragment : Fragment() {
                 hideCodigoApuestaDiferenteField()
             }
         }
+
+        binding.serialVerificadoCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            if (!isChecked) {
+                // Si se deschequea, mostrar campo de serial diferente
+                showSerialDiferenteField()
+            } else {
+                // Si se chequea, ocultar y limpiar campo de serial diferente
+                hideSerialDiferenteField()
+            }
+        }
+
     }
 
     private fun showContadoresFields() {
@@ -124,6 +135,15 @@ class RegistrarInventarioFragment : Fragment() {
     private fun hideCodigoApuestaDiferenteField() {
         binding.codigoApuestaDiferenteInputLayout.isVisible = false
         binding.codigoApuestaDiferenteEditText.setText("")
+    }
+
+    private fun showSerialDiferenteField() {
+        binding.serialDiferenteInputLayout.isVisible = true
+    }
+
+    private fun hideSerialDiferenteField() {
+        binding.serialDiferenteInputLayout.isVisible = false
+        binding.serialDiferenteEditText.setText("")
     }
 
     private fun observeViewModel() {
@@ -154,6 +174,10 @@ class RegistrarInventarioFragment : Fragment() {
                 binding.codigoApuestaDiferenteEditText.setText(registro.codigoApuestaDiferenteValor)
             }
             binding.serialVerificadoCheckbox.isChecked = registro.serialVerificado
+            if (!registro.serialVerificado && !registro.serialDiferente.isNullOrEmpty()) {
+                showSerialDiferenteField()
+                binding.serialDiferenteEditText.setText(registro.serialDiferente)
+            }
             binding.descripcionJuegoCheckbox.isChecked = registro.descripcionJuego
             binding.planPremiosCheckbox.isChecked = registro.planPremios
             binding.valorPremiosCheckbox.isChecked = registro.valorPremios
@@ -203,6 +227,11 @@ class RegistrarInventarioFragment : Fragment() {
         else
             null
         val serialVerificado = binding.serialVerificadoCheckbox.isChecked
+        val serialDiferente = if (!serialVerificado) {
+            binding.serialDiferenteEditText.text?.toString()?.trim()
+        } else {
+            null
+        }
         val descripcionJuego = binding.descripcionJuegoCheckbox.isChecked
         val planPremios = binding.planPremiosCheckbox.isChecked
         val valorPremios = binding.valorPremiosCheckbox.isChecked
@@ -226,6 +255,7 @@ class RegistrarInventarioFragment : Fragment() {
             codigoApuestaDiferente = codigoApuestaDiferente,
             codigoApuestaDiferenteValor = codigoApuestaDiferenteValor,
             serialVerificado = serialVerificado,
+            serialDiferente = serialDiferente,
             descripcionJuego = descripcionJuego,
             planPremios = planPremios,
             valorPremios = valorPremios,

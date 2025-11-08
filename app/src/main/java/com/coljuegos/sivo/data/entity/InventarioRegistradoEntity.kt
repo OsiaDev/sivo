@@ -37,6 +37,7 @@ data class InventarioRegistradoEntity(
     val codigoApuestaDiferente: Boolean,
     val codigoApuestaDiferenteValor: String? = null,
     val serialVerificado: Boolean,
+    val serialDiferente: String? = null,
     val descripcionJuego: Boolean,
     val planPremios: Boolean,
     val valorPremios: Boolean,
