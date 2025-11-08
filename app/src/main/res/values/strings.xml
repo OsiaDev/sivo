@@ -157,6 +157,7 @@
 
     <!-- REGISTRAR INVENTARIO -->
     <string name="registrar_inventario_title">Registrar</string>
+    <string name="registrar_inventario_subtitle">Registrar Inventario</string>
     <string name="registrar_inventario_inventario">Inventario</string>
     <string name="registrar_inventario_marca">Marca</string>
     <string name="registrar_inventario_serial">Serial</string>
@@ -214,6 +215,7 @@
 
     <!-- Fragment Registrar Novedad -->
     <string name="registrar_novedad_title">Registrar</string>
+    <string name="registrar_novedad_subtitle">Registrar Novedad</string>
     <string name="registrar_novedad_marca">Marca</string>
     <string name="registrar_novedad_serial">Serial</string>
     <string name="registrar_novedad_operando">Operando</string>

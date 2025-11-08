@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingTop="2dp"
-            android:text="@string/registrar_novedad_title"
+            android:text="@string/registrar_novedad_subtitle"
             android:textColor="@color/fragment_subtitle_color"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -305,7 +305,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layoutTextoLegal7Title"
+            android:id="@+id/layoutTextoLegal6Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -313,6 +313,50 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutCheck45Title">
+
+            <TextView
+                android:id="@+id/valorCreditoTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/registrar_inventario_codigo_pregunta_6"
+                android:textColor="@color/text_title_detail"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/valorCreditoInputLayout"
+            style="@style/Form.InputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/zero"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal6Title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/valorCreditoEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="12dp"
+                android:inputType="numberDecimal"
+                android:padding="15dp"
+                android:textColor="@color/input_text_color"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutTextoLegal7Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/valorCreditoInputLayout">
 
             <TextView
                 android:id="@+id/textoLegal7Title"

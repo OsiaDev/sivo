@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingTop="2dp"
-            android:text="@string/registrar_inventario_title"
+            android:text="@string/registrar_inventario_subtitle"
             android:textColor="@color/fragment_subtitle_color"
             android:textSize="24sp"
             android:textStyle="bold"
