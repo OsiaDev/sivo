@@ -243,6 +243,103 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Sección de Firma -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardFirma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardEstadisticas">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Título de la sección -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/resumen_firma_title"
+                    android:textColor="@color/fragment_subtitle_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="?android:attr/listDivider" />
+
+                <!-- Descripción -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="/resumen_firma_description"
+                    android:textColor="@color/text_detail"
+                    android:textSize="14sp" />
+
+                <!-- Vista de firma o botón para agregar -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- Vista cuando hay firma -->
+                    <LinearLayout
+                        android:id="@+id/layoutSignaturePreview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/ivSignature"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:background="@android:color/white"
+                            android:contentDescription="/signature_thumbnail_description"
+                            android:scaleType="fitCenter"
+                            android:padding="8dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnEditSignature"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="8dp"
+                            android:text="/signature_edit"
+                            android:textSize="14sp"
+                            app:cornerRadius="8dp"
+                            app:strokeColor="@color/login_button_color_init"
+                            app:strokeWidth="1dp" />
+                    </LinearLayout>
+
+                    <!-- Vista cuando no hay firma -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAddSignature"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Agregar firma"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/login_button_color_init"
+                        app:cornerRadius="8dp"
+                        app:icon="@android:drawable/ic_menu_edit"
+                        app:iconGravity="start" />
+                </FrameLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <!-- Botones de navegación -->
         <LinearLayout
             android:id="@+id/layoutBotones"
@@ -253,7 +350,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardEstadisticas">
+            app:layout_constraintTop_toBottomOf="@id/cardFirma">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAnterior"

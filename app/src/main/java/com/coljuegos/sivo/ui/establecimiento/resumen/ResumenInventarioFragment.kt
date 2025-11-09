@@ -37,7 +37,38 @@ class ResumenInventarioFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupObservers()
+        setupSignature()
         setupListeners()
+    }
+
+    private fun setupSignature() {
+        binding.btnAddSignature.setOnClickListener {
+            navigateToSignature()
+        }
+
+        binding.btnEditSignature.setOnClickListener {
+            navigateToSignature()
+        }
+
+        // Cargar firma existente si la hay
+        loadSignature()
+    }
+
+    private fun loadSignature() {
+        viewModel.signatureBitmap.value?.let { bitmap ->
+            binding.ivSignature.setImageBitmap(bitmap)
+            binding.layoutSignaturePreview.isVisible = true
+            binding.btnAddSignature.isVisible = false
+        } ?: run {
+            binding.layoutSignaturePreview.isVisible = false
+            binding.btnAddSignature.isVisible = true
+        }
+    }
+
+    private fun navigateToSignature() {
+        val action = ResumenInventarioFragmentDirections
+            .actionTuFragmentToSignatureFragment()
+        findNavController().navigate(action)
     }
 
     private fun setupObservers() {
@@ -84,5 +115,5 @@ class ResumenInventarioFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-    
+
 }

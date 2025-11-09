@@ -1,5 +1,6 @@
 package com.coljuegos.sivo.ui.establecimiento.resumen
 
+import android.graphics.Bitmap
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,6 +27,10 @@ class ResumenInventarioViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(ResumenInventarioUiState())
     val uiState: StateFlow<ResumenInventarioUiState> = _uiState.asStateFlow()
+
+    // Firma
+    private val _signatureBitmap = MutableStateFlow<Bitmap?>(null)
+    val signatureBitmap: StateFlow<Bitmap?> = _signatureBitmap.asStateFlow()
 
     init {
         calcularEstadisticas()
