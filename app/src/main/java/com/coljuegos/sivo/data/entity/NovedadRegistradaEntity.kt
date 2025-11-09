@@ -30,6 +30,7 @@ data class NovedadRegistradaEntity(
     val serial: String,
     val marca: String,
     val codigoApuesta: String,
+    val tienePlaca: Boolean = true,
 
     // Estado operativo
     val operando: String, // "Operando" o "Apagado"

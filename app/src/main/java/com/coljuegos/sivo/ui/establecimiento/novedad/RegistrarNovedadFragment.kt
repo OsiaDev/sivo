@@ -64,6 +64,18 @@ class RegistrarNovedadFragment : Fragment() {
     }
 
     private fun setupVisibilityListeners() {
+        // Mostrar/ocultar campo de serial según checkbox de tiene placa
+        binding.valorTienePlacaCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            binding.layoutSerialTitle.isVisible = isChecked
+            binding.valorSerialInputLayout.isVisible = isChecked
+
+            // Limpiar el campo de serial cuando se oculta
+            if (!isChecked) {
+                binding.valorSerialEditText.setText("")
+                binding.valorSerialInputLayout.error = null
+            }
+        }
+
         // Mostrar/ocultar secciones de contadores según el estado
         binding.operandoSpinner.setOnItemClickListener { _, _, position, _ ->
             val selectedValue = adapterOperando.getItem(position) ?: ""
@@ -103,6 +115,8 @@ class RegistrarNovedadFragment : Fragment() {
 
         // Si es modo edición, cargar datos de la novedad existente
         state.novedadRegistrada?.let { novedad ->
+            // NUEVO: Configurar checkbox de tiene placa
+            binding.valorTienePlacaCheckbox.isChecked = novedad.tienePlaca
             binding.valorSerialEditText.setText(novedad.serial)
             binding.valorMarcaEditText.setText(novedad.marca)
             binding.valorCodigoApuestaEditText.setText(novedad.codigoApuesta)
@@ -178,6 +192,7 @@ class RegistrarNovedadFragment : Fragment() {
     }
 
     private fun guardarNovedad() {
+        val tienePlaca = binding.valorTienePlacaCheckbox.isChecked
         val serial = binding.valorSerialEditText.text?.toString() ?: ""
         val marca = binding.valorMarcaEditText.text?.toString() ?: ""
         val codigoApuesta = binding.valorCodigoApuestaEditText.text?.toString() ?: ""
@@ -201,7 +216,7 @@ class RegistrarNovedadFragment : Fragment() {
         // Validaciones básicas de UI
         var isValid = true
 
-        if (serial.isBlank()) {
+        if (tienePlaca && serial.isBlank()) {
             binding.valorSerialInputLayout.error = "Campo obligatorio"
             isValid = false
         } else {
@@ -232,6 +247,7 @@ class RegistrarNovedadFragment : Fragment() {
             marca = marca,
             codigoApuesta = codigoApuesta,
             operando = operando,
+            tienePlaca = tienePlaca,
             valorCredito = valorCredito,
             coinInMet = coinInMet,
             coinOutMet = coinOutMet,

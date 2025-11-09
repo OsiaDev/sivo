@@ -88,6 +88,7 @@ class RegistrarNovedadViewModel @Inject constructor(
         marca: String,
         codigoApuesta: String,
         operando: String,
+        tienePlaca: Boolean,
         valorCredito: String?,
         coinInMet: String?,
         coinOutMet: String?,
@@ -102,7 +103,7 @@ class RegistrarNovedadViewModel @Inject constructor(
                 _uiState.update { it.copy(isLoading = true, errorMessage = null) }
 
                 // Validar campos obligatorios
-                if (serial.isBlank()) {
+                if (tienePlaca && serial.isBlank()) {
                     _uiState.update {
                         it.copy(
                             isLoading = false,
@@ -136,7 +137,7 @@ class RegistrarNovedadViewModel @Inject constructor(
                 }
 
                 // Validar serial duplicado (solo en modo creación)
-                if (validarSerialDuplicado(serial)) {
+                if (tienePlaca && validarSerialDuplicado(serial)) {
                     _uiState.update {
                         it.copy(
                             isLoading = false,
@@ -151,9 +152,10 @@ class RegistrarNovedadViewModel @Inject constructor(
                 val novedadRegistrada = NovedadRegistradaEntity(
                     uuidNovedadRegistrada = novedadRegistradaUuid ?: UUID.randomUUID(),
                     uuidActa = actaUuid,
-                    serial = serial.trim(),
+                    serial = if (tienePlaca) serial.trim() else "",
                     marca = marca.trim(),
                     codigoApuesta = codigoApuesta.trim(),
+                    tienePlaca = tienePlaca,
                     operando = operando.trim(),
                     valorCredito = valorCredito?.trim()?.takeIf { it.isNotBlank() },
                     coinInMet = coinInMet?.trim()?.takeIf { it.isNotBlank() },
