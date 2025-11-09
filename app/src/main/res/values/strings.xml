@@ -234,6 +234,19 @@
     <string name="registrar_novedad_guardar">Guardar</string>
     <string name="registrar_novedad_actualizar">Actualizar</string>
 
+    <!-- Fragment Resumen Inventario -->
+    <string name="resumen_inventario_title">Resumen</string>
+    <string name="resumen_inventario_subtitle">Resumen de Inventario</string>
+    <string name="resumen_inventario_estadisticas">Estadísticas del Inventario</string>
+    <string name="resumen_inventario_operando_apagado">Inventarios operando/apagado:</string>
+    <string name="resumen_inventario_no_encontrados">Inventarios no encontrados:</string>
+    <string name="resumen_inventario_novedades_sin_placa">Novedades sin placa:</string>
+    <string name="resumen_inventario_novedades_con_placa">Novedades con placa:</string>
+    <string name="resumen_inventario_total_encontrados">Total inventarios encontrados:</string>
+    <string name="resumen_inventario_codigo_diferente">Código apuesta diferente:</string>
+    <string name="resumen_inventario_anterior">Anterior</string>
+    <string name="resumen_inventario_siguiente">Siguiente</string>
+
     <string-array name="si_no_na_options">
         <item>Si</item>
         <item>No</item>

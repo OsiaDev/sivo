@@ -40,4 +40,7 @@ interface InventarioRegistradoDao {
     @Query("SELECT COUNT(*) FROM inventarios_registrados WHERE uuidActa = :actaUuid")
     fun getCountByActa(actaUuid: UUID): Flow<Int>
 
+    @Query("SELECT * FROM inventarios_registrados WHERE uuidActa = :actaUuid")
+    suspend fun getInventariosRegistradosByActaList(actaUuid: UUID): List<InventarioRegistradoEntity>
+
 }
