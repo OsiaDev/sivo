@@ -161,6 +161,7 @@
     <string name="registrar_inventario_inventario">Inventario</string>
     <string name="registrar_inventario_marca">Marca</string>
     <string name="registrar_inventario_serial">Serial</string>
+    <string name="registrar_inventario_placa">Placa</string>
     <string name="registrar_inventario_codigo_apuesta">Código de apuesta</string>
     <string name="registrar_inventario_codigo_apuesta_diferente_valor">Ingrese el código de apuesta diferente</string>
     <string name="registrar_inventario_serial_diferente_valor">Ingrese el serial diferente</string>
