@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.coljuegos.sivo.databinding.FragmentFirmaActaBinding
+import com.coljuegos.sivo.ui.common.SignatureViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -27,6 +29,9 @@ class FirmaActaFragment : Fragment() {
     private val args: FirmaActaFragmentArgs by navArgs()
 
     private val viewModel: FirmaActaViewModel by viewModels()
+
+    // ViewModel compartido para las firmas
+    private val signatureViewModel: SignatureViewModel by activityViewModels()
 
     // Para identificar qué firma se está editando
     private var currentSignatureType: SignatureType = SignatureType.PRINCIPAL
@@ -116,36 +121,60 @@ class FirmaActaFragment : Fragment() {
         // Fiscalizador Principal - Agregar firma
         binding.btnAddSignaturePrincipal.setOnClickListener {
             currentSignatureType = SignatureType.PRINCIPAL
+            // Cargar firma existente si hay una
+            viewModel.uiState.value.firmaFiscalizadorPrincipal?.let { bitmap ->
+                signatureViewModel.saveSignature(bitmap)
+            }
             navigateToSignatureFragment()
         }
 
         // Fiscalizador Principal - Editar firma
         binding.btnEditSignaturePrincipal.setOnClickListener {
             currentSignatureType = SignatureType.PRINCIPAL
+            // Cargar firma existente
+            viewModel.uiState.value.firmaFiscalizadorPrincipal?.let { bitmap ->
+                signatureViewModel.saveSignature(bitmap)
+            }
             navigateToSignatureFragment()
         }
 
         // Fiscalizador Secundario - Agregar firma
         binding.btnAddSignatureSecundario.setOnClickListener {
             currentSignatureType = SignatureType.SECUNDARIO
+            // Cargar firma existente si hay una
+            viewModel.uiState.value.firmaFiscalizadorSecundario?.let { bitmap ->
+                signatureViewModel.saveSignature(bitmap)
+            }
             navigateToSignatureFragment()
         }
 
         // Fiscalizador Secundario - Editar firma
         binding.btnEditSignatureSecundario.setOnClickListener {
             currentSignatureType = SignatureType.SECUNDARIO
+            // Cargar firma existente
+            viewModel.uiState.value.firmaFiscalizadorSecundario?.let { bitmap ->
+                signatureViewModel.saveSignature(bitmap)
+            }
             navigateToSignatureFragment()
         }
 
         // Operador - Agregar firma
         binding.btnAddSignatureOperador.setOnClickListener {
             currentSignatureType = SignatureType.OPERADOR
+            // Cargar firma existente si hay una
+            viewModel.uiState.value.firmaOperador?.let { bitmap ->
+                signatureViewModel.saveSignature(bitmap)
+            }
             navigateToSignatureFragment()
         }
 
         // Operador - Editar firma
         binding.btnEditSignatureOperador.setOnClickListener {
             currentSignatureType = SignatureType.OPERADOR
+            // Cargar firma existente
+            viewModel.uiState.value.firmaOperador?.let { bitmap ->
+                signatureViewModel.saveSignature(bitmap)
+            }
             navigateToSignatureFragment()
         }
     }
@@ -184,12 +213,12 @@ class FirmaActaFragment : Fragment() {
     }
 
     private fun handleSignatureSaved() {
-        // Obtener la firma guardada del ViewModel de SignatureFragment
-        // y guardarla en el ViewModel de FirmaActa
-        viewLifecycleOwner.lifecycleScope.launch {
-            // Esta es una simplificación, idealmente usarías un SharedViewModel o pasarías la firma como argumento
+        // Obtener la firma guardada del SignatureViewModel
+        signatureViewModel.signatureBitmap.value?.let { bitmap ->
+            // Guardar según el tipo de firma actual
             when (currentSignatureType) {
                 SignatureType.PRINCIPAL -> {
+                    viewModel.saveFirmaPrincipal(bitmap)
                     Snackbar.make(
                         binding.root,
                         "Firma del fiscalizador principal guardada",
@@ -197,6 +226,7 @@ class FirmaActaFragment : Fragment() {
                     ).show()
                 }
                 SignatureType.SECUNDARIO -> {
+                    viewModel.saveFirmaSecundario(bitmap)
                     Snackbar.make(
                         binding.root,
                         "Firma del fiscalizador acompañante guardada",
@@ -204,6 +234,7 @@ class FirmaActaFragment : Fragment() {
                     ).show()
                 }
                 SignatureType.OPERADOR -> {
+                    viewModel.saveFirmaOperador(bitmap)
                     Snackbar.make(
                         binding.root,
                         "Firma del operador guardada",
@@ -211,6 +242,9 @@ class FirmaActaFragment : Fragment() {
                     ).show()
                 }
             }
+
+            // Limpiar la firma del SignatureViewModel después de transferirla
+            signatureViewModel.clearSignature()
         }
     }
 
@@ -223,14 +257,13 @@ class FirmaActaFragment : Fragment() {
     }
 
     private fun updateUI(state: FirmaActaUiState) {
-        // Los campos de texto (nombre, CC, cargo) están SIEMPRE VISIBLES en el layout
-        // Solo actualizamos sus valores si son diferentes
+        // Los campos de texto (nombre, cc, cargo) se actualizan automáticamente con doOnTextChanged
+        // pero si cargas datos existentes, necesitas actualizar los EditTexts
 
         // ==========================================
         // FISCALIZADOR PRINCIPAL
         // ==========================================
 
-        // Actualizar valores de texto (solo si son diferentes para evitar loops)
         if (binding.nombrePrincipalText.text.toString() != state.nombreFiscalizadorPrincipal) {
             binding.nombrePrincipalText.setText(state.nombreFiscalizadorPrincipal)
         }
@@ -241,14 +274,12 @@ class FirmaActaFragment : Fragment() {
             binding.cargoPrincipalText.setText(state.cargoFiscalizadorPrincipal)
         }
 
-        // Controlar visibilidad del preview y botones de firma
+        // Mostrar/ocultar miniatura de firma principal
         if (state.firmaFiscalizadorPrincipal != null) {
-            // HAY FIRMA: Mostrar preview, ocultar botón "Agregar"
             binding.layoutSignaturePrincipalPreview.isVisible = true
             binding.btnAddSignaturePrincipal.isVisible = false
             binding.ivSignaturePrincipal.setImageBitmap(state.firmaFiscalizadorPrincipal)
         } else {
-            // NO HAY FIRMA: Ocultar preview, mostrar botón "Agregar"
             binding.layoutSignaturePrincipalPreview.isVisible = false
             binding.btnAddSignaturePrincipal.isVisible = true
         }
@@ -267,6 +298,7 @@ class FirmaActaFragment : Fragment() {
             binding.cargoSecundarioText.setText(state.cargoFiscalizadorSecundario)
         }
 
+        // Mostrar/ocultar miniatura de firma secundario
         if (state.firmaFiscalizadorSecundario != null) {
             binding.layoutSignatureSecundarioPreview.isVisible = true
             binding.btnAddSignatureSecundario.isVisible = false
@@ -290,6 +322,7 @@ class FirmaActaFragment : Fragment() {
             binding.cargoOperadorText.setText(state.cargoOperador)
         }
 
+        // Mostrar/ocultar miniatura de firma operador
         if (state.firmaOperador != null) {
             binding.layoutSignatureOperadorPreview.isVisible = true
             binding.btnAddSignatureOperador.isVisible = false
