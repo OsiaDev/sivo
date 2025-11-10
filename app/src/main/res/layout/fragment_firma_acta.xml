@@ -59,7 +59,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/firma_acta_fiscalizador_nombre"
-            android:visibility="gone"
             app:prefixText="$"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +97,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/firma_acta_fiscalizador_cc"
-            android:visibility="gone"
             app:prefixText="$"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +135,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/firma_acta_fiscalizador_cargo"
-            android:visibility="gone"
             app:prefixText="$"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -176,8 +173,7 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/firmaPrincipalLabel"
-            android:visibility="gone">
+            app:layout_constraintTop_toBottomOf="@id/firmaPrincipalLabel">
 
             <ImageView
                 android:id="@+id/ivSignaturePrincipal"
@@ -256,7 +252,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/firma_acta_fiscalizador_nombre"
-            android:visibility="gone"
             app:prefixText="$"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -295,7 +290,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/firma_acta_fiscalizador_cc"
-            android:visibility="gone"
             app:prefixText="$"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -334,7 +328,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/firma_acta_fiscalizador_cargo"
-            android:visibility="gone"
             app:prefixText="$"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -373,8 +366,7 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/firmaSecundarioLabel"
-            android:visibility="gone">
+            app:layout_constraintTop_toBottomOf="@id/firmaSecundarioLabel">
 
             <ImageView
                 android:id="@+id/ivSignatureSecundario"
@@ -453,7 +445,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/firma_acta_operador_nombre"
-            android:visibility="gone"
             app:prefixText="$"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -492,7 +483,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/firma_acta_operador_cc"
-            android:visibility="gone"
             app:prefixText="$"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -531,7 +521,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/firma_acta_operador_cargo"
-            android:visibility="gone"
             app:prefixText="$"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -570,8 +559,7 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/firmaOperadorLabel"
-            android:visibility="gone">
+            app:layout_constraintTop_toBottomOf="@id/firmaOperadorLabel">
 
             <ImageView
                 android:id="@+id/ivSignatureOperador"
