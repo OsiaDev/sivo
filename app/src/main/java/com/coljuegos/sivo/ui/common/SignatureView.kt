@@ -84,7 +84,7 @@ class SignatureView @JvmOverloads constructor(
     fun clear() {
         path.reset()
         bitmap.eraseColor(Color.TRANSPARENT)
-        canvas.drawColor(Color.WHITE)
+        // No limpiar el canvas completamente para mantener el background blanco
         hasSignature = false
         invalidate()
     }

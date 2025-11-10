@@ -247,6 +247,28 @@
     <string name="resumen_inventario_anterior">Anterior</string>
     <string name="resumen_inventario_siguiente">Siguiente</string>
 
+
+    <!-- Firma Acta Fragment -->
+    <string name="firma_acta_title">Firma</string>
+    <string name="firma_acta_subtitle">Firma Acta</string>
+    <string name="firma_acta_fiscalizador_principal">Fiscalizador principal</string>
+    <string name="firma_acta_fiscalizador_nombre">Nombre</string>
+    <string name="firma_acta_fiscalizador_cc">CC</string>
+    <string name="firma_acta_fiscalizador_cargo">Cargo</string>
+    <string name="firma_acta_fiscalizador_firma">Firma</string>
+    <string name="firma_acta_fiscalizador_principal_firma">Firma fiscalizador principal</string>
+    <string name="firma_acta_fiscalizador_editar_principal_firma">Editar firma fiscalizador principal</string>
+    <string name="firma_acta_fiscalizador_secundario">Fiscalizador acompañante</string>
+    <string name="firma_acta_fiscalizador_secundario_firma">Firma fiscalizador acompañante</string>
+    <string name="firma_acta_fiscalizador_editar_secundario_firma">Editar firma fiscalizador acompañante</string>
+    <string name="firma_acta_operador">Operador</string>
+    <string name="firma_acta_operador_firma">Firma</string>
+    <string name="firma_acta_editar_operador_firma">Editar firma operador</string>
+    <string name="firma_acta_operador_nombre">Nombre</string>
+    <string name="firma_acta_operador_cc">CC</string>
+    <string name="firma_acta_operador_cargo">Cargo</string>
+    <string name="firma_acta_add_operador_firma">Firma operador</string>
+
     <string-array name="si_no_na_options">
         <item>Si</item>
         <item>No</item>

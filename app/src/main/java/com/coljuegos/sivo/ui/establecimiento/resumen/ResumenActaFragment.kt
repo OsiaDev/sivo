@@ -1,0 +1,31 @@
+package com.coljuegos.sivo.ui.establecimiento.resumen
+
+import androidx.fragment.app.viewModels
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import com.coljuegos.sivo.R
+
+class ResumenActaFragment : Fragment() {
+
+    companion object {
+        fun newInstance() = ResumenActaFragment()
+    }
+
+    private val viewModel: ResumenActaViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // TODO: Use the ViewModel
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return inflater.inflate(R.layout.fragment_resumen_acta, container, false)
+    }
+}

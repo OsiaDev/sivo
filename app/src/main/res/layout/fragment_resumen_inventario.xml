@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/app_background"
     android:padding="16dp"
-    tools:context=".ui.establecimiento.resumen.ResumenInventarioFragment">
+    tools:context=".ui.establecimiento.resumeninventario.ResumenInventarioFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -303,9 +303,7 @@
                         <ImageView
                             android:id="@+id/ivSignature"
                             android:layout_width="match_parent"
-                            android:layout_height="120dp"
-                            android:background="@android:color/white"
-                            android:contentDescription="/signature_thumbnail_description"
+                            android:layout_height="150dp"
                             android:scaleType="fitCenter"
                             android:padding="8dp" />
 
@@ -320,7 +318,9 @@
                             android:textSize="14sp"
                             app:cornerRadius="8dp"
                             app:strokeColor="@color/login_button_color_init"
-                            app:strokeWidth="1dp" />
+                            app:strokeWidth="1dp"
+                            app:icon="@android:drawable/ic_menu_edit"
+                            app:iconGravity="start" />
                     </LinearLayout>
 
                     <!-- Vista cuando no hay firma -->
@@ -329,15 +329,16 @@
                         style="@style/Widget.Material3.Button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Agregar firma"
+                        android:text="/signature_add"
                         android:textSize="16sp"
                         app:backgroundTint="@color/login_button_color_init"
                         app:cornerRadius="8dp"
-                        app:icon="@android:drawable/ic_menu_edit"
+                        app:icon="@android:drawable/ic_input_add"
                         app:iconGravity="start" />
                 </FrameLayout>
 
             </LinearLayout>
+
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Botones de navegación -->
@@ -359,7 +360,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:text="@string/resumen_inventario_anterior" />
+                android:text="@string/resumen_inventario_anterior"
+                app:cornerRadius="8dp"
+                app:strokeColor="@color/login_button_color_init"
+                app:strokeWidth="1dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSiguiente"
@@ -370,6 +374,8 @@
                 android:layout_weight="1"
                 android:text="@string/resumen_inventario_siguiente"
                 app:backgroundTint="@color/login_button_color_init"
+                app:cornerRadius="8dp"
+                app:icon="@android:drawable/ic_media_play"
                 app:iconGravity="end" />
         </LinearLayout>
 

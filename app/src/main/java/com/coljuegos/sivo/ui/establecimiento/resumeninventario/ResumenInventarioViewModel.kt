@@ -1,4 +1,4 @@
-package com.coljuegos.sivo.ui.establecimiento.resumen
+package com.coljuegos.sivo.ui.establecimiento.resumeninventario
 
 import android.graphics.Bitmap
 import androidx.lifecycle.SavedStateHandle
