@@ -100,6 +100,17 @@ class SignatureView @JvmOverloads constructor(
     }
 
     fun setSignatureBitmap(signatureBitmap: Bitmap) {
+        // Validar que el view tenga dimensiones antes de escalar
+        if (width <= 0 || height <= 0) {
+            // Si el view no tiene dimensiones, esperar a que las tenga
+            post {
+                if (width > 0 && height > 0) {
+                    setSignatureBitmap(signatureBitmap)
+                }
+            }
+            return
+        }
+
         val scaledBitmap = signatureBitmap.scale(width, height)
         canvas.drawBitmap(scaledBitmap, 0f, 0f, null)
         hasSignature = true

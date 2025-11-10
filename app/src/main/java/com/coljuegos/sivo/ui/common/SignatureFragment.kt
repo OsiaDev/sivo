@@ -120,8 +120,11 @@ class SignatureFragment : Fragment() {
     }
 
     private fun loadExistingSignature() {
-        viewModel.signatureBitmap.value?.let { bitmap ->
-            binding.signatureView.setSignatureBitmap(bitmap)
+        // Esperar a que el SignatureView tenga dimensiones antes de cargar la firma
+        binding.signatureView.post {
+            viewModel.signatureBitmap.value?.let { bitmap ->
+                binding.signatureView.setSignatureBitmap(bitmap)
+            }
         }
     }
 
