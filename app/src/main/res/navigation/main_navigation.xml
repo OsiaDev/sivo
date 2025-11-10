@@ -280,7 +280,27 @@
             app:popExitAnim="@anim/slide_out_right" />
 
         <action
-            android:id="@+id/action_tuFragment_to_signatureFragment"
+            android:id="@+id/action_resumenInventarioFragment_to_firmaActaFragment"
+            app:destination="@id/firmaActaFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/firmaActaFragment"
+        android:name="com.coljuegos.sivo.ui.establecimiento.firma.FirmaActaFragment"
+        android:label="@string/firma_acta_title"
+        tools:layout="@layout/fragment_firma_acta">
+
+        <argument
+            android:name="actaUuid"
+            app:argType="java.util.UUID" />
+
+        <action
+            android:id="@+id/action_firmaActaFragment_to_signatureFragment"
             app:destination="@id/signatureFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

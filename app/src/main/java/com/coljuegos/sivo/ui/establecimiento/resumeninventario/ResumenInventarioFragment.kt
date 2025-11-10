@@ -11,10 +11,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.coljuegos.sivo.databinding.FragmentResumenInventarioBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlin.getValue
 
 @AndroidEntryPoint
 class ResumenInventarioFragment : Fragment() {
@@ -22,6 +24,8 @@ class ResumenInventarioFragment : Fragment() {
     private var _binding: FragmentResumenInventarioBinding? = null
 
     private val binding get() = _binding!!
+
+    private val args: ResumenInventarioFragmentArgs by navArgs()
 
     private val viewModel: ResumenInventarioViewModel by viewModels()
 
@@ -85,7 +89,11 @@ class ResumenInventarioFragment : Fragment() {
         }
 
         binding.btnSiguiente.setOnClickListener {
-            findNavController().navigateUp()
+            val action = ResumenInventarioFragmentDirections
+                .actionResumenInventarioFragmentToFirmaActaFragment(
+                    actaUuid = args.actaUuid
+                )
+            findNavController().navigate(action)
         }
     }
 

@@ -6,6 +6,7 @@ import androidx.room.TypeConverters
 import com.coljuegos.sivo.data.dao.ActaDao
 import com.coljuegos.sivo.data.dao.ActaVisitaDao
 import com.coljuegos.sivo.data.dao.DepartamentoDao
+import com.coljuegos.sivo.data.dao.FirmaActaDao
 import com.coljuegos.sivo.data.dao.FuncionarioDao
 import com.coljuegos.sivo.data.dao.ImagenDao
 import com.coljuegos.sivo.data.dao.InventarioDao
@@ -19,6 +20,7 @@ import com.coljuegos.sivo.data.dao.VerificacionSiplaftDao
 import com.coljuegos.sivo.data.entity.ActaEntity
 import com.coljuegos.sivo.data.entity.ActaVisitaEntity
 import com.coljuegos.sivo.data.entity.DepartamentoEntity
+import com.coljuegos.sivo.data.entity.FirmaActaEntity
 import com.coljuegos.sivo.data.entity.FuncionarioEntity
 import com.coljuegos.sivo.data.entity.ImagenEntity
 import com.coljuegos.sivo.data.entity.InventarioEntity
@@ -51,7 +53,8 @@ import com.coljuegos.sivo.utils.LocalDateTimeConverter
         VerificacionSiplaftEntity::class,
         TipoApuestaEntity::class,
         NovedadRegistradaEntity::class,
-    ], version = 3, exportSchema = false
+        FirmaActaEntity::class
+    ], version = 4, exportSchema = false
 )
 @TypeConverters(
     BigDecimalConverter::class,
@@ -88,5 +91,7 @@ abstract class SivoDatabase : RoomDatabase() {
     abstract fun tipoApuestaDao(): TipoApuestaDao
 
     abstract fun novedadRegistradaDao(): NovedadRegistradaDao
+
+    abstract fun firmaActaDao(): FirmaActaDao
 
 }
