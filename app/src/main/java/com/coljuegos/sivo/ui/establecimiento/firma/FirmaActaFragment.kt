@@ -12,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.coljuegos.sivo.R
 import com.coljuegos.sivo.databinding.FragmentFirmaActaBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,9 +21,11 @@ import kotlinx.coroutines.launch
 class FirmaActaFragment : Fragment() {
 
     private var _binding: FragmentFirmaActaBinding? = null
+
     private val binding get() = _binding!!
 
     private val args: FirmaActaFragmentArgs by navArgs()
+
     private val viewModel: FirmaActaViewModel by viewModels()
 
     // Para identificar qué firma se está editando
@@ -186,12 +187,9 @@ class FirmaActaFragment : Fragment() {
         // Obtener la firma guardada del ViewModel de SignatureFragment
         // y guardarla en el ViewModel de FirmaActa
         viewLifecycleOwner.lifecycleScope.launch {
-            // Aquí asumimos que SignatureViewModel tiene un StateFlow con la firma
             // Esta es una simplificación, idealmente usarías un SharedViewModel o pasarías la firma como argumento
-            val bitmap = when (currentSignatureType) {
+            when (currentSignatureType) {
                 SignatureType.PRINCIPAL -> {
-                    // La firma se guardará en el SignatureViewModel compartido
-                    // y la recuperaremos aquí
                     Snackbar.make(
                         binding.root,
                         "Firma del fiscalizador principal guardada",
@@ -225,10 +223,14 @@ class FirmaActaFragment : Fragment() {
     }
 
     private fun updateUI(state: FirmaActaUiState) {
-        // Mostrar loading
-        // binding.progressBar.isVisible = state.isLoading (si tienes un progress bar)
+        // Los campos de texto (nombre, CC, cargo) están SIEMPRE VISIBLES en el layout
+        // Solo actualizamos sus valores si son diferentes
 
-        // Actualizar campos de texto - Fiscalizador Principal
+        // ==========================================
+        // FISCALIZADOR PRINCIPAL
+        // ==========================================
+
+        // Actualizar valores de texto (solo si son diferentes para evitar loops)
         if (binding.nombrePrincipalText.text.toString() != state.nombreFiscalizadorPrincipal) {
             binding.nombrePrincipalText.setText(state.nombreFiscalizadorPrincipal)
         }
@@ -239,17 +241,22 @@ class FirmaActaFragment : Fragment() {
             binding.cargoPrincipalText.setText(state.cargoFiscalizadorPrincipal)
         }
 
-        // Actualizar vista de firma - Fiscalizador Principal
+        // Controlar visibilidad del preview y botones de firma
         if (state.firmaFiscalizadorPrincipal != null) {
+            // HAY FIRMA: Mostrar preview, ocultar botón "Agregar"
             binding.layoutSignaturePrincipalPreview.isVisible = true
             binding.btnAddSignaturePrincipal.isVisible = false
             binding.ivSignaturePrincipal.setImageBitmap(state.firmaFiscalizadorPrincipal)
         } else {
+            // NO HAY FIRMA: Ocultar preview, mostrar botón "Agregar"
             binding.layoutSignaturePrincipalPreview.isVisible = false
             binding.btnAddSignaturePrincipal.isVisible = true
         }
 
-        // Actualizar campos de texto - Fiscalizador Secundario
+        // ==========================================
+        // FISCALIZADOR SECUNDARIO
+        // ==========================================
+
         if (binding.nombreSecundarioText.text.toString() != state.nombreFiscalizadorSecundario) {
             binding.nombreSecundarioText.setText(state.nombreFiscalizadorSecundario)
         }
@@ -260,7 +267,6 @@ class FirmaActaFragment : Fragment() {
             binding.cargoSecundarioText.setText(state.cargoFiscalizadorSecundario)
         }
 
-        // Actualizar vista de firma - Fiscalizador Secundario
         if (state.firmaFiscalizadorSecundario != null) {
             binding.layoutSignatureSecundarioPreview.isVisible = true
             binding.btnAddSignatureSecundario.isVisible = false
@@ -270,7 +276,10 @@ class FirmaActaFragment : Fragment() {
             binding.btnAddSignatureSecundario.isVisible = true
         }
 
-        // Actualizar campos de texto - Operador
+        // ==========================================
+        // OPERADOR
+        // ==========================================
+
         if (binding.nombreOperadorText.text.toString() != state.nombreOperador) {
             binding.nombreOperadorText.setText(state.nombreOperador)
         }
@@ -281,7 +290,6 @@ class FirmaActaFragment : Fragment() {
             binding.cargoOperadorText.setText(state.cargoOperador)
         }
 
-        // Actualizar vista de firma - Operador
         if (state.firmaOperador != null) {
             binding.layoutSignatureOperadorPreview.isVisible = true
             binding.btnAddSignatureOperador.isVisible = false
