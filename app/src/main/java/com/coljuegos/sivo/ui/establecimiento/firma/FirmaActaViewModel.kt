@@ -91,53 +91,114 @@ class FirmaActaViewModel @Inject constructor(
 
     fun updateNombreFiscalizadorPrincipal(nombre: String) {
         _uiState.update { it.copy(nombreFiscalizadorPrincipal = nombre) }
+        saveFirmaActaData()
     }
 
     fun updateCcFiscalizadorPrincipal(cc: String) {
         _uiState.update { it.copy(ccFiscalizadorPrincipal = cc) }
+        saveFirmaActaData()
     }
 
     fun updateCargoFiscalizadorPrincipal(cargo: String) {
         _uiState.update { it.copy(cargoFiscalizadorPrincipal = cargo) }
+        saveFirmaActaData()
     }
 
     fun updateNombreFiscalizadorSecundario(nombre: String) {
         _uiState.update { it.copy(nombreFiscalizadorSecundario = nombre) }
+        saveFirmaActaData()
     }
 
     fun updateCcFiscalizadorSecundario(cc: String) {
         _uiState.update { it.copy(ccFiscalizadorSecundario = cc) }
+        saveFirmaActaData()
     }
 
     fun updateCargoFiscalizadorSecundario(cargo: String) {
         _uiState.update { it.copy(cargoFiscalizadorSecundario = cargo) }
+        saveFirmaActaData()
     }
 
     fun updateNombreOperador(nombre: String) {
         _uiState.update { it.copy(nombreOperador = nombre) }
+        saveFirmaActaData()
     }
 
     fun updateCcOperador(cc: String) {
         _uiState.update { it.copy(ccOperador = cc) }
+        saveFirmaActaData()
     }
 
     fun updateCargoOperador(cargo: String) {
         _uiState.update { it.copy(cargoOperador = cargo) }
+        saveFirmaActaData()
+    }
+
+    // NUEVO: Método para guardar automáticamente sin validaciones
+    private fun saveFirmaActaData() {
+        viewModelScope.launch {
+            try {
+                val currentState = _uiState.value
+
+                // Buscar si ya existe un registro
+                val existingFirmaActa = firmaActaDao.getFirmaActaByActaUuidSuspend(actaUuid)
+
+                val firmaActaToSave = existingFirmaActa?.copy(
+                    nombreFiscalizadorPrincipal = currentState.nombreFiscalizadorPrincipal.takeIf { it.isNotBlank() },
+                    ccFiscalizadorPrincipal = currentState.ccFiscalizadorPrincipal.takeIf { it.isNotBlank() },
+                    cargoFiscalizadorPrincipal = currentState.cargoFiscalizadorPrincipal.takeIf { it.isNotBlank() },
+                    firmaFiscalizadorPrincipal = currentState.firmaFiscalizadorPrincipal?.let { bitmapToBase64(it) },
+
+                    nombreFiscalizadorSecundario = currentState.nombreFiscalizadorSecundario.takeIf { it.isNotBlank() },
+                    ccFiscalizadorSecundario = currentState.ccFiscalizadorSecundario.takeIf { it.isNotBlank() },
+                    cargoFiscalizadorSecundario = currentState.cargoFiscalizadorSecundario.takeIf { it.isNotBlank() },
+                    firmaFiscalizadorSecundario = currentState.firmaFiscalizadorSecundario?.let { bitmapToBase64(it) },
+
+                    nombreOperador = currentState.nombreOperador.takeIf { it.isNotBlank() },
+                    ccOperador = currentState.ccOperador.takeIf { it.isNotBlank() },
+                    cargoOperador = currentState.cargoOperador.takeIf { it.isNotBlank() },
+                    firmaOperador = currentState.firmaOperador?.let { bitmapToBase64(it) }
+                ) ?: FirmaActaEntity(
+                    uuidActa = actaUuid,
+                    nombreFiscalizadorPrincipal = currentState.nombreFiscalizadorPrincipal.takeIf { it.isNotBlank() },
+                    ccFiscalizadorPrincipal = currentState.ccFiscalizadorPrincipal.takeIf { it.isNotBlank() },
+                    cargoFiscalizadorPrincipal = currentState.cargoFiscalizadorPrincipal.takeIf { it.isNotBlank() },
+                    firmaFiscalizadorPrincipal = currentState.firmaFiscalizadorPrincipal?.let { bitmapToBase64(it) },
+
+                    nombreFiscalizadorSecundario = currentState.nombreFiscalizadorSecundario.takeIf { it.isNotBlank() },
+                    ccFiscalizadorSecundario = currentState.ccFiscalizadorSecundario.takeIf { it.isNotBlank() },
+                    cargoFiscalizadorSecundario = currentState.cargoFiscalizadorSecundario.takeIf { it.isNotBlank() },
+                    firmaFiscalizadorSecundario = currentState.firmaFiscalizadorSecundario?.let { bitmapToBase64(it) },
+
+                    nombreOperador = currentState.nombreOperador.takeIf { it.isNotBlank() },
+                    ccOperador = currentState.ccOperador.takeIf { it.isNotBlank() },
+                    cargoOperador = currentState.cargoOperador.takeIf { it.isNotBlank() },
+                    firmaOperador = currentState.firmaOperador?.let { bitmapToBase64(it) }
+                )
+
+                firmaActaDao.insertFirmaActa(firmaActaToSave)
+            } catch (e: Exception) {
+                // Error silencioso, no interrumpir la escritura del usuario
+            }
+        }
     }
 
     fun saveFirmaPrincipal(bitmap: Bitmap) {
         _firmaPrincipalBitmap.value = bitmap
         _uiState.update { it.copy(firmaFiscalizadorPrincipal = bitmap) }
+        saveFirmaActaData()
     }
 
     fun saveFirmaSecundario(bitmap: Bitmap) {
         _firmaSecundarioBitmap.value = bitmap
         _uiState.update { it.copy(firmaFiscalizadorSecundario = bitmap) }
+        saveFirmaActaData()
     }
 
     fun saveFirmaOperador(bitmap: Bitmap) {
         _firmaOperadorBitmap.value = bitmap
         _uiState.update { it.copy(firmaOperador = bitmap) }
+        saveFirmaActaData()
     }
 
     fun saveFirmaActa(onSuccess: () -> Unit, onError: (String) -> Unit) {
