@@ -14,6 +14,13 @@ class SignatureViewModel @Inject constructor() : ViewModel() {
     private val _signatureBitmap = MutableStateFlow<Bitmap?>(null)
     val signatureBitmap: StateFlow<Bitmap?> = _signatureBitmap.asStateFlow()
 
+    private val _signatureType = MutableStateFlow<Int>(0) // 0 = PRINCIPAL por defecto
+    val signatureType: StateFlow<Int> = _signatureType.asStateFlow()
+
+    fun setSignatureType(type: Int) {
+        _signatureType.value = type
+    }
+
     fun saveSignature(bitmap: Bitmap) {
         _signatureBitmap.value = bitmap
     }

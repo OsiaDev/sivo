@@ -23,18 +23,13 @@ import kotlinx.coroutines.launch
 class FirmaActaFragment : Fragment() {
 
     private var _binding: FragmentFirmaActaBinding? = null
-
     private val binding get() = _binding!!
 
     private val args: FirmaActaFragmentArgs by navArgs()
-
     private val viewModel: FirmaActaViewModel by viewModels()
 
     // ViewModel compartido para las firmas
     private val signatureViewModel: SignatureViewModel by activityViewModels()
-
-    // Para identificar qué firma se está editando
-    private var currentSignatureType: SignatureType = SignatureType.PRINCIPAL
 
     enum class SignatureType {
         PRINCIPAL, SECUNDARIO, OPERADOR
@@ -64,8 +59,11 @@ class FirmaActaFragment : Fragment() {
         // Configurar listener para el resultado de SignatureFragment
         setFragmentResultListener("signature_request") { _, bundle ->
             val signatureSaved = bundle.getBoolean("signature_saved", false)
+            val signatureTypeOrdinal = bundle.getInt("signature_type", SignatureType.PRINCIPAL.ordinal)
+            val signatureType = SignatureType.values()[signatureTypeOrdinal]
+
             if (signatureSaved) {
-                handleSignatureSaved()
+                handleSignatureSaved(signatureType)
             }
         }
     }
@@ -120,62 +118,56 @@ class FirmaActaFragment : Fragment() {
     private fun setupSignatureButtons() {
         // Fiscalizador Principal - Agregar firma
         binding.btnAddSignaturePrincipal.setOnClickListener {
-            currentSignatureType = SignatureType.PRINCIPAL
             // Cargar firma existente si hay una
             viewModel.uiState.value.firmaFiscalizadorPrincipal?.let { bitmap ->
                 signatureViewModel.saveSignature(bitmap)
             }
-            navigateToSignatureFragment()
+            navigateToSignatureFragment(SignatureType.PRINCIPAL)
         }
 
         // Fiscalizador Principal - Editar firma
         binding.btnEditSignaturePrincipal.setOnClickListener {
-            currentSignatureType = SignatureType.PRINCIPAL
             // Cargar firma existente
             viewModel.uiState.value.firmaFiscalizadorPrincipal?.let { bitmap ->
                 signatureViewModel.saveSignature(bitmap)
             }
-            navigateToSignatureFragment()
+            navigateToSignatureFragment(SignatureType.PRINCIPAL)
         }
 
         // Fiscalizador Secundario - Agregar firma
         binding.btnAddSignatureSecundario.setOnClickListener {
-            currentSignatureType = SignatureType.SECUNDARIO
             // Cargar firma existente si hay una
             viewModel.uiState.value.firmaFiscalizadorSecundario?.let { bitmap ->
                 signatureViewModel.saveSignature(bitmap)
             }
-            navigateToSignatureFragment()
+            navigateToSignatureFragment(SignatureType.SECUNDARIO)
         }
 
         // Fiscalizador Secundario - Editar firma
         binding.btnEditSignatureSecundario.setOnClickListener {
-            currentSignatureType = SignatureType.SECUNDARIO
             // Cargar firma existente
             viewModel.uiState.value.firmaFiscalizadorSecundario?.let { bitmap ->
                 signatureViewModel.saveSignature(bitmap)
             }
-            navigateToSignatureFragment()
+            navigateToSignatureFragment(SignatureType.SECUNDARIO)
         }
 
         // Operador - Agregar firma
         binding.btnAddSignatureOperador.setOnClickListener {
-            currentSignatureType = SignatureType.OPERADOR
             // Cargar firma existente si hay una
             viewModel.uiState.value.firmaOperador?.let { bitmap ->
                 signatureViewModel.saveSignature(bitmap)
             }
-            navigateToSignatureFragment()
+            navigateToSignatureFragment(SignatureType.OPERADOR)
         }
 
         // Operador - Editar firma
         binding.btnEditSignatureOperador.setOnClickListener {
-            currentSignatureType = SignatureType.OPERADOR
             // Cargar firma existente
             viewModel.uiState.value.firmaOperador?.let { bitmap ->
                 signatureViewModel.saveSignature(bitmap)
             }
-            navigateToSignatureFragment()
+            navigateToSignatureFragment(SignatureType.OPERADOR)
         }
     }
 
@@ -207,16 +199,19 @@ class FirmaActaFragment : Fragment() {
         }
     }
 
-    private fun navigateToSignatureFragment() {
+    private fun navigateToSignatureFragment(signatureType: SignatureType) {
+        // Guardar el tipo de firma en el ViewModel compartido
+        signatureViewModel.setSignatureType(signatureType.ordinal)
+
         val action = FirmaActaFragmentDirections.actionFirmaActaFragmentToSignatureFragment()
         findNavController().navigate(action)
     }
 
-    private fun handleSignatureSaved() {
+    private fun handleSignatureSaved(signatureType: SignatureType) {
         // Obtener la firma guardada del SignatureViewModel
         signatureViewModel.signatureBitmap.value?.let { bitmap ->
-            // Guardar según el tipo de firma actual
-            when (currentSignatureType) {
+            // Guardar según el tipo de firma recibido
+            when (signatureType) {
                 SignatureType.PRINCIPAL -> {
                     viewModel.saveFirmaPrincipal(bitmap)
                     Snackbar.make(

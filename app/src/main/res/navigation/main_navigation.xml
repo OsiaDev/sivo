@@ -329,7 +329,7 @@
     <fragment
         android:id="@+id/signatureFragment"
         android:name="com.coljuegos.sivo.ui.common.SignatureFragment"
-        android:label="/signature_title"
+        android:label="@string/signature_title"
         tools:layout="@layout/fragment_signature" />
 
 </navigation>

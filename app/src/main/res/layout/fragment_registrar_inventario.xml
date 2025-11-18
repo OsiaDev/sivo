@@ -655,7 +655,7 @@
                 style="@style/Form.InputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/zero"
+                android:hint="@string/registrar_inventario_codigo_valor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal8Title">
@@ -699,7 +699,7 @@
                 style="@style/Form.InputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/zero"
+                android:hint="@string/registrar_inventario_codigo_valor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal9Title">
@@ -743,7 +743,7 @@
                 style="@style/Form.InputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/zero"
+                android:hint="@string/registrar_inventario_codigo_valor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal10Title">
@@ -814,7 +814,7 @@
                 style="@style/Form.InputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/zero"
+                android:hint="@string/registrar_inventario_codigo_valor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal11Title">
@@ -858,7 +858,7 @@
                 style="@style/Form.InputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/zero"
+                android:hint="@string/registrar_inventario_codigo_valor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal12Title">
@@ -902,7 +902,7 @@
                 style="@style/Form.InputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/zero"
+                android:hint="@string/registrar_inventario_codigo_valor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal13Title">
@@ -948,7 +948,7 @@
             style="@style/Form.InputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/zero"
+            android:hint="@string/registrar_inventario_codigo_valor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutTextoLegal14Title">

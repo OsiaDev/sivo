@@ -20,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignatureFragment : Fragment() {
 
     private var _binding: FragmentSignatureBinding? = null
+
     private val binding get() = _binding!!
 
     private val viewModel: SignatureViewModel by activityViewModels()
@@ -68,11 +69,12 @@ class SignatureFragment : Fragment() {
                 val bitmap = binding.signatureView.getSignatureBitmap()
                 viewModel.saveSignature(bitmap)
 
-                // Enviar resultado al fragment anterior
+                // Enviar resultado al fragment anterior con el tipo de firma
                 setFragmentResult(
                     SIGNATURE_REQUEST_KEY,
                     Bundle().apply {
                         putBoolean(SIGNATURE_SAVED_KEY, true)
+                        putInt("signature_type", viewModel.signatureType.value)
                     }
                 )
 
@@ -80,7 +82,7 @@ class SignatureFragment : Fragment() {
             } else {
                 Snackbar.make(
                     binding.root,
-                    "R.string.signature_empty_error",
+                    "Debe realizar una firma antes de guardar",
                     Snackbar.LENGTH_SHORT
                 ).show()
             }
@@ -89,12 +91,12 @@ class SignatureFragment : Fragment() {
         binding.btnReiniciar.setOnClickListener {
             if (binding.signatureView.hasSignature()) {
                 AlertDialog.Builder(requireContext())
-                    .setTitle("R.string.signature_clear_title")
-                    .setMessage("R.string.signature_clear_message")
-                    .setPositiveButton("R.string.signature_clear_confirm") { _, _ ->
+                    .setTitle("Limpiar firma")
+                    .setMessage("¿Está seguro que desea borrar la firma actual?")
+                    .setPositiveButton("Sí") { _, _ ->
                         binding.signatureView.clear()
                     }
-                    .setNegativeButton("R.string.signature_clear_cancel", null)
+                    .setNegativeButton("No", null)
                     .show()
             }
         }
@@ -107,12 +109,12 @@ class SignatureFragment : Fragment() {
     private fun handleCancelAction() {
         if (binding.signatureView.hasSignature()) {
             AlertDialog.Builder(requireContext())
-                .setTitle("R.string.signature_cancel_title")
-                .setMessage("R.string.signature_cancel_message")
-                .setPositiveButton("R.string.signature_cancel_confirm") { _, _ ->
+                .setTitle("Cancelar firma")
+                .setMessage("¿Está seguro que desea salir sin guardar?")
+                .setPositiveButton("Sí") { _, _ ->
                     findNavController().navigateUp()
                 }
-                .setNegativeButton("R.string.signature_cancel_no", null)
+                .setNegativeButton("No", null)
                 .show()
         } else {
             findNavController().navigateUp()
@@ -137,5 +139,5 @@ class SignatureFragment : Fragment() {
         const val SIGNATURE_REQUEST_KEY = "signature_request"
         const val SIGNATURE_SAVED_KEY = "signature_saved"
     }
-
+    
 }

@@ -175,6 +175,7 @@
     <string name="registrar_inventario_codigo_pregunta_7">Contadores</string>
     <string name="registrar_inventario_contadores_met">Contadores MET</string>
     <string name="registrar_inventario_codigo_pregunta_8">Coin in</string>
+    <string name="registrar_inventario_codigo_valor">Valor</string>
     <string name="registrar_inventario_codigo_pregunta_9">Coin out</string>
     <string name="registrar_inventario_codigo_pregunta_10">Jackpot</string>
     <string name="registrar_inventario_contadores_sclm">Contadores SCLM</string>
@@ -268,6 +269,16 @@
     <string name="firma_acta_operador_cc">CC</string>
     <string name="firma_acta_operador_cargo">Cargo</string>
     <string name="firma_acta_add_operador_firma">Firma operador</string>
+
+    <string name="signature_title">Firma</string>
+    <string name="signature_cancel">Cancelar</string>
+    <string name="signature_clear">Limpiar</string>
+    <string name="signature_save">Guardar</string>
+    <string name="signature_instructions">Dibuje su firma</string>
+    <string name="signature_thumbnail_description">Firma</string>
+    <string name="signature_edit">Editar firma</string>
+    <string name="signature_not_available">Firma no disponible</string>
+
 
     <string-array name="si_no_na_options">
         <item>Si</item>
