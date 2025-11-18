@@ -243,42 +243,46 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Botones de navegación -->
+        <!-- Botones de acción -->
         <LinearLayout
             android:id="@+id/layoutBotones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
+            android:layout_marginTop="24dp"
             android:orientation="horizontal"
+            android:weightSum="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardEstadisticas">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAnterior"
+                android:id="@+id/btnCancelar"
                 style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
+                android:paddingVertical="16dp"
                 android:text="@string/resumen_inventario_anterior"
+                android:textSize="16sp"
                 app:cornerRadius="8dp"
                 app:strokeColor="@color/login_button_color_init"
-                app:strokeWidth="1dp" />
+                app:strokeWidth="2dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSiguiente"
-                style="@style/Widget.Material3.Button"
+                android:id="@+id/btnRegistrar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
+                android:paddingVertical="16dp"
                 android:text="@string/resumen_inventario_siguiente"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:backgroundTint="@color/login_button_color_init"
                 app:cornerRadius="8dp"
-                app:icon="@android:drawable/ic_media_play"
-                app:iconGravity="end" />
+                app:elevation="4dp" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
