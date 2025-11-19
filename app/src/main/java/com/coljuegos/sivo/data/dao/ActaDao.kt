@@ -53,4 +53,13 @@ interface ActaDao {
     @Query("SELECT * FROM actas WHERE uuidActa = :actaUuid LIMIT 1")
     suspend fun getActaByUuid(actaUuid: UUID): ActaEntity?
 
+    @Query("SELECT * FROM actas WHERE stateActa = :state ORDER BY lastUpdatedActa DESC")
+    suspend fun getActasByState(state: ActaStateEnum): List<ActaEntity>
+
+    @Query("SELECT COUNT(*) FROM actas WHERE stateActa = :state")
+    suspend fun getActasCountByState(state: ActaStateEnum): Int
+
+    @Query("SELECT * FROM actas WHERE stateActa = :state ORDER BY lastUpdatedActa DESC")
+    fun getActasByStateFlow(state: ActaStateEnum): Flow<List<ActaEntity>>
+
 }

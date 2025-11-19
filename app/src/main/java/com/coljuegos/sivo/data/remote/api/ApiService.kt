@@ -25,7 +25,7 @@ interface ApiService {
     @GET("maestros/obtenerMaestros")
     suspend fun getMaestros(): Response<MaestrosResponseDTO>
 
-    @POST("actas/upload")
+    @POST("acta/upload")
     suspend fun uploadActa(
         @Header("Authorization") authorization: String,
         @Body actaCompleteDTO: ActaCompleteDTO

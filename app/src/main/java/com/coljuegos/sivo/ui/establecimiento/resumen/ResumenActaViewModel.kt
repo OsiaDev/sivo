@@ -1,10 +1,13 @@
 package com.coljuegos.sivo.ui.establecimiento.resumen
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.coljuegos.sivo.data.entity.ActaStateEnum
 import com.coljuegos.sivo.data.repository.ActaSincronizacionRepository
+import com.coljuegos.sivo.utils.NetworkConnectivityObserver
 import com.coljuegos.sivo.utils.NetworkResult
+import com.coljuegos.sivo.workers.ActaSincronizacionWorkManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,10 +19,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ResumenActaViewModel @Inject constructor(
-    private val actaSincronizacionRepository: ActaSincronizacionRepository
+    private val actaSincronizacionRepository: ActaSincronizacionRepository,
+    private val networkConnectivityObserver: NetworkConnectivityObserver,
+    private val actaSincronizacionWorkManager: ActaSincronizacionWorkManager,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
+    private val actaUuid: UUID = checkNotNull(savedStateHandle.get<UUID>("actaUuid"))
+
     private val _uiState = MutableStateFlow(ResumenActaUiState())
+
     val uiState: StateFlow<ResumenActaUiState> = _uiState.asStateFlow()
 
     fun loadActa(actaUuid: UUID) {
@@ -71,8 +80,18 @@ class ResumenActaViewModel @Inject constructor(
                         )
                     }
 
-                    // Intentar sincronizar automáticamente
-                    sincronizarActa(actaUuid)
+                    // Intentar sincronizar automáticamente si hay internet
+                    if (networkConnectivityObserver.isNetworkAvailable()) {  // CAMBIAR AQUÍ
+                        sincronizarActa(actaUuid)
+                    } else {
+                        // Sin internet, programar sincronización automática
+                        actaSincronizacionWorkManager.ejecutarSincronizacionInmediata()
+                        _uiState.update {
+                            it.copy(
+                                successMessage = "Acta finalizada. Se sincronizará automáticamente cuando haya internet."
+                            )
+                        }
+                    }
                 }
 
                 is NetworkResult.Error -> {
@@ -115,14 +134,25 @@ class ResumenActaViewModel @Inject constructor(
                     }
 
                     is NetworkResult.Error -> {
+                        // Si falla la sincronización, programar para más tarde
+                        actaSincronizacionWorkManager.programarSincronizacionPeriodica()
+
                         _uiState.update {
                             it.copy(
                                 isSincronizando = false,
-                                errorMessage = result.message
+                                errorMessage = "No se pudo sincronizar. Se reintentará automáticamente."
                             )
                         }
                     }
                 }
+            }
+        }
+    }
+
+    fun reintentarSincronizacion() {
+        _uiState.value.acta?.let { acta ->
+            if (acta.stateActa == ActaStateEnum.COMPLETE) {
+                sincronizarActa(acta.uuidActa)
             }
         }
     }

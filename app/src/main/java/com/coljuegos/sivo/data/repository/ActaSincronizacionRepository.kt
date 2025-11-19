@@ -17,8 +17,6 @@ import com.coljuegos.sivo.utils.NetworkResult
 import com.coljuegos.sivo.utils.SessionManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapNotNull
 import java.io.File
 import java.time.LocalDateTime
 import java.util.UUID
@@ -104,7 +102,7 @@ class ActaSincronizacionRepository @Inject constructor(
         val verificacionContractual = verificacionContractualDao.getVerificacionContractualByActaId(acta.uuidActa)
         val verificacionSiplaft = verificacionSiplaftDao.getVerificacionSiplaftByActaId(acta.uuidActa)
         val inventariosRegistrados = inventarioRegistradoDao.getInventariosRegistradosByActaList(acta.uuidActa)  // CAMBIAR A getInventariosRegistradosByActaList
-        val novedadesRegistradas = novedadRegistradaDao.getNovedadesRegistradasByActa(acta.uuidActa)
+        val novedadesRegistradas = novedadRegistradaDao.getNovedadesRegistradasByActaList(acta.uuidActa)  // CAMBIAR AQUÍ
         val firmaActa = firmaActaDao.getFirmaActaByActaUuidSuspend(acta.uuidActa)
         val imagenes = imagenDao.getImagenesByActa(acta.uuidActa)
 
@@ -115,7 +113,7 @@ class ActaSincronizacionRepository @Inject constructor(
             actaVisita = actaVisita?.let { mapActaVisitaToDTO(it) },
             verificacionContractual = verificacionContractual?.let { mapVerificacionContractualToDTO(it) },
             verificacionSiplaft = verificacionSiplaft?.let { mapVerificacionSiplaftToDTO(it) },
-            inventariosRegistrados = inventariosRegistrados.map { mapInventarioRegistradoToDTO(it) },
+            inventariosRegistrados = inventariosRegistrados.mapNotNull  { mapInventarioRegistradoToDTO(it) },
             novedadesRegistradas = novedadesRegistradas.map { mapNovedadRegistradaToDTO(it) },
             firmaActa = firmaActa?.let { mapFirmaActaToDTO(it) },
             imagenes = imagenes.mapNotNull { mapImagenToDTO(it) }
@@ -162,7 +160,7 @@ class ActaSincronizacionRepository @Inject constructor(
         )
     }
 
-    private fun mapInventarioRegistradoToDTO(entity: InventarioRegistradoEntity): InventarioRegistradoDTO {
+    private suspend fun mapInventarioRegistradoToDTO(entity: InventarioRegistradoEntity): InventarioRegistradoDTO? {
 
         val inventario = inventarioDao.getInventarioByUuid(entity.uuidInventario) ?: return null
 
@@ -231,7 +229,7 @@ class ActaSincronizacionRepository @Inject constructor(
                 descripcion = entity.descripcion,
                 fragmentOrigen = entity.fragmentOrigen
             )
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             null
         }
     }
@@ -239,8 +237,24 @@ class ActaSincronizacionRepository @Inject constructor(
     suspend fun getActaByUuid(actaUuid: UUID): ActaEntity? {
         return try {
             actaDao.getActaByUuid(actaUuid)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             null
+        }
+    }
+
+    suspend fun getActasPendientesSincronizacion(): List<ActaEntity> {
+        return try {
+            actaDao.getActasByState(ActaStateEnum.COMPLETE)
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun getActasCompletasCount(): Int {
+        return try {
+            actaDao.getActasCountByState(ActaStateEnum.COMPLETE)
+        } catch (_: Exception) {
+            0
         }
     }
 

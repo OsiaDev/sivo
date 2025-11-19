@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.coljuegos.sivo.data.entity.MunicipioDisplayItem
 import com.coljuegos.sivo.data.entity.MunicipioEntity
+import java.util.UUID
 
 @Dao
 interface MunicipioDao {
@@ -29,5 +30,8 @@ interface MunicipioDao {
 
     @Query("select m.* from municipios m order by m.nombreMunicipio asc")
     suspend fun getAllMunicipios(): List<MunicipioEntity>
+
+    @Query("SELECT * FROM municipios WHERE uuidMunicipio = :uuidMunicipio LIMIT 1")
+    suspend fun getMunicipioByUuid(uuidMunicipio: UUID): MunicipioEntity?
 
 }

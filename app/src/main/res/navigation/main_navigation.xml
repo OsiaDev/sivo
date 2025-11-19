@@ -264,28 +264,8 @@
             app:argType="java.util.UUID" />
 
         <action
-            android:id="@+id/action_novedadFragment_to_galleryFragment"
-            app:destination="@id/galleryFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-
-        <action
-            android:id="@+id/action_novedadFragment_to_registrarNovedadFragment"
-            app:destination="@id/registrarNovedadFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-
-        <action
-            android:id="@+id/action_resumenInventarioFragment_to_firmaActaFragment"
-            app:destination="@id/firmaActaFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            android:id="@+id/action_resumenInventarioFragment_to_resumenActaFragment"
+            app:destination="@id/resumenActaFragment" />
 
     </fragment>
 
@@ -306,6 +286,18 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/resumenActaFragment"
+        android:name="com.coljuegos.sivo.ui.establecimiento.resumen.ResumenActaFragment"
+        android:label="@string/resumen_acta_title"
+        tools:layout="@layout/fragment_resumen_acta">
+
+        <argument
+            android:name="actaUuid"
+            app:argType="java.util.UUID" />
 
     </fragment>
 

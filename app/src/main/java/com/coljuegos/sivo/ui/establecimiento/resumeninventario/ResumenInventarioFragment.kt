@@ -90,9 +90,7 @@ class ResumenInventarioFragment : Fragment() {
 
         binding.btnSiguiente.setOnClickListener {
             val action = ResumenInventarioFragmentDirections
-                .actionResumenInventarioFragmentToFirmaActaFragment(
-                    actaUuid = args.actaUuid
-                )
+                .actionResumenInventarioFragmentToResumenActaFragment(args.actaUuid)
             findNavController().navigate(action)
         }
     }

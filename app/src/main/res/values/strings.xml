@@ -305,6 +305,12 @@
     <string name="resumen_acta_error_sincronizacion">Error al sincronizar. Se reintentará automáticamente.</string>
     <string name="resumen_acta_permiso_ubicacion_denegado">Permiso de ubicación denegado</string>
 
+    <!-- Sincronización automática -->
+    <string name="sincronizacion_programada">Se sincronizará automáticamente cuando haya internet</string>
+    <string name="sincronizacion_en_segundo_plano">Sincronizando en segundo plano…</string>
+    <string name="actas_pendientes_sincronizacion">Actas pendientes de sincronización</string>
+    <string name="actas_pendientes_count">%1$d acta(s) pendiente(s)</string>
+
 
     <string-array name="si_no_na_options">
         <item>Si</item>
