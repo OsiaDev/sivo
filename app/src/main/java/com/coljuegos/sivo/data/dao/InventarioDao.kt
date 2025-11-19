@@ -22,4 +22,7 @@ interface InventarioDao {
     @Query("DELETE FROM inventarios WHERE uuidActa = :actaId")
     suspend fun deleteInventariosByActa(actaId: UUID)
 
+    @Query("SELECT * FROM inventarios WHERE uuidInventario = :uuidInventario LIMIT 1")
+    suspend fun getInventarioByUuid(uuidInventario: UUID): InventarioEntity?
+
 }

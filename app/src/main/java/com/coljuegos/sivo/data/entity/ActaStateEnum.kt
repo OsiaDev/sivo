@@ -4,6 +4,6 @@ enum class ActaStateEnum {
     ACTIVE,
     INACTIVE,
     COMPLETE,
-    SYNCHRONIZED,
+    SINCRONIZADO,
     INIT
 }

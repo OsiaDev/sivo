@@ -280,6 +280,32 @@
     <string name="signature_not_available">Firma no disponible</string>
 
 
+    <!-- Resumen Acta Fragment -->
+    <string name="resumen_acta_title">Resumen</string>
+    <string name="resumen_acta_subtitle">Resumen del Acta</string>
+    <string name="resumen_acta_info_header">Información del Acta</string>
+    <string name="resumen_acta_numero">Número de Acta:</string>
+    <string name="resumen_acta_establecimiento">Establecimiento:</string>
+    <string name="resumen_acta_operador">Operador:</string>
+    <string name="resumen_acta_direccion">Dirección:</string>
+    <string name="resumen_acta_estado_header">Estado y Ubicación</string>
+    <string name="resumen_acta_estado">Estado:</string>
+    <string name="resumen_acta_ubicacion">Ubicación:</string>
+    <string name="resumen_acta_obteniendo_ubicacion">Obteniendo ubicación…</string>
+    <string name="resumen_acta_info_message">Al finalizar el acta, se marcará como completa y se enviará automáticamente al servidor cuando haya conexión a internet.</string>
+    <string name="resumen_acta_btn_atras">Atrás</string>
+    <string name="resumen_acta_btn_finalizar">Finalizar Acta</string>
+    <string name="resumen_acta_estado_activo">Activo</string>
+    <string name="resumen_acta_estado_completo">Completo</string>
+    <string name="resumen_acta_estado_sincronizado">Sincronizado</string>
+    <string name="resumen_acta_finalizada_exito">Acta finalizada correctamente</string>
+    <string name="resumen_acta_error_finalizar">Error al finalizar el acta</string>
+    <string name="resumen_acta_sincronizando">Sincronizando con el servidor…</string>
+    <string name="resumen_acta_sincronizado_exito">Acta sincronizada correctamente</string>
+    <string name="resumen_acta_error_sincronizacion">Error al sincronizar. Se reintentará automáticamente.</string>
+    <string name="resumen_acta_permiso_ubicacion_denegado">Permiso de ubicación denegado</string>
+
+
     <string-array name="si_no_na_options">
         <item>Si</item>
         <item>No</item>

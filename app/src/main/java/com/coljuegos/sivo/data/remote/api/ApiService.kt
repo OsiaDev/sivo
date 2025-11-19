@@ -1,6 +1,8 @@
 package com.coljuegos.sivo.data.remote.api
 
+import com.coljuegos.sivo.data.remote.model.ActaCompleteDTO
 import com.coljuegos.sivo.data.remote.model.ActaResponseDTO
+import com.coljuegos.sivo.data.remote.model.ActaSincronizacionResponse
 import com.coljuegos.sivo.data.remote.model.LoginRequestDTO
 import com.coljuegos.sivo.data.remote.model.LoginResponseDTO
 import com.coljuegos.sivo.data.remote.model.MaestrosResponseDTO
@@ -22,5 +24,11 @@ interface ApiService {
 
     @GET("maestros/obtenerMaestros")
     suspend fun getMaestros(): Response<MaestrosResponseDTO>
+
+    @POST("actas/upload")
+    suspend fun uploadActa(
+        @Header("Authorization") authorization: String,
+        @Body actaCompleteDTO: ActaCompleteDTO
+    ): Response<ActaSincronizacionResponse>
 
 }
